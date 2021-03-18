@@ -1,3 +1,19 @@
-# gestion_micro
+# Sistema de conteo y caracterizacion de secciones delgadas 
 
-Something cool is going to happen , just wait a few months 
+cuenta inicialmente con 4 secciones 
+
+
+## 1. general 
+
+En la pestaña general podemos encontrar la informacion relacionada a la conexion del dispositivo , como por ejemplo los parametros de avance (paso) y velocidad de los motores, tambien se puede encontrar informacion de la calibracion del instrumento, donde se debe indicar cuantas divisiones son un milimitro y en que aumento se encuentra.
+
+Ademas de esto, se puede llenar informacion util sobre la persona que realiza el conteo, y la informacion general de la roca como su localizacion de origen, la escala , la plancha entre otras 
+
+## 2. Descripcion macro
+
+## 3. Conteo
+## 4. Exportacion 
+
+
+
+gestion_micro
