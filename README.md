@@ -18,3 +18,7 @@ posee los campos necesarios para poder identificar las caracteristicas macroscop
 
 
 gestion_micro
+~~~ 
+import pandas as pd
+~~~
+
