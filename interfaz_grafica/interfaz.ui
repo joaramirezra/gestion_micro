@@ -25,11 +25,11 @@
       <x>0</x>
       <y>0</y>
       <width>931</width>
-      <height>551</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="general">
      <attribute name="title">
@@ -133,14 +133,14 @@ color: rgb(238, 238, 236);</string>
          </item>
          <item>
           <property name="text">
-           <string>Calcarea</string>
+           <string>Calcárea</string>
           </property>
          </item>
         </widget>
        </widget>
        <widget class="QPushButton" name="boton_guardar_tipo_roca">
         <property name="text">
-         <string>Guardar</string>
+         <string>Fijar tipo de roca</string>
         </property>
        </widget>
       </widget>
@@ -225,7 +225,7 @@ color: rgb(238, 238, 236);</string>
            <hour>0</hour>
            <minute>0</minute>
            <second>0</second>
-           <year>2006</year>
+           <year>2021</year>
            <month>1</month>
            <day>1</day>
           </datetime>
@@ -234,7 +234,7 @@ color: rgb(238, 238, 236);</string>
        </widget>
        <widget class="QPushButton" name="boton_guardar_interprete">
         <property name="text">
-         <string>Guardar</string>
+         <string>Fijar datos interprete</string>
         </property>
        </widget>
       </widget>
@@ -5851,7 +5851,7 @@ color: rgb(0, 0, 0);</string>
               <hour>0</hour>
               <minute>0</minute>
               <second>0</second>
-              <year>2006</year>
+              <year>2021</year>
               <month>1</month>
               <day>1</day>
              </datetime>
@@ -6336,11 +6336,11 @@ color: rgb(238, 238, 236);</string>
         </rect>
        </property>
        <property name="text">
-        <string>Guardar</string>
+        <string>FIjar información de la muestra</string>
        </property>
       </widget>
      </widget>
-     <widget class="QFrame" name="frame_4">
+     <widget class="QFrame" name="frame_calibracion">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -6355,7 +6355,7 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_11">
+      <widget class="QLabel" name="label_calibracion">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -6382,74 +6382,102 @@ color: rgb(238, 238, 236);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QSplitter" name="splitter_10">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>231</width>
-         <height>101</height>
+         <x>7</x>
+         <y>39</y>
+         <width>241</width>
+         <height>111</height>
         </rect>
        </property>
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <widget class="QSplitter" name="splitter_11">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <widget class="QLabel" name="Label_reticulas">
-         <property name="text">
-          <string>Cantidad reticulas</string>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="input_reticulas">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="maximum">
-          <number>500</number>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QSplitter" name="splitter_12">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <widget class="QLabel" name="label_objetivo">
-         <property name="text">
-          <string>objetivo</string>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="input_objetivo">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="maximum">
-          <number>200</number>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QPushButton" name="boton_guardar_calibracion">
-        <property name="text">
-         <string>Guardar</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="layout_calibracion">
+        <item>
+         <widget class="QSplitter" name="splitter_12">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="label_objetivo">
+           <property name="text">
+            <string>objetivo</string>
+           </property>
+          </widget>
+          <widget class="QSpinBox" name="input_objetivo">
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="maximum">
+            <number>200</number>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSplitter" name="splitter_11">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="Label_reticulas">
+           <property name="text">
+            <string>Cantidad reticulas</string>
+           </property>
+          </widget>
+          <widget class="QSpinBox" name="input_reticulas">
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="maximum">
+            <number>500</number>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSplitter" name="splitter_13">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="label_milimetros">
+           <property name="text">
+            <string>Cantidad de milímetros</string>
+           </property>
+          </widget>
+          <widget class="QSpinBox" name="input_milimetros">
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="maximum">
+            <number>500</number>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_guardar_calibracion">
+          <property name="text">
+           <string>Fijar calibración</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="conteo">
+    <widget class="QWidget" name="macro">
      <attribute name="title">
-      <string>Conteo</string>
+      <string>Descripción macro</string>
      </attribute>
-     <widget class="QFrame" name="frame_siliciclastica">
+     <widget class="QFrame" name="frame_descripcion_macro_sed">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>20</x>
         <y>20</y>
-        <width>411</width>
-        <height>491</height>
+        <width>31</width>
+        <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -6457,28 +6485,26 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_15">
+      <widget class="QLabel" name="titulo_descripcion_macro_sed">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>411</width>
+         <width>451</width>
          <height>31</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(114, 159, 207);
-color: rgb(238, 238, 236);</string>
+        <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(114, 159, 207)</string>
        </property>
        <property name="text">
-        <string>Sedimentaria siliciclastica</string>
+        <string>Descripción macroscópica</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -6487,190 +6513,304 @@ color: rgb(238, 238, 236);</string>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>0</x>
          <y>40</y>
-         <width>391</width>
-         <height>441</height>
+         <width>451</width>
+         <height>421</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="layaut_silicilastica">
+       <layout class="QVBoxLayout" name="layout_descripcion_macro_sed">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
+         <layout class="QHBoxLayout" name="layout">
           <item>
-           <widget class="QLabel" name="label_sil_mineral">
-            <property name="text">
-             <string>Mineral</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_mac_tipo_roca">
+              <property name="text">
+               <string>Tipo de roca</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_textura">
+              <property name="text">
+               <string>Textura - Composición</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_color">
+              <property name="text">
+               <string>Color</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_laminacion">
+              <property name="text">
+               <string>Laminación</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_bioturb">
+              <property name="text">
+               <string>Grado de bioturbación</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_meteor">
+              <property name="text">
+               <string>Grado de meteorización</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_mac_particion">
+              <property name="text">
+               <string>Partición</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Prueba de Fosfatos</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Reacción al HCl</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QLineEdit" name="input_sil_mineral"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_sil_size">
-            <property name="text">
-             <string>Tamaño</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="input_sil_size"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label_sil_redond">
-            <property name="text">
-             <string>Redondez</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="input_sil_redond">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <property name="text">
-              <string>Angular</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_tipo_roca"/>
             </item>
             <item>
-             <property name="text">
-              <string>Subangular</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_textura"/>
             </item>
             <item>
-             <property name="text">
-              <string>Subredondeado</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_color"/>
             </item>
             <item>
-             <property name="text">
-              <string>Redondeado</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_laminacion"/>
             </item>
             <item>
-             <property name="text">
-              <string>Bien Redondeado</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_sil_esfer">
-            <property name="text">
-             <string>Esfericidad</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="input_sil_esfer">
-            <item>
-             <property name="text">
-              <string>Elongado</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_bioturb"/>
             </item>
             <item>
-             <property name="text">
-              <string>Subelongado</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_meteor"/>
             </item>
             <item>
-             <property name="text">
-              <string>Subesférico</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_particion"/>
             </item>
             <item>
-             <property name="text">
-              <string>Esférico</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="label_sil_contacto">
-            <property name="text">
-             <string>Tipo de contacto</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="input_sil_contacto">
-            <item>
-             <property name="text">
-              <string>Tangencial</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_fosfatos"/>
             </item>
             <item>
-             <property name="text">
-              <string>Longitudinal</string>
-             </property>
+             <widget class="QLineEdit" name="input_mac_hcl"/>
             </item>
-            <item>
-             <property name="text">
-              <string>Flotante</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Concavo-Convexo</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Suturado</string>
-             </property>
-            </item>
-           </widget>
+           </layout>
           </item>
          </layout>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QLabel" name="label_sil_observa">
+           <widget class="QLabel" name="label_8">
             <property name="text">
              <string>Observaciones</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTextEdit" name="input_sil_observa"/>
+           <widget class="QTextEdit" name="input_mac_obs_sed"/>
           </item>
          </layout>
         </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_foto_macro">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>20</y>
+        <width>391</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 224, 66);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="foto_macro">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>20</y>
+         <width>231</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../archivos/descarga.jpg</pixmap>
+       </property>
+      </widget>
+      <widget class="QLabel" name="foto_escala">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>250</y>
+         <width>131</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../archivos/descarga.png</pixmap>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>24</x>
+         <y>400</y>
+         <width>341</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_14">
         <item>
-         <widget class="QPushButton" name="boton_sil_siguiente_p">
+         <widget class="QPushButton" name="boton_cargar_foto">
           <property name="text">
-           <string>Siguiente Punto</string>
+           <string>Cargar foto</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_cargar_escala">
+          <property name="text">
+           <string>Cargar escala</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QFrame" name="frame_observaciones_sed">
+     <widget class="QPushButton" name="boton_guardar_macro">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>20</y>
-        <width>401</width>
-        <height>291</height>
+        <x>540</x>
+        <y>480</y>
+        <width>341</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Guardar</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_descripcion_macro_ot">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>40</y>
+        <width>461</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_descripcion_macro_ot">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(114, 159, 207)</string>
+       </property>
+       <property name="text">
+        <string>Descripción macroscópica</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_14">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>451</width>
+         <height>421</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_descripcion_macro_ot">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_19">
+          <item>
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_mac_obs_ot"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="conteo">
+     <attribute name="title">
+      <string>Conteo</string>
+     </attribute>
+     <widget class="QFrame" name="frame_observaciones">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>70</y>
+        <width>451</width>
+        <height>331</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -6679,12 +6819,12 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="titulo_observaciones">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>0</y>
-         <width>401</width>
+         <width>421</width>
          <height>31</height>
         </rect>
        </property>
@@ -6706,25 +6846,21 @@ color: rgb(238, 238, 236);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget_7">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>381</width>
-         <height>241</height>
+         <width>421</width>
+         <height>261</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
+       <layout class="QVBoxLayout" name="layout_observaciones">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QTextEdit" name="input_observaciones_gen_sed"/>
-          </item>
-         </layout>
+         <widget class="QTextEdit" name="input_observaciones_gen"/>
         </item>
         <item>
-         <widget class="QPushButton" name="boton_guardar_observaciones_gen_sed">
+         <widget class="QPushButton" name="boton_guardar_observaciones_gen">
           <property name="text">
            <string>Guardar</string>
           </property>
@@ -6736,11 +6872,14 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_calcarea">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>20</y>
-        <width>411</width>
-        <height>491</height>
+        <width>61</width>
+        <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -6748,12 +6887,12 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_17">
+      <widget class="QLabel" name="titulo_calcarea">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>411</width>
+         <width>451</width>
          <height>31</height>
         </rect>
        </property>
@@ -6769,7 +6908,7 @@ color: rgb(238, 238, 236);</string>
 color: rgb(238, 238, 236);</string>
        </property>
        <property name="text">
-        <string>Sedimentaria calcarea</string>
+        <string>Sedimentaria Calcárea</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -6780,11 +6919,11 @@ color: rgb(238, 238, 236);</string>
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>391</width>
-         <height>441</height>
+         <width>431</width>
+         <height>451</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="layaut_silicilastica_2">
+       <layout class="QVBoxLayout" name="layout_calcarea">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <property name="sizeConstraint">
@@ -6812,7 +6951,11 @@ color: rgb(238, 238, 236);</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="input_cal_size"/>
+           <widget class="QSpinBox" name="input_cal_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -6955,14 +7098,30 @@ color: rgb(238, 238, 236);</string>
        </layout>
       </widget>
      </widget>
-     <widget class="QFrame" name="frame_pluton">
+     <widget class="QProgressBar" name="progreso_conteo">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>330</y>
-        <width>411</width>
-        <height>491</height>
+        <x>790</x>
+        <y>480</y>
+        <width>118</width>
+        <height>23</height>
        </rect>
+      </property>
+      <property name="value">
+       <number>24</number>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_siliciclastica">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -6970,12 +7129,12 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_18">
+      <widget class="QLabel" name="titulo_siliciclastica">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>411</width>
+         <width>451</width>
          <height>31</height>
         </rect>
        </property>
@@ -6991,24 +7150,253 @@ color: rgb(238, 238, 236);</string>
 color: rgb(238, 238, 236);</string>
        </property>
        <property name="text">
-        <string>Igena Plutónica</string>
+        <string>Sedimentaria  Siliciclástica</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QWidget" name="layoutWidget_4">
+      <widget class="QWidget" name="layoutWidget_5">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>391</width>
-         <height>441</height>
+         <width>431</width>
+         <height>451</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="layaut_silicilastica_3">
+       <layout class="QVBoxLayout" name="layout_siliciclastica">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_sil_mineral">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_sil_mineral"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <item>
+           <widget class="QLabel" name="label_sil_size">
+            <property name="text">
+             <string>Tamaño</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_sil_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_18">
+          <item>
+           <widget class="QLabel" name="label_sil_redond">
+            <property name="text">
+             <string>Redondez</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_sil_redond">
+            <item>
+             <property name="text">
+              <string>Angular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subangular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subredondeado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Redondeado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bien Redondeado</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
+          <item>
+           <widget class="QLabel" name="label_sil_esfer">
+            <property name="text">
+             <string>Esfericidad</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_sil_esfer">
+            <item>
+             <property name="text">
+              <string>Elongado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subelongado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subesférico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Esférico</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_20">
+          <item>
+           <widget class="QLabel" name="label_sil_contacto">
+            <property name="text">
+             <string>Tipo de contacto</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_sil_contacto">
+            <item>
+             <property name="text">
+              <string>Tangencial</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Longitudinal</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Flotante</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Concavo-Convexo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Suturado</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_sil_observa">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_sil_observa"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_sil_siguiente_p">
+          <property name="text">
+           <string>Siguiente Punto</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_pluton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_pluton">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Ígnea Plutónica</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>431</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_pluton">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
           <property name="sizeConstraint">
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
@@ -7025,7 +7413,7 @@ color: rgb(238, 238, 236);</string>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
           <item>
            <widget class="QLabel" name="label_plut_size">
             <property name="text">
@@ -7034,12 +7422,16 @@ color: rgb(238, 238, 236);</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="input_plut_size"/>
+           <widget class="QSpinBox" name="input_plut_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <layout class="QHBoxLayout" name="horizontalLayout_23">
           <item>
            <widget class="QLabel" name="label_plut_forma">
             <property name="text">
@@ -7069,7 +7461,7 @@ color: rgb(238, 238, 236);</string>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
           <item>
            <widget class="QLabel" name="label_plut_gene">
             <property name="text">
@@ -7099,7 +7491,7 @@ color: rgb(238, 238, 236);</string>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
            <widget class="QLabel" name="label_plut_observa">
             <property name="text">
@@ -7122,22 +7514,17 @@ color: rgb(238, 238, 236);</string>
        </layout>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="macro">
-     <attribute name="title">
-      <string>Descripción macro</string>
-     </attribute>
-     <widget class="QFrame" name="frame_5">
+     <widget class="QFrame" name="frame_volcanica">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>40</y>
-        <width>461</width>
-        <height>291</height>
+        <x>10</x>
+        <y>200</y>
+        <width>71</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 255, 0);</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -7145,41 +7532,1283 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="titulo_volcanica">
        <property name="geometry">
         <rect>
-         <x>80</x>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Ígnea Volcánica</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
          <y>40</y>
-         <width>47</width>
-         <height>13</height>
+         <width>431</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_volcanica">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_26">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_vol_mineral">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_vol_mineral"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_27">
+          <item>
+           <widget class="QLabel" name="label_vol_size">
+            <property name="text">
+             <string>Tamaño</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_vol_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_28">
+          <item>
+           <widget class="QLabel" name="label_vol_forma">
+            <property name="text">
+             <string>Forma</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_vol_forma">
+            <item>
+             <property name="text">
+              <string>Euhedral</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subhedral</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Anhedral</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QLabel" name="label_vol_observa">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_vol_observa"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_vol_siguiente_p">
+          <property name="text">
+           <string>Siguiente Punto</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_volcanoclastica">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>470</y>
+        <width>81</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_volcanoclastica">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Ígnea Volcanoclástica</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>431</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_volcanoclastica">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_29">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_vol_clas_mineral">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_vol_clas_mineral"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_30">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_size">
+            <property name="text">
+             <string>Tamaño</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_vol_clas_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_31">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_redond">
+            <property name="text">
+             <string>Redondez</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_vol_clas_redond">
+            <item>
+             <property name="text">
+              <string>Angular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subangular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subredondeado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Redondeado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bien Redondeado</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_32">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_esfer">
+            <property name="text">
+             <string>Esfericidad</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_vol_clas_esfer">
+            <item>
+             <property name="text">
+              <string>Elongado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subelongado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subesférico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Esférico</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_33">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_contacto">
+            <property name="text">
+             <string>Tipo de contacto</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_vol_clas_contacto">
+            <item>
+             <property name="text">
+              <string>Tangencial</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Longitudinal</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Flotante</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Concavo-Convexo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Suturado</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_tipo_frag">
+            <property name="text">
+             <string>Tipo de Framgmento</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_vol_clas_tipo_frag">
+            <item>
+             <property name="text">
+              <string>Cristales y fragmentos cristalinos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Vidrio y fragmentos vesiculados</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Fragmentos líticos</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QLabel" name="label_vol_clas_observa">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_vol_clas_observa"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_vol_clas_siguiente_p">
+          <property name="text">
+           <string>Siguiente Punto</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_regional">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>360</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_regional">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Metamórfismo Regonal o de Contacto</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>431</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_regional">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_34">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_regional_mineral">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_reg_mineral"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_35">
+          <item>
+           <widget class="QLabel" name="label_regional_size">
+            <property name="text">
+             <string>Tamaño</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_reg_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_36">
+          <item>
+           <widget class="QLabel" name="label_regional_forma">
+            <property name="text">
+             <string>Forma</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_reg_forma">
+            <item>
+             <property name="text">
+              <string>Idioblástico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subidioblástico (hipidioblástico)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Xenoblástico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Acicular</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_37">
+          <item>
+           <widget class="QLabel" name="label_regional_borde">
+            <property name="text">
+             <string>Borde</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_reg_borde">
+            <item>
+             <property name="text">
+              <string>Recto</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Curvado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Suturado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Embebido</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cúspides</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Festoneado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Irregular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Unilateral</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bilateral</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_38">
+          <item>
+           <widget class="QLabel" name="label_regional_geometria">
+            <property name="text">
+             <string>Geometría de borde</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_reg_geometria">
+            <item>
+             <property name="text">
+              <string>Poligonal</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Interlobulado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ameboideo</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <widget class="QLabel" name="label_regional_observa">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_reg_observa"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_reg_siguiente_p">
+          <property name="text">
+           <string>Siguiente Punto</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_dinamico">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>420</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_dinamico">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>451</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Metamórfismo Dinámico</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_11">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>431</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_dinamico">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_39">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_din_mineral">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_din_mineral"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_din_tipo">
+            <property name="text">
+             <string>TIpo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_din_tipo">
+            <item>
+             <property name="text">
+              <string>Porfiroclásto</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Matriz Relíctica</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Matriz Neoformada</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Secundario de Alteración</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Secundario de Introducción</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_40">
+          <item>
+           <widget class="QLabel" name="label_din_size">
+            <property name="text">
+             <string>Tamaño</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_din_size">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_41">
+          <item>
+           <widget class="QLabel" name="label_din_forma">
+            <property name="text">
+             <string>Forma</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_din_forma">
+            <item>
+             <property name="text">
+              <string>Idioblástico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Subidioblástico (hipidioblástico)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Xenoblástico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Acicular</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_42">
+          <item>
+           <widget class="QLabel" name="label_din_borde">
+            <property name="text">
+             <string>Borde</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_din_borde">
+            <item>
+             <property name="text">
+              <string>Recto</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Curvado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Suturado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Embebido</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cúspides</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Festoneado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Irregular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Unilateral</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bilateral</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_43">
+          <item>
+           <widget class="QLabel" name="label_din_geometria">
+            <property name="text">
+             <string>Geometría de borde</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_din_geometria">
+            <item>
+             <property name="text">
+              <string>Poligonal</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Interlobulado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ameboideo</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <widget class="QLabel" name="label_din_observa">
+            <property name="text">
+             <string>Observaciones</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="input_din_observa"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_din_siguiente_p">
+          <property name="text">
+           <string>Siguiente Punto</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>430</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="layout_contador">
+       <item>
+        <widget class="QLabel" name="label_contador">
+         <property name="text">
+          <string>Puntos Contados</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="output_contador">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="frame_observaciones_ig">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>450</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="titulo_observaciones_ig">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>421</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(238, 238, 236);</string>
+       </property>
+       <property name="text">
+        <string>Observaciones Generales</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_13">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>421</width>
+         <height>261</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_observaciones_ig">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="label_size_relat_ig">
+            <property name="text">
+             <string>Tamaño relativo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_size_relat_ig">
+            <item>
+             <property name="text">
+              <string>Equigranular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Inequigranular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Porfidítico</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QLabel" name="label_size_absol_ig">
+            <property name="text">
+             <string>Tamaño absoluto</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_size_absol_ig">
+            <item>
+             <property name="text">
+              <string>Ultra fino</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Muy fino</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Fino</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Medio</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Grueso</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Muy grueso</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_textura_ig">
+            <property name="text">
+             <string>Textura</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="input_textura_ig">
+            <item>
+             <property name="text">
+              <string>Holocristalina</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hialocristalina</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Holohialina</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QLabel" name="label_indice_c">
+            <property name="text">
+             <string>Indice de color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="input_indice_c"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="input_observaciones_gen_ig"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_guardar_observaciones_gen_ig">
+          <property name="text">
+           <string>Guardar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="fotosmicro">
+     <attribute name="title">
+      <string>Fotos micro</string>
+     </attribute>
+     <widget class="QFrame" name="frame_descripcion_micro">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>370</y>
+        <width>831</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>581</width>
+         <height>153</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="layout_descripcion_micro">
+        <item>
+         <widget class="QLabel" name="label_descripcion_fotos_micro">
+          <property name="text">
+           <string>Descripción</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="input_descripcion_fotos_micro"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_guardar_fotos_micro">
+          <property name="text">
+           <string>Siguiente par fotográfico</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_4">
+       <property name="geometry">
+        <rect>
+         <x>630</x>
+         <y>0</y>
+         <width>181</width>
+         <height>138</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_exportaciones">
+          <property name="text">
+           <string>Exportaciones:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_exp_triangulo">
+          <property name="text">
+           <string>Triángulo composicional</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_exp_csv">
+          <property name="text">
+           <string>Archivo CSV</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_exp_histograma">
+          <property name="text">
+           <string>Histograma</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="boton_exp_formato">
+          <property name="text">
+           <string>Formato Word</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_ppl">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>30</y>
+        <width>391</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="foto_micro_ppl">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>20</y>
+         <width>231</width>
+         <height>231</height>
         </rect>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../archivos/descarga.jpg</pixmap>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QLabel" name="label_3">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>30</y>
-         <width>113</width>
-         <height>20</height>
+         <x>0</x>
+         <y>0</y>
+         <width>391</width>
+         <height>301</height>
         </rect>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </widget>
+      <zorder>label_3</zorder>
+      <zorder>foto_micro_ppl</zorder>
      </widget>
-     <widget class="QFrame" name="frame_6">
+     <widget class="QFrame" name="frame_xpl">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>420</y>
-        <width>120</width>
-        <height>80</height>
+        <x>450</x>
+        <y>30</y>
+        <width>391</width>
+        <height>301</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 0, 0);</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -7187,79 +8816,70 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="foto_micro_xpl">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>20</y>
+         <width>231</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../archivos/sam_negativa.jpg</pixmap>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>391</width>
+         <height>301</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <zorder>label_2</zorder>
+      <zorder>foto_micro_xpl</zorder>
      </widget>
-     <widget class="QFrame" name="frame_7">
+     <widget class="QPushButton" name="boton_cargar_ppl">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>400</y>
-        <width>120</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 255, 255);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton5">
-      <property name="geometry">
-       <rect>
-        <x>570</x>
-        <y>70</y>
+        <x>190</x>
+        <y>340</y>
         <width>75</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>Cargar PPL</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton6">
+     <widget class="QPushButton" name="boton_cargar_xpl">
       <property name="geometry">
        <rect>
-        <x>570</x>
-        <y>100</y>
+        <x>620</x>
+        <y>340</y>
         <width>75</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton7">
-      <property name="geometry">
-       <rect>
-        <x>570</x>
-        <y>150</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>PushButton</string>
+       <string>Cargar XPL</string>
       </property>
      </widget>
     </widget>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>935</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
