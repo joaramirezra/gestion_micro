@@ -18,7 +18,7 @@ posee los campos necesarios para poder identificar las caracteristicas macroscop
 
 # Colaboradores
 
-milton [github.com/masantoss]
-johan [github.com/joaramirezra]
-rolo [github.com/ivanfelipep]
+(milton) [github.com/masantoss]
+(johan) [github.com/joaramirezra]
+(elrolo) [github.com/ivanfelipep]
 
