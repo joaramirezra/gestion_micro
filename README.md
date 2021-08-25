@@ -1,6 +1,6 @@
 # Sistema de conteo y caracterizacion de secciones delgadas 
 
-cuenta inicialmente con 4 secciones 
+El sistema de gestion de puntos 
 
 
 ## 1. general 
