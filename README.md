@@ -1,7 +1,7 @@
 # Sistema de conteo y caracterizacion de secciones delgadas 
 
 El sistema de gestion de puntos 
-
+pipe
 
 ## 1. general 
 
