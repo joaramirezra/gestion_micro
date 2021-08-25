@@ -22,3 +22,13 @@ posee los campos necesarios para poder identificar las caracteristicas macroscop
 [johan](github.com/joaramirezra)
 [elrolo](github.com/ivanfelipep)
 
+# Pasos
+1. Cambiarse a la rama de johan (git checkout johan)
+2. hacer pull a la rama (git pull origin johan)
+3. cambiar a su rama (git checkout masantoss o elrolo)
+4. hacer el merge (git merge johan [masantos o elrolo]) 
+5. modificar el código y/o interfaz a conveniencia y guardar 
+6. añadir los cambios del directorio (git add .)
+7. guardar los cambios del directorio (git commit -m "versión y comentario")
+8. sube los cambios al repo de github (git push) 
+9. ir a github, hacer el pull request, merge y confirm merge
