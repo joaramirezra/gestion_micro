@@ -80,6 +80,8 @@ class interfaz(Ui_MainWindow):
         if agregar_elemento(simbolo, mineral):
             self.input_simbolo.clear()
             self.input_mineral_config.clear()
+        else:
+            self.label_error.setText ('no existe')
 
 
     def info_muetra(self):

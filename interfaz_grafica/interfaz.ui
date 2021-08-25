@@ -244,8 +244,8 @@ color: rgb(238, 238, 236);</string>
        <rect>
         <x>20</x>
         <y>350</y>
-        <width>251</width>
-        <height>151</height>
+        <width>241</width>
+        <height>171</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -342,6 +342,19 @@ lista de minerales</string>
         </widget>
         <widget class="QLineEdit" name="input_mineral_config"/>
        </widget>
+      </widget>
+      <widget class="QLabel" name="label_error">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>91</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>error</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="frame_informacion" native="true">
