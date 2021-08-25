@@ -1,7 +1,6 @@
 # Sistema de conteo y caracterizacion de secciones delgadas 
 
 El sistema de gestion de puntos 
-pipe
 
 ## 1. general 
 
@@ -12,13 +11,14 @@ Ademas de esto, se puede llenar informacion util sobre la persona que realiza el
 ## 2. Descripcion macro
 
 posee los campos necesarios para poder identificar las caracteristicas macroscopicas del la muestra creando los campos necesarios seguan sea el caso 
+
 ## 3. Conteo
+
 ## 4. Exportacion 
 
+# Colaboradores
 
+milton [github.com/masantoss]
+johan [github.com/joaramirezra]
+rolo [github.com/ivanfelipep]
 
-gestion_micro
-~~~ 
-import pandas as pd
-~~~
-milton
