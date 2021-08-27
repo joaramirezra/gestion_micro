@@ -135,6 +135,33 @@ def llenar_inter_dinamico(nombre_archivo):
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
     archivo.add_paragraph()
     
+def llenar_inter_silici(nombre_archivo):
+    archivo = Document(nombre_archivo)
+    archivo.add_page_break()
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA" + '_' + 'Colocar IGM')
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN TEXTURAL",2)
+    archivo.add_paragraph()
+    lista= ['HOMOGENEIDAD DE LA ROCA:','TAMAÑO DE GRANO PROMEDIO:',
+            'RANGO DE TAMAÑOS:','SELECCIÓN:','REDONDEZ PROMEDIO:',
+            'ESFERICIDAD PROMEDIO:', 'MADUREZ TEXTURAL:']
+    for i in lista:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.italic = True
+        r1.bold = True
+        p1.add_run(" ")
+    p1 = archivo.add_paragraph()
+    r1 = p1.add_run("GRAVA ______ (%)") #esto se puede llenar con info de interfaz
+    r1.bold = True
+    r1.underline = True
+    archivo.add_paragraph()
+    p1.add_run('Tamaño promedio:' + '____'	+ 'Redondez:' +
+               '_____'+ 'Esfericidad:' + '______')
+        
+    archivo.save(nombre_archivo)    
+
 
 def llenar_inter_regional(nombre_archivo):
     archivo = Document(nombre_archivo)
@@ -172,7 +199,8 @@ def llenar_inter_regional(nombre_archivo):
     tabla_perc.cell(0,4).merge(tabla_perc.cell(0,5))
     tabla_perc.cell(6,4).merge(tabla_perc.cell(6,5))
     archivo.add_paragraph()
-    caracteristicas = ["PARAGÉNESIS:", "TIPO DE METAMORFÍSMO:", "FACIES DE METAMORFISMO:", "PROTOLITO:"]
+    caracteristicas = ["PARAGÉNESIS:", "TIPO DE METAMORFÍSMO:",
+                       "FACIES DE METAMORFISMO:", "PROTOLITO:"]
     for i in caracteristicas:
         p1 = archivo.add_paragraph()
         r1 = p1.add_run(i)
