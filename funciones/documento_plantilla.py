@@ -153,13 +153,47 @@ def llenar_inter_silici(nombre_archivo):
         r1.bold = True
         p1.add_run(" ")
     p1 = archivo.add_paragraph()
-    r1 = p1.add_run("GRAVA ______ (%)") #esto se puede llenar con info de interfaz
+    list= ['GRAVA ______ (%)','Tamaño promedio:  ____	 Redondez:  _____ Esfericidad:  ______', 'ARENA _____(%)', 
+           'Tamaño promedio:  ____	 Redondez:  _____ Esfericidad:  ______', 'LODO ________(%)',
+           'Arcilla__________% Tamaño promedio fracción arcilla:______mm/μm\nLimo __________% Tamaño promedio fracción limo:______mm/μm',
+           'CONTACTO ENTRE GRANOS:', 'Flotante:______% Tangencial:______%\nLongitudinal:______% Cóncavo-convexo:______%\nSuturado:______%',
+           'SOPORTE DE LA ROCA:', 'Granos terrígenos-aloquímicos_________% Minerales arcillosos_________%' ]
+    
+    contador = 0
+    for i in list: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
+        if contador %2 == 0:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+        else:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            p1.add_run(" ")
+        archivo.add_paragraph()    
+        contador = contador +1 
+    p1 = archivo.add_paragraph()
+    r1 = p1.add_run("POROSIDAD:") 
     r1.bold = True
     r1.underline = True
+    p1.add_run('_______% Primaria:_______% Secundaria:_______% \nTipo(s), origen y descripción')
     archivo.add_paragraph()
-    p1.add_run('Tamaño promedio:' + '____'	+ 'Redondez:' +
-               '_____'+ 'Esfericidad:' + '______')
-        
+    r1 = p1.add_run("ESTRUCTURAS:") 
+    r1.bold = True
+    r1.underline = True
+    
+    archivo.add_paragraph()
+    archivo.add_heading('CLASIFICACIÓN TEXTURAL')
+    archivo.add_paragraph()
+    clas_roc = archivo.add_paragraph()
+    run = clas_roc.add_run("NOMBRE TEXTURAL ")
+    run.bold = True
+    run.underline = True
+    r2 = clas_roc.add_run("(Folk, 1954):")
+    r2.underline = True
+    archivo.add_paragraph('(Grava + Arena + Lodo = 100%)')
+    archivo.add_page_break()
     archivo.save(nombre_archivo)    
 
 
