@@ -67,22 +67,25 @@ class interfaz(Ui_MainWindow):
         milimetros = str(milimetros)
         objetivo = self.input_objetivo.value()
         objetivo = str(objetivo)
-        colum = ["reticulas", "milimetros", "Objetivo"]
-        crear_archivo("./archivos/calibracion_escala.csv", colum)
-        llenar_archivo("./archivos/calibracion_escala.csv", [reticulas, milimetros,objetivo])
+        data = {"reticulas": [reticulas], "milimetros": [milimetros], "objetivo": [objetivo]}
+        llenado_archivos("calibracion_escala", data)
+        
 
     def click_agregar(self):
         simbolo = self.input_simbolo.text()
         mineral = self.input_mineral_config.text()
         if not validar_exitencia_archivo("./archivos/Diccionario_simbolos.csv"):
-            parametros = archivos["Diccionario_simbolos"]
-            crear_archivo("./archivos/Diccionario_simbolos.csv", parametros)
+            Crear_Archivo("Diccionario_simbolos")
         if agregar_elemento(simbolo, mineral):
             self.input_simbolo.clear()
             self.input_mineral_config.clear()
             self.label_error.setText ('El mineral fue agregado exitosamente')
+        elif simbolo == "":
+            self.label_error.setText ('Por favor ingrese un simbolo')
         else:
             self.label_error.setText ('El mineral ya existe')
+
+            
 
 
     def info_muetra(self):
@@ -114,13 +117,12 @@ class interfaz(Ui_MainWindow):
         #self.input_fecha_recolec.clear()
         cantidad_p= self.input_cantidad_puntos.text()
         #self.input_cantidad_puntos.clear()
+        data = {"igm": [igm],"numero_campo": [numero_campo], "unidad_lito": unidad_lito,"localidad": [localidad],
+                "departamento": [departamento], "municipio": [municipio], "plancha" : [plancha], "escala" : [escala],
+                "coor_x":[coor_x], "origen_coor" : [origen_coor], "coor_y": [coor_y],"colector": [colector], 
+                "fecha_recol": [fecha_recol], "cantidad_p": [cantidad_p]}
 
-        crear_archivo("./archivos/current_info_muestra.csv", ["igm", "numero_campo", "unidad_lito", "localidad", "departamento", "municipio",
-                                                        "plancha", "escala", "coor_x", "origen_coor", "coor_y", "colector", 
-                                                        "fecha_recol", "cantidad_p"])
-        llenar_archivo("./archivos/current_info_muestra.csv",[igm, numero_campo, unidad_lito, localidad, departamento, municipio,
-                                                        plancha, escala, coor_x, origen_coor, coor_y, colector, 
-                                                        fecha_recol, cantidad_p])
+        llenado_archivos("current_general",data)
 
     def actualizar_despliegue(self):
         self.input_subtipo_roca.clear()
@@ -138,51 +140,50 @@ class interfaz(Ui_MainWindow):
                 self.input_subtipo_roca.addItem(i) 
 
     def lista_nueva(self):
-        df = pd.DataFrame({'Simbolo': [], 'Mineral' : []})
-        df.to_csv("./archivos/lista_simbolos_minerales.csv", sep = ";", index = False)
-        # crear_archivo("./archivos/lista_simbolos_minerales.csv", ['Simbolo', 'Mineral' ])
+        a = None
+        # Crear_Archivo("./archivos/lista_simbolos_minerales.csv", ['Simbolo', 'Mineral' ])
 
     def interprete(self):
         nombre = self.input_nombre_interprete.text()
         fecha = self.input_fecha_analisis.text()
-        crear_archivo("./archivos/current_interprete.csv",["nombre", "fecha_analisis"])
-        llenar_archivo("./archivos/current_interprete.csv", [nombre, fecha])
-        #self.input_nombre_interprete.clear()
+        data = {"Intemprete": [nombre] , "Fecha_interp": [fecha]}
+        llenado_archivos("current_general",data)
 
     def guardar_tipo_roca(self):
 
-        input_key = self.input_subtipo_roca.currentText()
-        print(self.input_tipo_roca.currentText())
-        print(input_key)
-        if input_key == "Siliciclástica":
+        subtipo_r = self.input_subtipo_roca.currentText()
+        tipo_r = self.input_tipo_roca.currentText()
+        
+        if subtipo_r == "Siliciclástica":
             self.hide_boxes()
             self.frame_siliciclastica.setVisible(True)
             self.frame_descripcion_macro_sed.setVisible(True)
-        elif input_key == "Calcárea":
+        elif subtipo_r == "Calcárea":
             self.hide_boxes()
             self.frame_calcarea.setVisible(True)
             self.frame_descripcion_macro_sed.setVisible(True)
-        elif input_key == "Plutónica":
+        elif subtipo_r == "Plutónica":
             self.hide_boxes()
             self.frame_pluton.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-        elif input_key == "Volcánica":
+        elif subtipo_r == "Volcánica":
             self.hide_boxes()
             self.frame_volcanica.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-        elif input_key == "Volcanoclástica":
+        elif subtipo_r == "Volcanoclástica":
             self.hide_boxes()
             self.frame_volcanoclastica.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-        elif input_key == "Regional o de Contacto":
+        elif subtipo_r == "Regional o de Contacto":
             self.hide_boxes()
             self.frame_regional.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-        #elif input_key == "Dinámico":
-        else:
+        elif subtipo_r == "Dinámico":
             self.hide_boxes()
             self.frame_dinamico.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
+        data = {"Tipo_r": [tipo_r],"Subt_r": [subtipo_r]}
+        llenado_archivos("current_general", data)
 
     #tab marco
     def cargar_forto(self):
@@ -205,16 +206,14 @@ class interfaz(Ui_MainWindow):
             observaciones = self.input_mac_obs_sed.toPlainText().replace("\n"," ")
             campos = ["tipo_roca", "textura", "color", "laminación", "bioturbacion",
                         "meteorizacion", "particion", "prueba_fosfatos", "pureba_HCl", "observaciones"]
-            parametros = [tipo_r, textura, color, laminacion, bioturbacion, meteorizacion,
-                            particion, fosfatos, hcl, observaciones]
-            crear_archivo("./archivos/current_macro.csv", campos )
-            llenar_archivo("./archivos/current_macro.csv", parametros)
+            parametros = [[tipo_r], [textura], [color], [laminacion], [bioturbacion], [meteorizacion],
+                            [particion], [fosfatos], [hcl], [observaciones]]
+            data = dict(zip(campos,parametros))
+            llenado_archivos("current_macro", data)
         else:
             observaciones = self.input_mac_obs_ot.toPlainText().replace("\n"," ")
-            campos = ["Observaciones"]
-            parametros = [observaciones]
-            crear_archivo("./archivos/current_macro.csv", campos)
-            llenar_archivo("./archivos/current_macro.csv",parametros)
+            data = {"observaciones" : [observaciones]}
+            llenado_archivos("current_macro", data)
 
         # self.input_mac_tipo_roca.clear()
         # self.input_mac_textura.clear()
