@@ -348,7 +348,7 @@ lista de minerales</string>
         <rect>
          <x>10</x>
          <y>140</y>
-         <width>91</width>
+         <width>221</width>
          <height>16</height>
         </rect>
        </property>
@@ -6670,38 +6670,6 @@ background-color: rgb(114, 159, 207)</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="foto_macro">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>20</y>
-         <width>231</width>
-         <height>231</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../archivos/descarga.jpg</pixmap>
-       </property>
-      </widget>
-      <widget class="QLabel" name="foto_escala">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>250</y>
-         <width>131</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../archivos/descarga.png</pixmap>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
@@ -6728,6 +6696,32 @@ background-color: rgb(114, 159, 207)</string>
         </item>
        </layout>
       </widget>
+      <widget class="QLabel" name="label_foto_macro">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>171</width>
+         <height>151</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Imagen macro</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_escala_macro">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>220</y>
+         <width>161</width>
+         <height>81</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Escala de la imagen macro</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QPushButton" name="boton_guardar_macro">
       <property name="geometry">
@@ -6745,10 +6739,10 @@ background-color: rgb(114, 159, 207)</string>
      <widget class="QFrame" name="frame_descripcion_macro_ot">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>40</y>
-        <width>461</width>
-        <height>471</height>
+        <x>40</x>
+        <y>60</y>
+        <width>331</width>
+        <height>381</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8702,7 +8696,7 @@ color: rgb(238, 238, 236);</string>
          <widget class="QTextEdit" name="input_descripcion_fotos_micro"/>
         </item>
         <item>
-         <widget class="QPushButton" name="boton_guardar_fotos_micro">
+         <widget class="QPushButton" name="boton_siguiente_desc_micro">
           <property name="text">
            <string>Siguiente par fotográfico</string>
           </property>
@@ -8776,7 +8770,7 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="foto_micro_ppl">
+      <widget class="QLabel" name="label_micro_ppl">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -8792,7 +8786,7 @@ color: rgb(238, 238, 236);</string>
         <pixmap>../archivos/descarga.jpg</pixmap>
        </property>
       </widget>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="recuadro_ppl">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -8808,8 +8802,8 @@ color: rgb(238, 238, 236);</string>
         <string/>
        </property>
       </widget>
-      <zorder>label_3</zorder>
-      <zorder>foto_micro_ppl</zorder>
+      <zorder>recuadro_ppl</zorder>
+      <zorder>label_micro_ppl</zorder>
      </widget>
      <widget class="QFrame" name="frame_xpl">
       <property name="geometry">
@@ -8829,7 +8823,7 @@ color: rgb(238, 238, 236);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="foto_micro_xpl">
+      <widget class="QLabel" name="label_micro_xpl">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -8845,7 +8839,7 @@ color: rgb(238, 238, 236);</string>
         <pixmap>../archivos/sam_negativa.jpg</pixmap>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="recuapdro_xpl">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -8861,8 +8855,8 @@ color: rgb(238, 238, 236);</string>
         <string/>
        </property>
       </widget>
-      <zorder>label_2</zorder>
-      <zorder>foto_micro_xpl</zorder>
+      <zorder>recuapdro_xpl</zorder>
+      <zorder>label_micro_xpl</zorder>
      </widget>
      <widget class="QPushButton" name="boton_cargar_ppl">
       <property name="geometry">
