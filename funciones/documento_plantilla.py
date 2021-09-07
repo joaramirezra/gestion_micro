@@ -1,20 +1,40 @@
-from funciones.fijar_datos import crear_archivo
 from typing import Text
 from docx import Document
 import pandas as pd
 from docx.shared import Inches
-from funciones.fotos_micro import fill_fields
+#from funciones.fotos_micro import fill_fields
+from PyQt5.QtWidgets import QFileDialog
+
+def fill_fields(archivo, url_img1,url_img2,text):
+    # create the table 
+    table = archivo.add_table(2,2)
+    
+    # merge second table
+    A = table.cell(1,0).merge(table.cell(1,1))
+    
+    # add first image
+    paragraph = table.cell(0,0).paragraphs[0]
+    run = paragraph.add_run()
+    run.add_picture(url_img1,width = Inches(2.95),height =Inches(2.18) )
+    
+    # add second image
+    paragraph = table.cell(0,1).paragraphs[0]
+    run = paragraph.add_run()
+    run.add_picture(url_img2,width = Inches(2.95) ,height =Inches(2.18) )
+    
+    # add descripction
+    A.add_paragraph(text)
+    return archivo
 
 def llenar_info_general():
-    df = pd.read_csv('./archivos/current_interprete.csv',sep= ';',encoding= "latin")
-    df2 = pd.read_csv("./archivos/current_info_muestra.csv", sep = ";", encoding= "latin")
-    parametros = df2.values[-1].tolist()
-    interprete = df.values[-1].tolist()
+    df = pd.read_csv('./archivos/current_general.csv',sep= ';',encoding= "latin")
+    name = str(df["numero_campo"][0])
+    nombre_archivo = QFileDialog.getSaveFileName(directory= name,filter= "documents (*.docx *.doc)")[0]
+    parametros = df.iloc[0].tolist()
+    parametros.pop()
+    parametros.pop()
     parametros.insert(11,"")
-    parametros.insert(14,interprete[0])
-    parametros.insert(15,interprete[1])
     parametros = list(map(str, parametros))
-    nombre_archivo = "./archivos/"+parametros[1] + ".docx"
     archivo = Document("./archivos/templates/template_1.docx")
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
@@ -41,15 +61,16 @@ def llenar_info_general():
     return nombre_archivo
 
 def llenar_macro(nombre_archivo):
-    df2 = pd.read_csv("./archivos/current_macro.csv", sep = ";", encoding= "latin")
-    campos = df2.columns.tolist()
-    parametros = df2.values[-1].tolist()
+    general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+    if general["Tipo_r"][0] != "Sedimentaria":
+        df = pd.read_csv("./archivos/current_macro.csv", sep = ";", encoding= "latin")
+    else:
+        df = pd.read_csv("./archivos/current_macro_sed.csv", sep = ";", encoding= "latin")
+    campos = df.columns.tolist()
+    parametros = df.values[-1].tolist()
     parametros = list(map(str, parametros))
     archivo = Document(nombre_archivo)
     archivo.add_heading('DESCRIPCIÓN MACROSCÓPICA' )
-    # campos = ["Tipo de Roca", "Textura", "Color", "Laminación", "Bioturbación","Meteorización", "Partición",
-    #             "Prueba de Fosfatos", "Reacción al HCl", "Observaciones"]
-
     tabla_macro = archivo.add_table(len(campos),3)
     imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(len(campos)-1,2))
     parag = imagen.paragraphs[0]

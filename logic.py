@@ -1,5 +1,7 @@
 from interfaz_grafica.interfaz_de_usuario import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtGui import QPixmap
 from funciones.documento_plantilla import *
 from funciones.fijar_datos import *
 import sys
@@ -28,7 +30,7 @@ class interfaz(Ui_MainWindow):
         self.boton_guardar_info_muestra.clicked.connect(self.info_muetra)
 
         #tab macro
-        self.boton_cargar_foto.clicked.connect(self.cargar_forto)
+        self.boton_cargar_foto.clicked.connect(self.cargar_foto_macro)
         self.boton_cargar_escala.clicked.connect(self.cargar_escala)
         self.boton_guardar_macro.clicked.connect(self.guardar_macro)
 
@@ -45,9 +47,8 @@ class interfaz(Ui_MainWindow):
         self.boton_guardar_observaciones_gen.clicked.connect(self.observaciones)
         # observaciones igneas
         self.boton_guardar_observaciones_gen_ig.clicked.connect(self.observaciones_ig)
-        
         # descripciones micro
-        self.boton_guardar_fotos_micro.clicked.connect(self.guardar_descripcion_micro)
+        self.boton_siguiente_desc_micro.clicked.connect(self.guardar_descripcion_micro)
         self.boton_cargar_ppl.clicked.connect(self.cargar_ppl)
         self.boton_cargar_xpl.clicked.connect(self.cargar_xpl)
 
@@ -57,6 +58,7 @@ class interfaz(Ui_MainWindow):
         self.boton_exp_formato.clicked.connect(self.export_formato)
         self.boton_exp_triangulo.clicked.connect(self.export_triangulo)
         
+
 # tab general
 
     # calibración medidas
@@ -68,7 +70,7 @@ class interfaz(Ui_MainWindow):
         objetivo = self.input_objetivo.value()
         objetivo = str(objetivo)
         data = {"reticulas": [reticulas], "milimetros": [milimetros], "objetivo": [objetivo]}
-        llenado_archivos("calibracion_escala", data)
+        llenado_csv("calibracion_escala", data)
         
 
     def click_agregar(self):
@@ -122,7 +124,7 @@ class interfaz(Ui_MainWindow):
                 "coor_x":[coor_x], "origen_coor" : [origen_coor], "coor_y": [coor_y],"colector": [colector], 
                 "fecha_recol": [fecha_recol], "cantidad_p": [cantidad_p]}
 
-        llenado_archivos("current_general",data)
+        llenado_csv("current_general",data)
 
     def actualizar_despliegue(self):
         self.input_subtipo_roca.clear()
@@ -147,7 +149,7 @@ class interfaz(Ui_MainWindow):
         nombre = self.input_nombre_interprete.text()
         fecha = self.input_fecha_analisis.text()
         data = {"Intemprete": [nombre] , "Fecha_interp": [fecha]}
-        llenado_archivos("current_general",data)
+        llenado_csv("current_general",data)
 
     def guardar_tipo_roca(self):
 
@@ -183,14 +185,29 @@ class interfaz(Ui_MainWindow):
             self.frame_dinamico.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
         data = {"Tipo_r": [tipo_r],"Subt_r": [subtipo_r]}
-        llenado_archivos("current_general", data)
+        llenado_csv("current_general", data)
 
     #tab marco
-    def cargar_forto(self):
-        print("porfa cargue la foto")
+    def cargar_foto_macro(self):
+        ruta, foto = agregar_imagen()
+        self.label_foto_macro.setPixmap(foto)
+        data = {"url_foto": [ruta]}
+        general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+        if general["Tipo_r"][0] != "Sedimentaria":
+            llenado_csv("current_macro", data)
+        else:
+            llenado_csv("current_macro_sed", data)
 
     def cargar_escala(self):
-        print("porfa la escala")
+        ruta, foto = agregar_imagen()
+        self.label_escala_macro.setPixmap(foto)
+        data = {"url_escala": [ruta]}
+        general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+        if general["Tipo_r"][0] != "Sedimentaria":
+            llenado_csv("current_macro", data)
+        else:
+            llenado_csv("current_macro_sed", data)
+        
 
     def guardar_macro(self):
         if self.frame_descripcion_macro_sed.isVisible() == True:
@@ -209,11 +226,11 @@ class interfaz(Ui_MainWindow):
             parametros = [[tipo_r], [textura], [color], [laminacion], [bioturbacion], [meteorizacion],
                             [particion], [fosfatos], [hcl], [observaciones]]
             data = dict(zip(campos,parametros))
-            llenado_archivos("current_macro", data)
+            llenado_csv("current_macro_sed", data)
         else:
             observaciones = self.input_mac_obs_ot.toPlainText().replace("\n"," ")
             data = {"observaciones" : [observaciones]}
-            llenado_archivos("current_macro", data)
+            llenado_csv("current_macro", data)
 
         # self.input_mac_tipo_roca.clear()
         # self.input_mac_textura.clear()
@@ -434,7 +451,7 @@ class interfaz(Ui_MainWindow):
     #funcion observaciones sedimentarias y metamorficas
     def observaciones(self):
         print(self.input_observaciones_gen.toPlainText())
-        self.input_observaciones_gen.clear()     
+        self.input_observaciones_gen.clear()
 
     #funcion observaciones igneas
     def observaciones_ig(self):
@@ -451,31 +468,38 @@ class interfaz(Ui_MainWindow):
 
     # funciones cargar fotos micro
     def cargar_ppl(self):
-        print("se ha cargado imagen ppl")
+        ruta_ppl, foto_ppl = agregar_imagen()
+        self.label_micro_ppl.setPixmap(foto_ppl)
+        data = {"url_ppl" : [ruta_ppl]}
+        stack_micro_data(data)
 
     def cargar_xpl(self):
-        print("se ha cargado imagen xpl")
+        ruta_xpl, foto_xpl = agregar_imagen()
+        self.label_micro_xpl.setPixmap(foto_xpl)
+        data = {"url_xpl" : [ruta_xpl]}
+        stack_micro_data(data)
 
     def guardar_descripcion_micro(self):
-        print(self.input_descripcion_fotos_micro.toPlainText())
+        descripcion  = self.input_descripcion_fotos_micro.toPlainText()
+        data = {"descrpcion_micro": [descripcion]}
+        stack_micro_data(data)
         self.input_descripcion_fotos_micro.clear()
-        print("se guardo imagen ppl")
-        print("se guardo imagen xpl")
+        self.label_micro_ppl.clear()
 
     # exportaciones
     def export_csv(self):
-        print("El CSV perro")
+        print("El CSV")
     
     def export_triangulo(self):
         print("los super triangulos")
     
     def export_histograma(self):
-        print("unas barritas cheveres")
+        print("|iL|")
 
     def export_formato(self):
         nombre_a = llenar_info_general()
         llenar_macro(nombre_a)
-        llenar_inter_silici(nombre_a)
+        llenar_inter_plut(nombre_a)
         llenar_fotos_micro(nombre_a)
         
 
