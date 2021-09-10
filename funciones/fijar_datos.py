@@ -1,8 +1,9 @@
+from PyQt5.sip import enableautoconversion
+from numpy import NaN, nan
 import pandas as pd
-
-def crear_archivo (nombre, parametros):
-     with open(nombre, "w+") as file:
-        file.write(";".join(parametros) + "\n")
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtGui import QPixmap
 
 def Crear_Archivo(nombre_archivo):
   titulo = ";".join(archivos[nombre_archivo])+'\n'
@@ -10,9 +11,33 @@ def Crear_Archivo(nombre_archivo):
   with open("./archivos/"+ nombre_archivo+'.csv','w+') as file :
     file.write(titulo)
 
-def llenar_archivo(nombre, parametros):
-    with open(nombre, "a+") as file:
-        file.write(";".join(parametros) + "\n")
+def llenado_csv(archivo,datos):
+  if not validar_exitencia_archivo("./archivos/"+archivo+ ".csv"):
+    Crear_Archivo(archivo)
+
+  df = pd.read_csv("./archivos/"+ archivo + ".csv", sep = ";", encoding= "latin")
+  for i in datos:
+    df[i] = datos[i]
+  df.to_csv("./archivos/" + archivo +".csv",encoding = "latin", sep=';',index=False)
+
+def navegar_archivos():
+  ruta_archivo = QFileDialog.getOpenFileName()
+  return ruta_archivo[0] 
+
+def agregar_imagen():
+  ruta_archivo = navegar_archivos()
+  imagen = QPixmap(ruta_archivo)
+  imagen_escalada = imagen.scaled(500,250, QtCore.Qt.KeepAspectRatio)
+  return ruta_archivo, imagen_escalada
+
+def stack_micro_data(data):
+  if not validar_exitencia_archivo("./archivos/current_micro.csv"):
+    Crear_Archivo("current_micro")
+  base = pd.read_csv("./archivos/current_micro.csv", sep = ";", encoding= "latin")
+  base = base.append(data, ignore_index=True)
+  base.to_csv("./archivos/current_micro.csv", encoding= "latin" ,sep = ";", index = False)
+
+
 
 archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad',
                                      'tipo_contacto','observaciones'],
@@ -24,8 +49,15 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
                                      'Tipo_contacto',"Tipo_fragmento",'observaciones'],
               "Conteo_dinamicas": ["Mineral","Tipo", "Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
               "Conteo_regionales": ["Mineral","Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
-             'Diccionario_simbolos':['Simbolo','Mineral']
-              }
+             'Diccionario_simbolos':['Simbolo','Mineral'],
+             "current_general" : ["igm","numero_campo",  "unidad_lito", "localidad",  "departamento","municipio", "plancha",
+                                  "escala","coor_x", "origen_coor", "coor_y","colector", "fecha_recol", "Intemprete", "Fecha_interp", 
+                                  "cantidad_p", "Tipo_r", "Subt_r"],
+              "calibracion_escala" : ["reticulas", "milimetros", "objetivo"],
+              "current_macro_sed" : ["tipo_roca", "textura", "color", "laminación", "bioturbacion",
+                        "meteorizacion", "particion", "prueba_fosfatos", "pureba_HCl", "observaciones", "url_foto", "url_escala"],
+              "current_macro": ["observaciones", "url_foto", "url_escala"],
+              "current_micro": ["url_ppl", "url_xpl", "descrpcion_micro"]}
 
 def crear_los_archivos():
   for archivo in archivos :
@@ -33,6 +65,7 @@ def crear_los_archivos():
 
     with open( "./archivos/" +archivo+'.csv','w+') as file :
       file.write(titulo)
+
 
 def validar_exitencia_archivo(nombre_archivo):
   try:
@@ -42,27 +75,25 @@ def validar_exitencia_archivo(nombre_archivo):
     return False
 
 def validar_simbolo(simbolo):
-  lista_simbolos = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
+  lista_simbolos = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
   return (lista_simbolos['Simbolo'] == simbolo).sum()
 
 def traducir_simbolo(simbolo):
-  lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
+  lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
   mask = lista_minerales['Simbolo'] == simbolo
   return lista_minerales[mask]['Mineral'].values[0]
 
 def agregar_elemento(simbolo,mineral):
   df = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
-  if not (validar_simbolo(simbolo)):
+  if simbolo == "":
+    return False
+  elif not (validar_simbolo(simbolo)):
     df2 = pd.DataFrame({'Simbolo':[simbolo],
            'Mineral':[mineral]})
     df = pd.concat([df,df2])
-    df.to_csv("./archivos/Diccionario_simbolos.csv", sep = ";", index = False)
+    df.to_csv("./archivos/Diccionario_simbolos.csv", encoding= "latin" ,sep = ";", index = False)
     return True
-
-  else :
-    print('Simbolo ya tiene asignado un mineral')
-
-  df.to_csv("./archivos/Diccionario_simbolos.csv",sep=';',index=False)
+  
 
 def agregar_puntos(archivo, parametros):
   
@@ -72,13 +103,22 @@ def agregar_puntos(archivo, parametros):
     mineral = traducir_simbolo(parametros[0][0])
     parametros[0][0] = mineral
     diccionario = dict(zip(archivos[archivo], parametros))
-    data = pd.read_csv("./archivos/"+archivo+".csv",sep=';')
+    data = pd.read_csv("./archivos/"+archivo+".csv",sep=';', encoding= "latin")
     punto = pd.DataFrame(diccionario)
     data = pd.concat([data,punto])
-    data.to_csv('./archivos/'+ archivo + ".csv",sep=';',index=False)
+    data.to_csv('./archivos/'+ archivo + ".csv",encoding= "latin", sep=';',index=False)
     return True
   else:
     return False
+
+def guardar_temporales(nombre_muestra):
+  general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+  if general["Tipo_r"][0] != "Sedimentaria":
+    macro = pd.read_csv("./archivos/current_macro_sed.csv", sep= ";", encoding= "latin")
+  else:
+    macro = pd.read_csv("./archivos/current_macro_sed.csv", sep= ";", encoding= "latin")
+
+  general.to_csv("./archivos/Diccionario_simbolos.csv" + nombre_muestra + ".csv", encoding= "latin" ,sep = ";", index = False)
 
 # def agregar_punto_siliciclastica(simbolo,size,rendondez,esfericidad,tipo_contacto,observaciones):
 #   if(not validar_exitencia_archivo('./archivos/Conteo_siliciclasticas.csv')):
