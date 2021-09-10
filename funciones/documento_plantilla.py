@@ -203,7 +203,6 @@ def llenar_inter_silici(nombre_archivo):
     r1 = p1.add_run("ESTRUCTURAS:") 
     r1.bold = True
     r1.underline = True
-    
     archivo.add_paragraph()
     archivo.add_heading('CLASIFICACIÓN TEXTURAL')
     archivo.add_paragraph()
@@ -215,8 +214,47 @@ def llenar_inter_silici(nombre_archivo):
     r2.underline = True
     archivo.add_paragraph('(Grava + Arena + Lodo = 100%)')
     archivo.add_page_break()
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL" + '_' + 'Colocar IGM')
+    archivo.add_paragraph()
+    archivo.add_heading("TERRIGENOS" + '___'+ '(%)',2)
+    list2= ['Cuarzo _____ (%)','Monocristalino:______(%) Tamaño promedio:___mm/μm Esfericidad:___Redondez:___'
+            '\nPolicristalino:_____%	Tamaño promedio:____mm/μm Esfericidad____Redondez:___',
+            'Observaciones:____ \nChert:___%', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: %',
+            'Potásico:_____% Tamaño promedio:_____mm/μm	Esfericidad	_____Redondez:_____'	
+            '\nSódico-Cálcico	_____% Tamaño promedio:_____mm/μm Esfericidad_____Redondez:_____']
+    contador=0
+    for i in list2: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
+        if contador %2 == 0:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+        else:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            p1.add_run(" ")
+        archivo.add_paragraph()    
+        contador = contador +1 
+    list3=[ 'Micas____%	Descripción ______','Minerales Arcillosos______%	Descripción_____',
+            'Granos Aloquímicos	_____%	Descripción_____', 'Otros Terrígenos_____% Descripción_____',
+            'Opacos_____% Descripción_______']       
+    contador=0
+    for i in list3: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
+        if contador %2 == 0:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+        else:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            p1.add_run(" ")
+        archivo.add_paragraph()    
+        contador = contador +1 
     archivo.save(nombre_archivo)    
-
 
 def llenar_inter_regional(nombre_archivo):
     archivo = Document(nombre_archivo)
@@ -282,7 +320,7 @@ def llenar_inter_regional(nombre_archivo):
                 + "extinción, clivaje, etc")
     archivo.add_paragraph()
     archivo.save(nombre_archivo)
-
+    
 def llenar_des_micro(nombre_archivo):
     asdf = 1
 

@@ -1,3 +1,4 @@
+from pandas.core import base
 from interfaz_grafica.interfaz_de_usuario import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
@@ -471,20 +472,22 @@ class interfaz(Ui_MainWindow):
         ruta_ppl, foto_ppl = agregar_imagen()
         self.label_micro_ppl.setPixmap(foto_ppl)
         data = {"url_ppl" : [ruta_ppl]}
-        stack_micro_data(data)
+        llenado_csv('auxiliar_micro',data)
 
     def cargar_xpl(self):
         ruta_xpl, foto_xpl = agregar_imagen()
         self.label_micro_xpl.setPixmap(foto_xpl)
         data = {"url_xpl" : [ruta_xpl]}
-        stack_micro_data(data)
+        llenado_csv('auxiliar_micro',data)
 
     def guardar_descripcion_micro(self):
         descripcion  = self.input_descripcion_fotos_micro.toPlainText()
         data = {"descrpcion_micro": [descripcion]}
-        stack_micro_data(data)
+        llenado_csv('auxiliar_micro',data)
         self.input_descripcion_fotos_micro.clear()
+        self.label_micro_xpl.clear()
         self.label_micro_ppl.clear()
+        stack_micro_data()
 
     # exportaciones
     def export_csv(self):
@@ -499,7 +502,7 @@ class interfaz(Ui_MainWindow):
     def export_formato(self):
         nombre_a = llenar_info_general()
         llenar_macro(nombre_a)
-        llenar_inter_plut(nombre_a)
+        llenar_inter_silici(nombre_a)
         llenar_fotos_micro(nombre_a)
         
 
