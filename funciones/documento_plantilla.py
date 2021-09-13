@@ -217,7 +217,8 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL" + '_' + 'Colocar IGM')
     archivo.add_paragraph()
-    archivo.add_heading("TERRIGENOS" + '___'+ '(%)',2)
+    archivo.add_heading("TERRIGENOS" + '___'+ '(%)',3)
+    archivo.add_paragraph()
     list2= ['Cuarzo _____ (%)','Monocristalino:______(%) Tamaño promedio:___mm/μm Esfericidad:___Redondez:___'
             '\nPolicristalino:_____%	Tamaño promedio:____mm/μm Esfericidad____Redondez:___'
             '\nObservaciones:____ ','Chert:___%', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: %',
@@ -237,11 +238,39 @@ def llenar_inter_silici(nombre_archivo):
             p1.add_run(" ")
         archivo.add_paragraph()    
         contador = contador +1 
-    list3=[ 'Micas____%	Descripción ______','Minerales Arcillosos______%	Descripción_____',
-            'Granos Aloquímicos	_____%	Descripción_____', 'Otros Terrígenos_____% Descripción_____',
-            'Opacos_____% Descripción_______']       
+    list3=[ 'Micas____%','Descripción ______','Minerales Arcillosos______%',' Descripción_____',
+            'Granos Aloquímicos	_____%','Descripción_____', 'Otros Terrígenos_____%','Descripción_____',
+            'Opacos_____%','Descripción_______']       
     contador=0
     for i in list3: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
+        if contador %2 == 0:
+            p1= archivo.add_paragraph(False)
+            r1= p1.add_run(i)
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+        else:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            p1.add_run(" ")
+        archivo.add_paragraph()    
+        contador = contador +1 
+    archivo.add_paragraph()
+    archivo.add_heading('LÍTICOS (Ígneos, Metamórficos, Sedimentarios) ______ (%)',3)
+    archivo.add_paragraph()
+    list4= ['Líticos Metamórficos: 		%',	
+            'Tamaño promedio:_____mm/μm	Esfericidad:_____Redondez:_____',	
+            'Líticos Volcánicos:_____%',	
+            'Tamaño promedio:_____mm/μm	Esfericidad:_____Redondez:_____',	
+            'Líticos Plutónicos:_____%',	
+            'Tamaño promedio:_____mm/μm	Esfericidad:_____Redondez:_____',	
+            'Líticos Sedimentarios:_____%',
+            'Tamaño promedio:_____mm/μm	Esfericidad:_____Redondez:_____'	
+            '\nObservaciones:_____', 'Materia Orgánica_____%', 'Tipo(s):_____',
+            'Cemento:_____%','Tipo(s):''\nTamaño cristalino_____mm/μm', 'Otros Ortoquímicos:_____%',	
+            'Tipo(s)(incluye minerales autigénicos):_____' '\nTamaño:____mm/μm']
+    contador=0
+    for i in list4: 
         if contador %2 == 0:
             p1= archivo.add_paragraph()
             r1= p1.add_run(i)
@@ -254,6 +283,22 @@ def llenar_inter_silici(nombre_archivo):
             p1.add_run(" ")
         archivo.add_paragraph()    
         contador = contador +1 
+    archivo.add_paragraph()
+    archivo.add_heading('CLASIFICACIÓN COMPOSICIONAL')
+    archivo.add_paragraph()
+    clas_roc = archivo.add_paragraph()
+    run = clas_roc.add_run("NOMBRE COMPOSICIONAL ")
+    run.bold = True
+    run.underline = True
+    r2 = clas_roc.add_run("(Folk, 1954):")
+    r2.underline = True
+    archivo.add_paragraph()
+    archivo.add_heading('DIAGÉNESIS',2)
+    z1=archivo.add_paragraph('Autigénesis:')
+    z2=archivo.add_paragraph('Recristalización:')
+    z1.bold= True
+    z2.bold= True
+
     archivo.save(nombre_archivo)    
 
 def llenar_inter_regional(nombre_archivo):
