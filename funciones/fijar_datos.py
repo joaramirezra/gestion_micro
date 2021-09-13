@@ -30,11 +30,12 @@ def agregar_imagen():
   imagen_escalada = imagen.scaled(500,250, QtCore.Qt.KeepAspectRatio)
   return ruta_archivo, imagen_escalada
 
-def stack_micro_data(data):
+def stack_micro_data():
   if not validar_exitencia_archivo("./archivos/current_micro.csv"):
     Crear_Archivo("current_micro")
   base = pd.read_csv("./archivos/current_micro.csv", sep = ";", encoding= "latin")
-  base = base.append(data, ignore_index=True)
+  agregar_foto = pd.read_csv("./archivos/auxiliar_micro.csv", sep = ";", encoding= "latin")
+  base = pd.concat([base,agregar_foto])
   base.to_csv("./archivos/current_micro.csv", encoding= "latin" ,sep = ";", index = False)
 
 
@@ -57,7 +58,8 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
               "current_macro_sed" : ["tipo_roca", "textura", "color", "laminación", "bioturbacion",
                         "meteorizacion", "particion", "prueba_fosfatos", "pureba_HCl", "observaciones", "url_foto", "url_escala"],
               "current_macro": ["observaciones", "url_foto", "url_escala"],
-              "current_micro": ["url_ppl", "url_xpl", "descrpcion_micro"]}
+              "current_micro": ["url_ppl", "url_xpl", "descrpcion_micro"],
+              'auxiliar_micro': ["url_ppl", "url_xpl", "descrpcion_micro"]}
 
 def crear_los_archivos():
   for archivo in archivos :
@@ -65,7 +67,6 @@ def crear_los_archivos():
 
     with open( "./archivos/" +archivo+'.csv','w+') as file :
       file.write(titulo)
-
 
 def validar_exitencia_archivo(nombre_archivo):
   try:
