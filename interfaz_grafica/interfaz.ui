@@ -352,6 +352,9 @@ lista de minerales</string>
          <height>16</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+       </property>
        <property name="text">
         <string>error</string>
        </property>
@@ -6349,7 +6352,7 @@ color: rgb(238, 238, 236);</string>
         </rect>
        </property>
        <property name="text">
-        <string>FIjar información de la muestra</string>
+        <string>Fijar información de la muestra</string>
        </property>
       </widget>
      </widget>

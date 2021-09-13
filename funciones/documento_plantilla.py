@@ -219,8 +219,8 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("TERRIGENOS" + '___'+ '(%)',2)
     list2= ['Cuarzo _____ (%)','Monocristalino:______(%) Tamaño promedio:___mm/μm Esfericidad:___Redondez:___'
-            '\nPolicristalino:_____%	Tamaño promedio:____mm/μm Esfericidad____Redondez:___',
-            'Observaciones:____ \nChert:___%', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: %',
+            '\nPolicristalino:_____%	Tamaño promedio:____mm/μm Esfericidad____Redondez:___'
+            '\nObservaciones:____ ','Chert:___%', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: %',
             'Potásico:_____% Tamaño promedio:_____mm/μm	Esfericidad	_____Redondez:_____'	
             '\nSódico-Cálcico	_____% Tamaño promedio:_____mm/μm Esfericidad_____Redondez:_____']
     contador=0
