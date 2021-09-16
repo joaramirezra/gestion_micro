@@ -1,8 +1,7 @@
 from typing import Text
 from docx import Document
 import pandas as pd
-from docx.shared import Inches
-#from funciones.fotos_micro import fill_fields
+from docx.shared import Cm
 from PyQt5.QtWidgets import QFileDialog
 
 def fill_fields(archivo, url_img1,url_img2,text):
@@ -15,15 +14,16 @@ def fill_fields(archivo, url_img1,url_img2,text):
     # add first image
     paragraph = table.cell(0,0).paragraphs[0]
     run = paragraph.add_run()
-    run.add_picture(url_img1,width = Inches(2.95),height =Inches(2.18) )
+    run.add_picture(url_img1,height = Cm(5.4) )
     
     # add second image
     paragraph = table.cell(0,1).paragraphs[0]
     run = paragraph.add_run()
-    run.add_picture(url_img2,width = Inches(2.95) ,height =Inches(2.18) )
+    run.add_picture(url_img2,height = Cm(5.4)  )
     
     # add descripction
     A.add_paragraph(text)
+    archivo.add_paragraph()
     return archivo
 
 def llenar_info_general():
@@ -35,7 +35,8 @@ def llenar_info_general():
     parametros.pop()
     parametros.insert(11,"")
     parametros = list(map(str, parametros))
-    archivo = Document("./archivos/templates/template_1.docx")
+    # archivo = Document("./archivos/templates/template_1.docx")
+    archivo = Document()
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
     campos = ["IGM", "Número de campo", "Unidad litoestratigráfica", "Localidad",
@@ -74,19 +75,30 @@ def llenar_macro(nombre_archivo):
     for i in range(2):
         campos.pop()
         parametros.pop()
+    for i in range(len(campos)):
+        campos[i] = campos[i].replace("_", " ")
     archivo = Document(nombre_archivo)
     archivo.add_heading('DESCRIPCIÓN MACROSCÓPICA' )
-    tabla_macro = archivo.add_table(len(campos),3)
-    imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(len(campos)-1,2))
-    parag = imagen.paragraphs[0]
-    run = parag.add_run()
-    run.add_picture(img_macro,width = Inches(1),height =Inches(1))
-    for i in range(0,len(parametros)):
-        for j in range(2):
-            if j == 0:
-                tabla_macro.cell(i,j).add_paragraph(campos[i])
-            if j ==1:
-                tabla_macro.cell(i,j).add_paragraph(parametros[i])
+    if len(campos) > 2:
+        tabla_macro = archivo.add_table(len(campos),3)
+        imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(len(campos)-1,2))
+        parag = imagen.paragraphs[0]
+        run = parag.add_run()
+        run.add_picture(img_macro, height =Cm(4))
+        for i in range(0,len(parametros)):
+            for j in range(2):
+                if j == 0:
+                    tabla_macro.cell(i,j).paragraphs[0].add_run(campos[i])
+                if j ==1:
+                    tabla_macro.cell(i,j).paragraphs[0].add_run(parametros[i])
+    else:
+        tabla_macro = archivo.add_table(1,2)
+        imagen = tabla_macro.cell(0,1)
+        parag = imagen.paragraphs[0]
+        run = parag.add_run()
+        run.add_picture(img_macro, height = Cm(4))
+        tabla_macro.cell(0,0).paragraphs[0].add_run(parametros[0])
+
 
     archivo.save(nombre_archivo)
 
@@ -412,21 +424,19 @@ def llenar_inter_regional(nombre_archivo):
     archivo.add_paragraph()
     archivo.save(nombre_archivo)
     
-def llenar_des_micro(nombre_archivo):
-    asdf = 1
-
 def llenar_fotos_micro(nombre_archivo):
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
     archivo.add_paragraph()
     archivo.add_heading("REGISTRO FOTOGRÁFICO")
     archivo.add_paragraph()
-    url_img1= 'archivos\Snap-91_PPL.jpg'
-    url_img2= 'archivos\Snap-92.jpg'
-
-    text = 'Habia una vez una iguana tomando cafe '
-        
-    archivo = fill_fields(archivo,url_img1,url_img2,text)
+    micro_tab = pd.read_csv("./archivos/current_micro.csv", sep = ";", encoding= "latin")
+    rows_n = micro_tab.count()[0]
+    for i in range(rows_n):
+        url_img1= micro_tab.iloc[i]["url_ppl"]
+        url_img2= micro_tab.iloc[i][ "url_xpl"]
+        text = micro_tab.iloc[i][ "descrpcion_micro"]       
+        archivo = fill_fields(archivo,url_img1,url_img2,text)
     archivo.save(nombre_archivo)
 
 
