@@ -491,7 +491,7 @@ class interfaz(Ui_MainWindow):
 
     # exportaciones
     def export_csv(self):
-        print("El CSV")
+        guardar_csv()
     
     def export_triangulo(self):
         print("los super triangulos")
@@ -501,8 +501,17 @@ class interfaz(Ui_MainWindow):
 
     def export_formato(self):
         nombre_a = llenar_info_general()
+        general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
         llenar_macro(nombre_a)
-        llenar_inter_dinamico(nombre_a)
+
+        if general["Subt_r"][0] == "Siliciclástica": llenar_inter_silici(nombre_a)
+        elif general["Subt_r"][0] == "Calcárea": llenar_inter_silici(nombre_a)
+        elif general["Subt_r"][0] == "Regional o de Contacto": llenar_inter_regional(nombre_a)
+        elif general["Subt_r"][0] == "Dinámico": llenar_inter_dinamico(nombre_a)
+        elif general["Subt_r"][0] == "Plutónica": llenar_inter_plut(nombre_a)
+        elif general["Subt_r"][0] == "Volcánica": llenar_inter_plut(nombre_a)
+        elif general["Subt_r"][0] == "Volcanoclástica": llenar_inter_plut(nombre_a)
+
         llenar_fotos_micro(nombre_a)
         
 
