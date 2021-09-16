@@ -155,6 +155,46 @@ def llenar_inter_dinamico(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
     archivo.add_paragraph()
+    archivo.add_heading('ASPECTOS TEXTURALES',2)
+    archivo.add_paragraph()
+    archivo.add_heading('DESCRIPCIÓN DE MICROESTRUCTURAS: ',3)
+    archivo.add_paragraph()
+    archivo.add_heading('FABRICA: ',3)
+    list=['Cohesión _____','Foliación_____','Tamaño de porfiroclastos _____ (µ)'
+    'Proporción de matriz____%','Recristalización_____']
+    for i in list:
+        p1= archivo.add_paragraph(i)
+        p1.add_run(" ")
+    archivo.add_paragraph()
+    archivo.add_heading('TIPO DE DEFORMACIÓN:',3)
+    archivo.add_paragraph('Frágil _____')
+    archivo.add_paragraph('Dúctil_____  Grado: Bajo	_____Medio_____Alto_____')
+    archivo.add_paragraph()
+    archivo.add_heading('ASPECTOS COMPOSICIONALES___ IGM',2)
+    archivo.add_paragraph()
+    tabla_comp_din= archivo.add_table(10,10)
+    cells = [0,1,2,3,4,4,0,2]
+    content = ["PORFIROCLASTOS", "%", "MINERALES \nACCESORIOS", "%",
+                "MINERALES DE ALTERACIÓN", "MINERALES DE INTRODUCCIÓN", "TOTAL", "TOTAL"]
+    
+    for i in range(len(cells)):
+        if i >5:
+            para = tabla_comp_din.cell(1,cells[i]).paragraphs[0]
+        elif i == 5:
+            para = tabla_comp_din.cell(6,cells[i]).paragraphs[0]
+        else:
+            para = tabla_comp_din.cell(0,cells[i]).paragraphs[0]
+        r1 = para.add_run(content[i])
+        r1.bold = True
+        r1.underline = True
+    tabla_comp_din.cell(0,0).merge(tabla_comp_din.cell(3,0))
+    tabla_comp_din.cell(0,1).merge(tabla_comp_din.cell(3,1))
+    tabla_comp_din.cell(0,2).merge(tabla_comp_din.cell(0,5))
+    tabla_comp_din.cell(0,6).merge(tabla_comp_din.cell(0,9))
+    
+
+
+    archivo.save(nombre_archivo)  
     
 def llenar_inter_silici(nombre_archivo):
     archivo = Document(nombre_archivo)

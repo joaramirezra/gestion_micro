@@ -502,7 +502,7 @@ class interfaz(Ui_MainWindow):
     def export_formato(self):
         nombre_a = llenar_info_general()
         llenar_macro(nombre_a)
-        llenar_inter_silici(nombre_a)
+        llenar_inter_dinamico(nombre_a)
         llenar_fotos_micro(nombre_a)
         
 
