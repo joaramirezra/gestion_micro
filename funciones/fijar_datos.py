@@ -38,8 +38,6 @@ def stack_micro_data():
   base = pd.concat([base,agregar_foto])
   base.to_csv("./archivos/current_micro.csv", encoding= "latin" ,sep = ";", index = False)
 
-
-
 archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad',
                                      'tipo_contacto','observaciones'],
              'Conteo_calcareas':['Mineral','Size','redondez','esfericidad',
@@ -112,14 +110,35 @@ def agregar_puntos(archivo, parametros):
   else:
     return False
 
-def guardar_temporales(nombre_muestra):
+def guardar_csv():
   general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
   if general["Tipo_r"][0] != "Sedimentaria":
     macro = pd.read_csv("./archivos/current_macro_sed.csv", sep= ";", encoding= "latin")
   else:
     macro = pd.read_csv("./archivos/current_macro_sed.csv", sep= ";", encoding= "latin")
+  if general["Subt_r"][0] == "Siliciclástica": conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Calcárea": conteo = pd.read_csv("./archivos/Conteo_calcareas.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Regional o de Contacto": conteo = pd.read_csv("./archivos/Conteo_regionales.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Dinámico": conteo = pd.read_csv("./archivos/Conteo_dinamicas.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Plutónica": conteo = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
+  elif general["Subt_r"][0] == "Volcanoclástica": conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
+  name = str(general["numero_campo"][0])
+  nombre_archivo = QFileDialog.getSaveFileName(directory= name,filter= " csv (*.csv)")[0]
+  conteo.to_csv(nombre_archivo,encoding= "latin", sep=';',index=False)
+  opciones = ["_macro", "_general"]
+  for i in opciones:
+    print(i)
+    lista = nombre_archivo.split("/")
+    name = lista[-1]
+    name_sp = name.split(".")
+    name_sp[0] = name_sp[0] + i
+    name2 = ".".join(name_sp)
+    lista[-1] = name2
+    ruta_mac = "/".join(lista)
+    if i == "_macro": macro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+    elif i == "_general" : general.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
 
-  general.to_csv("./archivos/Diccionario_simbolos.csv" + nombre_muestra + ".csv", encoding= "latin" ,sep = ";", index = False)
 
 # def agregar_punto_siliciclastica(simbolo,size,rendondez,esfericidad,tipo_contacto,observaciones):
 #   if(not validar_exitencia_archivo('./archivos/Conteo_siliciclasticas.csv')):

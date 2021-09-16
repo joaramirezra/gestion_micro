@@ -69,13 +69,18 @@ def llenar_macro(nombre_archivo):
     campos = df.columns.tolist()
     parametros = df.values[-1].tolist()
     parametros = list(map(str, parametros))
+    img_macro = df["url_foto"][0]
+    escala = df["url_escala"]
+    for i in range(2):
+        campos.pop()
+        parametros.pop()
     archivo = Document(nombre_archivo)
     archivo.add_heading('DESCRIPCIÓN MACROSCÓPICA' )
     tabla_macro = archivo.add_table(len(campos),3)
     imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(len(campos)-1,2))
     parag = imagen.paragraphs[0]
     run = parag.add_run()
-    run.add_picture('archivos\Snap-91_PPL.jpg',width = Inches(1),height =Inches(1))
+    run.add_picture(img_macro,width = Inches(1),height =Inches(1))
     for i in range(0,len(parametros)):
         for j in range(2):
             if j == 0:
@@ -151,6 +156,7 @@ def llenar_inter_plut(nombre_archivo):
     archivo.save(nombre_archivo)
 
 def llenar_inter_dinamico(nombre_archivo):
+    print("work")
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
