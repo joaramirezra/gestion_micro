@@ -124,10 +124,22 @@ def llenar_inter_plut(nombre_archivo):
         archivo.add_paragraph()
     archivo.add_page_break()
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% VOL) - IGM")
+    igm = "IGM"
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% VOL) - " + igm)
     archivo.add_paragraph()
-    tabla_perc = archivo.add_table(12,6)
+    rows = 12
+    tabla_perc = archivo.add_table(rows,6)
     tabla_perc.style = 'TableGrid'
+    for i in range(rows):
+        for j in range(6):
+            if j % 2 != 0:
+                tabla_perc.cell(i,j).width = Cm(1)
+            else:
+                tabla_perc.cell(i,j).width = Cm(4)
+    for i in range(6):
+        if i%2 != 0:
+            colum = tabla_perc.columns[i]
+            colum.width = Cm(1)
     cells = [0,1,2,3,4,4,0,2]
     content = ["MINERALES \nPRINCIPALES", "%", "MINERALES \nACCESORIOS", "%",
                 "MINERALES DE ALTERACIÓN", "MINERALES DE INTRODUCCIÓN", "TOTAL", "TOTAL"]
@@ -141,7 +153,6 @@ def llenar_inter_plut(nombre_archivo):
             para = tabla_perc.cell(0,cells[i]).paragraphs[0]
         r1 = para.add_run(content[i])
         r1.bold = True
-        r1.underline = True
     tabla_perc.cell(0,4).merge(tabla_perc.cell(0,5))
     tabla_perc.cell(6,4).merge(tabla_perc.cell(6,5))
        
@@ -195,7 +206,7 @@ def llenar_inter_dinamico(nombre_archivo):
     tabla_comp_din.cell(0,1).merge(tabla_comp_din.cell(1,1))
     tabla_comp_din.cell(0,2).merge(tabla_comp_din.cell(0,5))
     tabla_comp_din.cell(0,6).merge(tabla_comp_din.cell(0,9))
-    tabla_comp_din.style =  'TableGrid'
+    tabla_comp_din.style = 'TableGrid'
     content = ["PORFIROCLASTOS", "%", "COMPOSICIÓN MATRIZ"] 
     content2= ["Relíctica", "%", "Neo-formada", "%","De Alteración", "%",'De Introducción', "%"]
     for i in range (len(content)):
@@ -413,7 +424,18 @@ def llenar_inter_regional(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - IGM")
     archivo.add_paragraph()
-    tabla_perc = archivo.add_table(12,6)
+    rows = 12
+    tabla_perc = archivo.add_table(rows,6)
+    for i in range(rows):
+        for j in range(6):
+            if j % 2 != 0:
+                tabla_perc.cell(i,j).width = Cm(1)
+            else:
+                tabla_perc.cell(i,j).width = Cm(4)
+    for i in range(6):
+        if i%2 != 0:
+            colum = tabla_perc.columns[i]
+            colum.width = Cm(1)
     tabla_perc.style =  'TableGrid'
     cells = [0,1,2,3,4,4,0,2]
     content = ["MINERALES \nPRINCIPALES", "%", "MINERALES \nACCESORIOS", "%",
@@ -477,10 +499,8 @@ def llenar_fotos_micro(nombre_archivo):
     archivo.save(nombre_archivo)
 
 
-#archivo = Document()
-#llenar_inter_dinamico('./111.docx')
-#llenar_inter_plut('./111.docx')
-llenar_inter_regional('./111.docx')
+llenar_inter_dinamico("./test_tabla.docx")
+# archivo = Document()
 # tabla_macro = archivo.add_table(10,3)
 # imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(8,2))
 # parag = imagen.paragraphs[0]
