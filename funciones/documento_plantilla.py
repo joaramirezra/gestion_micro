@@ -179,6 +179,135 @@ def llenar_inter_plut(nombre_archivo):
     archivo.add_paragraph()
     archivo.save(nombre_archivo)
 
+def llenar_inter_volcanico(nombre_archivo):
+    archivo = Document(nombre_archivo)
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
+    archivo.add_paragraph()
+    lista=['Textura general:','Otras texturas o Texturas especiales:','Descripción de la matriz:']
+    for i in lista:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.bold = True
+        r1.underline= True
+        p1.add_run(" ")  
+    archivo.add_paragraph()
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% Vol.) - Colocar IGM ")
+    archivo.add_paragraph()
+    tabla_comp_volc= archivo.add_table(14,5)
+    tabla_comp_volc.style = 'TableGrid'
+    tabla_comp_volc.cell(1,0).merge(tabla_comp_volc.cell(1,4))
+    tabla_comp_volc.cell(5,0).merge(tabla_comp_volc.cell(5,4))
+    tabla_comp_volc.cell(8,0).merge(tabla_comp_volc.cell(8,4))
+    tabla_comp_volc.cell(11,0).merge(tabla_comp_volc.cell(11,1))
+    tabla_comp_volc.cell(11,2).merge(tabla_comp_volc.cell(11,4))
+    tabla_comp_volc.cell(12,2).merge(tabla_comp_volc.cell(13,4))
+    lista=['Componentes', 'Total en roca \n(% )','Fenocristal\n( ≥ 2 mm)',
+          'Microfenocristal\n(2 – 0,5mm)','Microcristal\n( < 0,5mm)']
+    for i in range (len(lista)):
+        if i==i:
+            a=tabla_comp_volc.cell(0,i).paragraphs[0] 
+            r1= a.add_run(lista [i])
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+    a=tabla_comp_volc.cell(1,0).paragraphs[0] 
+    r1= a.add_run('Minerales principales')
+    r1.bold = True  
+    a=tabla_comp_volc.cell(5,0).paragraphs[0] 
+    r1= a.add_run('Minerales accesorios')
+    r1.bold = True
+    a=tabla_comp_volc.cell(8,0).paragraphs[0] 
+    r1= a.add_run('Minerales de alteración')
+    r1.bold = True
+    a=tabla_comp_volc.cell(11,0).paragraphs[0] 
+    r1= a.add_run('Matriz:')
+    r1.bold = True
+    a=tabla_comp_volc.cell(11,2).paragraphs[0] 
+    r1= a.add_run('Observaciones:')
+    r1.bold = True
+    tabla_comp_volc.cell(12,0).text=('Fracción Criptocristalina')
+    tabla_comp_volc.cell(13,0).text=('Vidrio')
+    archivo.add_paragraph()
+    tabla_perc_volc= archivo.add_table(1,6)
+    tabla_perc_volc.style = 'TableGrid'
+    perc_vol= ['(%) de cristales:','(%) de matriz:','(%) de vesículas:']
+    contador=0
+    for i in range (6):
+        if i%2==0:
+            a=tabla_perc_volc.cell(0,i).paragraphs[0] 
+            r1= a.add_run(perc_vol[contador])
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+            contador+=1
+    archivo.add_paragraph()
+    clas_roc = archivo.add_paragraph()
+    run = clas_roc.add_run("CLASIFICACIÓN DE LA ROCA ")
+    run.bold = True
+    run.underline = True
+    r2 = clas_roc.add_run("(Basada en Streckeisen, 1978):")
+    r2.underline = True
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA DE MINERALES")
+    archivo.add_paragraph()
+    p1 = archivo.add_paragraph()
+    r1 = p1.add_run("Mineral 1:")
+    r1.bold = True
+    r1.underline = True
+    p1.add_run(" Descripción concisa y completa de rasgos generales y particulares," 
+                + "sin olvidar tamaño, forma, color, distribución, relaciones texturales, "
+                + "extinción, clivaje, etc")
+    archivo.add_paragraph()
+    archivo.add_heading("OBSERVACIONES")
+    archivo.add_paragraph()
+    
+    archivo.save(nombre_archivo)
+
+def llenar_inter_volcclas(nombre_archivo):
+    archivo=Document(nombre_archivo)
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
+    archivo.add_paragraph()
+    lista=['Textura general:','Otras texturas:','Descripción de la matriz:', 'Observaciones:']
+    for i in lista:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.bold = True
+        r1.underline= True
+        p1.add_run(" ")  
+    archivo.add_paragraph()
+    archivo.add_heading("COMPOSICIÓN (% Vol.) - Colocar IGM ")
+    archivo.add_paragraph()
+    tabla_comp_volcclas= archivo.add_table(19,3)
+    tabla_comp_volcclas.style = 'TableGrid'
+    for i in range (8):
+        tabla_comp_volcclas.cell(i,0).merge(tabla_comp_volcclas.cell(i,1))
+    tabla_comp_volcclas.cell(8,0).merge(tabla_comp_volcclas.cell(16,0))
+    tabla_comp_volcclas.cell(1,0).merge(tabla_comp_volcclas.cell(1,2))
+    tabla_comp_volcclas.cell(5,0).merge(tabla_comp_volcclas.cell(5,2))
+    tabla_comp_volcclas.cell(17,0).merge(tabla_comp_volcclas.cell(17,2))
+    tabla_comp_volcclas.cell(18,0).merge(tabla_comp_volcclas.cell(18,2))
+    tabla_comp_volcclas.cell(8,1).merge(tabla_comp_volcclas.cell(8,2))
+    tabla_comp_volcclas.cell(11,1).merge(tabla_comp_volcclas.cell(11,2))
+    tabla_comp_volcclas.cell(14,1).merge(tabla_comp_volcclas.cell(14,2))
+    a=tabla_comp_volcclas.cell(0,0).paragraphs[0] 
+    r1= a.add_run('Componentes')
+    r1.bold = True
+    a=tabla_comp_volcclas.cell(0,2).paragraphs[0] 
+    r1= a.add_run('Total en roca (%)')
+    r1.bold = True
+    mid= ['Juveniles','Accesorios','Accidentales']
+    contador=0
+    for i in range (7,13):
+        if i%2!=0:
+            a=tabla_comp_volcclas.cell(0,1).paragraphs[0] 
+            r1= a.add_run(mid[contador])
+            r1.bold = True
+            contador+=1
+    archivo.save(nombre_archivo)
+
+
 def llenar_inter_dinamico(nombre_archivo):
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
@@ -462,7 +591,6 @@ def llenar_inter_regional(nombre_archivo):
         r1.bold = True
         r1.underline = True
         p1.add_run(" ")
-
     clas_roc = archivo.add_paragraph()
     run = clas_roc.add_run("CLASIFICACIÓN DE LA ROCA ")
     run.bold = True
@@ -499,7 +627,7 @@ def llenar_fotos_micro(nombre_archivo):
     archivo.save(nombre_archivo)
 
 
-llenar_inter_dinamico("./test_tabla.docx")
+llenar_inter_volcclas("./test_tabla.docx")
 # archivo = Document()
 # tabla_macro = archivo.add_table(10,3)
 # imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(8,2))
