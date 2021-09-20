@@ -1,4 +1,5 @@
 from typing import Text
+from numpy import NaN, nan
 from docx import Document
 import docx
 import pandas as pd
@@ -564,7 +565,7 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph('(Grava + Arena + Lodo = 100%)')
     archivo.add_page_break()
     archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL" + '_' + 'Colocar IGM')
+    archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL" + ' - ' + 'Colocar IGM')
     archivo.add_paragraph()
     archivo.add_heading("TERRIGENOS" + '___'+ '(%)',3)
     archivo.add_paragraph()
@@ -651,10 +652,31 @@ def llenar_inter_silici(nombre_archivo):
 
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
+<<<<<<< Updated upstream
+=======
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
+    archivo.add_paragraph()
+    subs = ["Textura general:", "Otras texturas:", "Observaciones:"]
+    for i in subs:
+        p1 = archivo.add_paragraph()
+        r1 = p1.add_run(i)
+        r1.bold = True
+        r1.underline = True
+        p1.add_run(" ")
+        archivo.add_paragraph()
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = general.iloc[0]["igm"]
+    if igm == nan: igm = "IGM"
+>>>>>>> Stashed changes
     archivo.add_page_break()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '_' + 'Colocar IGM')
     archivo.add_paragraph()
+<<<<<<< Updated upstream
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
+=======
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - " + igm)
+>>>>>>> Stashed changes
     archivo.add_paragraph()
     lista= ['HOMOGENEIDAD DE LA ROCA:_____','ALOQUÍMICOS_____(%)']
     for i in lista:
@@ -687,9 +709,16 @@ def llenar_inter_calc(nombre_archivo):
         archivo.add_paragraph()    
         contador = contador +1 
     archivo.save(nombre_archivo)
+<<<<<<< Updated upstream
 
 
+=======
+  
+>>>>>>> Stashed changes
 def llenar_fotos_micro(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = general.iloc[0]["igm"]
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
     archivo.add_paragraph()
@@ -700,7 +729,8 @@ def llenar_fotos_micro(nombre_archivo):
     for i in range(rows_n):
         url_img1= micro_tab.iloc[i]["url_ppl"]
         url_img2= micro_tab.iloc[i][ "url_xpl"]
-        text = micro_tab.iloc[i][ "descrpcion_micro"]       
+        text = micro_tab.iloc[i][ "descrpcion_micro"] 
+        text = "IGM: " + igm + ". " + text      
         archivo = fill_fields(archivo,url_img1,url_img2,text)
     archivo.save(nombre_archivo)
 
