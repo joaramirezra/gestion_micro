@@ -36,7 +36,7 @@ def llenar_info_general():
     parametros.pop()
     parametros.insert(11,"")
     parametros = list(map(str, parametros))
-    #archivo = Document("./archivos/templates/template_1.docx")
+    #archivo = Document("./archivos/templates/template_1.docx") PREGUNTARLE A JOHAN
     archivo = Document()
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
@@ -299,12 +299,51 @@ def llenar_inter_volcclas(nombre_archivo):
     r1.bold = True
     mid= ['Juveniles','Accesorios','Accidentales']
     contador=0
-    for i in range (7,13):
-        if i%2!=0:
-            a=tabla_comp_volcclas.cell(0,1).paragraphs[0] 
+    for i in range (8,15):
+        if (i-8)%3==0:
+            a=tabla_comp_volcclas.cell(i,2).paragraphs[0] 
             r1= a.add_run(mid[contador])
             r1.bold = True
             contador+=1
+    bot= ['Cristales y Fragmentos cristalinos','Fragmentos vesiculados y vidrio','Fragmentos líticos    ']
+    contador=0
+    for i in range (1,12):
+        if (i-1)%4==0:
+            a=tabla_comp_volcclas.cell(i,0).paragraphs[0] 
+            r1= a.add_run(bot[contador])
+            r1.bold = True
+            contador+=1
+    a=tabla_comp_volcclas.cell(17,0).paragraphs[0] 
+    r1= a.add_run('Observaciones')
+    r1.bold = True
+    archivo.add_heading('Nota: Este formato se usará para la lámina delgada de la muestra de una ignimbrita' 
+    'o de la matriz de un depósito volcaniclástico. Para el caso de un fragmento lítico o pumítico,' 
+    'tomado de un depósito piroclástico, se usaría el formato de roca volcánica',4)
+    archivo.add_paragraph()
+    archivo.add_paragraph()
+    clas_roc = archivo.add_paragraph()
+    run = clas_roc.add_run("CLASIFICACIÓN DE LA MUESTRA ")
+    run.bold = True
+    run.underline = True
+    r2 = clas_roc.add_run("(Según criterios de campo, macroscópicos y microscópicos):")
+    r2.underline = True
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA LOS COMPONENTES")
+    archivo.add_paragraph()
+    p1 = archivo.add_paragraph()
+    r1 = p1.add_run("Nombre componente 1:")
+    r1.bold = True
+    r1.underline = True
+    r1.italic= True
+    p1.add_run(" Descripción concisa y completa de rasgos generales y particulares," 
+                + "sin olvidar tamaño, forma, color, distribución, relaciones texturales, "
+                + "extinción, clivaje, etc")
+    archivo.add_paragraph()
+    archivo.add_heading("OBSERVACIONES:")
+    archivo.add_heading('(Indicar rasgos particulares y especialmente aquellos que indiquen'
+                        'eventos que afectaron a la roca con posterioridad a su formación por ejemplo: '
+                        'intrusión de venillas, alteraciones hidrotermales, microfallamiento, recristalización '
+                        'térmica, deformación, etc. – Si ellos se dan en la muestra.) ',4)
+    archivo.add_paragraph()
     archivo.save(nombre_archivo)
 
 
@@ -390,6 +429,82 @@ def llenar_inter_dinamico(nombre_archivo):
 
     archivo.save(nombre_archivo)  
     
+def llenar_inter_regional(nombre_archivo):
+    archivo = Document(nombre_archivo)
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
+    archivo.add_paragraph()
+    subs = ["Textura general:", "Otras texturas:", "Observaciones:"]
+    for i in subs:
+        p1 = archivo.add_paragraph()
+        r1 = p1.add_run(i)
+        r1.bold = True
+        r1.underline = True
+        p1.add_run(" ")
+        archivo.add_paragraph()
+
+    archivo.add_page_break()
+    archivo.add_paragraph()
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - IGM")
+    archivo.add_paragraph()
+    rows = 12
+    tabla_perc = archivo.add_table(rows,6)
+    for i in range(rows):
+        for j in range(6):
+            if j % 2 != 0:
+                tabla_perc.cell(i,j).width = Cm(1)
+            else:
+                tabla_perc.cell(i,j).width = Cm(4)
+    for i in range(6):
+        if i%2 != 0:
+            colum = tabla_perc.columns[i]
+            colum.width = Cm(1)
+    tabla_perc.style =  'TableGrid'
+    cells = [0,1,2,3,4,4,0,2]
+    content = ["MINERALES \nPRINCIPALES", "%", "MINERALES \nACCESORIOS", "%",
+                "MINERALES DE ALTERACIÓN", "MINERALES DE INTRODUCCIÓN", "TOTAL", "TOTAL"]
+    
+    for i in range(len(cells)):
+        if i >5:
+            para = tabla_perc.cell(11,cells[i]).paragraphs[0]
+        elif i == 5:
+            para = tabla_perc.cell(6,cells[i]).paragraphs[0]
+        else:
+            para = tabla_perc.cell(0,cells[i]).paragraphs[0]
+        r1 = para.add_run(content[i])
+        r1.bold = True
+        
+    tabla_perc.cell(0,4).merge(tabla_perc.cell(0,5))
+    tabla_perc.cell(6,4).merge(tabla_perc.cell(6,5))
+    archivo.add_paragraph()
+    caracteristicas = ["PARAGÉNESIS:", "TIPO DE METAMORFÍSMO:",
+                       "FACIES DE METAMORFISMO:", "PROTOLITO:"]
+    for i in caracteristicas:
+        p1 = archivo.add_paragraph()
+        r1 = p1.add_run(i)
+        r1.bold = True
+        r1.underline = True
+        p1.add_run(" ")
+    clas_roc = archivo.add_paragraph()
+    run = clas_roc.add_run("CLASIFICACIÓN DE LA ROCA ")
+    run.bold = True
+    run.underline = True
+    r2 = clas_roc.add_run("(Basada en SSMR, 2007):")
+    r2.underline = True
+    clas_roc.add_run(" La clasificación")
+    archivo.add_paragraph()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA DE MINERALES")
+    archivo.add_paragraph()
+    p1 = archivo.add_paragraph()
+    r1 = p1.add_run("Mineral 1:")
+    r1.bold = True
+    r1.underline = True
+    p1.add_run(" Descripción concisa y completa de rasgos generales y particulares, "
+                + "sin olvidar tamaño, forma, color, distribución, relaciones texturales, "
+                + "extinción, clivaje, etc")
+    archivo.add_paragraph()
+    archivo.save(nombre_archivo)
+
 def llenar_inter_silici(nombre_archivo):
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
@@ -532,85 +647,48 @@ def llenar_inter_silici(nombre_archivo):
     z2=archivo.add_paragraph('Recristalización:')
     z1.bold= True
     z2.bold= True
-
     archivo.save(nombre_archivo)    
 
-def llenar_inter_regional(nombre_archivo):
+def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
-    archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
-    archivo.add_paragraph()
-    subs = ["Textura general:", "Otras texturas:", "Observaciones:"]
-    for i in subs:
-        p1 = archivo.add_paragraph()
-        r1 = p1.add_run(i)
-        r1.bold = True
-        r1.underline = True
-        p1.add_run(" ")
-        archivo.add_paragraph()
-
     archivo.add_page_break()
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '_' + 'Colocar IGM')
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - IGM")
+    archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
     archivo.add_paragraph()
-    rows = 12
-    tabla_perc = archivo.add_table(rows,6)
-    for i in range(rows):
-        for j in range(6):
-            if j % 2 != 0:
-                tabla_perc.cell(i,j).width = Cm(1)
-            else:
-                tabla_perc.cell(i,j).width = Cm(4)
-    for i in range(6):
-        if i%2 != 0:
-            colum = tabla_perc.columns[i]
-            colum.width = Cm(1)
-    tabla_perc.style =  'TableGrid'
-    cells = [0,1,2,3,4,4,0,2]
-    content = ["MINERALES \nPRINCIPALES", "%", "MINERALES \nACCESORIOS", "%",
-                "MINERALES DE ALTERACIÓN", "MINERALES DE INTRODUCCIÓN", "TOTAL", "TOTAL"]
-    
-    for i in range(len(cells)):
-        if i >5:
-            para = tabla_perc.cell(11,cells[i]).paragraphs[0]
-        elif i == 5:
-            para = tabla_perc.cell(6,cells[i]).paragraphs[0]
-        else:
-            para = tabla_perc.cell(0,cells[i]).paragraphs[0]
-        r1 = para.add_run(content[i])
+    lista= ['HOMOGENEIDAD DE LA ROCA:_____','ALOQUÍMICOS_____(%)']
+    for i in lista:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.italic = True
         r1.bold = True
-        
-    tabla_perc.cell(0,4).merge(tabla_perc.cell(0,5))
-    tabla_perc.cell(6,4).merge(tabla_perc.cell(6,5))
-    archivo.add_paragraph()
-    caracteristicas = ["PARAGÉNESIS:", "TIPO DE METAMORFÍSMO:",
-                       "FACIES DE METAMORFISMO:", "PROTOLITO:"]
-    for i in caracteristicas:
-        p1 = archivo.add_paragraph()
-        r1 = p1.add_run(i)
-        r1.bold = True
-        r1.underline = True
         p1.add_run(" ")
-    clas_roc = archivo.add_paragraph()
-    run = clas_roc.add_run("CLASIFICACIÓN DE LA ROCA ")
-    run.bold = True
-    run.underline = True
-    r2 = clas_roc.add_run("(Basada en SSMR, 2007):")
-    r2.underline = True
-    clas_roc.add_run(" La clasificación")
-    archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA DE MINERALES")
-    archivo.add_paragraph()
     p1 = archivo.add_paragraph()
-    r1 = p1.add_run("Mineral 1:")
-    r1.bold = True
-    r1.underline = True
-    p1.add_run(" Descripción concisa y completa de rasgos generales y particulares, "
-                + "sin olvidar tamaño, forma, color, distribución, relaciones texturales, "
-                + "extinción, clivaje, etc")
-    archivo.add_paragraph()
+    lista2= ['Bioclastos_____(%)','Tipo(s), rango de tamaño, selección y redondez:','Peloides _____(%)',
+             'Tamaño y origen:','Ooides_____(%)','Tamaño, forma, tipo y estructura interna:','Intraclastos _____(%)',
+             'Tamaño, redondez y selección:','Oncoides _____(%)','Tamaño, forma y estructura interna:',
+             'Otros Aloquímicos	_____(%)','Tipo(s), tamaño(s), forma(s) y porcentajes:','Terrígenos		(%)',
+             'Tipo(s), tamaño(s) y porcentaje(s):','Minerales Autigénicos _____(%)', 'Tipo(s), tamaño(s),'
+              'forma(s) y porcentajes:','Extraclastos (fragmentos de rocas carbonatadas) _____(%)',
+              'Tipo(s), tamaño(s), redondez y porcentajes:','ORTOQUÍMICOS _____(%)','Tipo(s), distribución'
+              'y porcentaje(s):','CEMENTO ESPARÍTICO: _____(%)','Tamaño de cristales, forma de cristales y distribución:']
+    contador = 0
+    for i in lista2: 
+        if contador %2 == 0:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            r1.italic = True
+            r1.bold = True
+            p1.add_run(" ")
+        else:
+            p1= archivo.add_paragraph()
+            r1= p1.add_run(i)
+            p1.add_run(" ")
+        archivo.add_paragraph()    
+        contador = contador +1 
     archivo.save(nombre_archivo)
-    
+
+
 def llenar_fotos_micro(nombre_archivo):
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
@@ -627,7 +705,7 @@ def llenar_fotos_micro(nombre_archivo):
     archivo.save(nombre_archivo)
 
 
-llenar_inter_volcclas("./test_tabla.docx")
+llenar_inter_calc("./test_tabla.docx")
 # archivo = Document()
 # tabla_macro = archivo.add_table(10,3)
 # imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(8,2))
