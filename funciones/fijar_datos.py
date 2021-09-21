@@ -1,4 +1,3 @@
-from PyQt5.sip import enableautoconversion
 from numpy import NaN, nan
 import pandas as pd
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -11,13 +10,19 @@ def Crear_Archivo(nombre_archivo):
   with open("./archivos/"+ nombre_archivo+'.csv','w+') as file :
     file.write(titulo)
 
+#-------------------------------------------------------------------------------
 def llenado_csv(archivo,datos):
+  '''
+  Llena los archivos temporales de un solo registro
+  '''
   if not validar_exitencia_archivo("./archivos/"+archivo+ ".csv"):
     Crear_Archivo(archivo)
 
   df = pd.read_csv("./archivos/"+ archivo + ".csv", sep = ";", encoding= "latin")
+  
   for i in datos:
     df[i] = datos[i]
+  
   df.to_csv("./archivos/" + archivo +".csv",encoding = "latin", sep=';',index=False)
 
 def navegar_archivos():
@@ -25,7 +30,12 @@ def navegar_archivos():
   return ruta_archivo[0] 
 
 def agregar_imagen():
+  '''
+  Funcion encargada de abrir el navegador de archivos para subir una foto al
+  programa
+  '''
   ruta_archivo = navegar_archivos()
+  # if(ruta_archivo.split('.')[-1] in ['jpg,jpeg,png.....'])
   imagen = QPixmap(ruta_archivo)
   imagen_escalada = imagen.scaled(500,250, QtCore.Qt.KeepAspectRatio)
   return ruta_archivo, imagen_escalada
@@ -98,7 +108,7 @@ def agregar_puntos(archivo, parametros):
   
   if(not validar_exitencia_archivo("./archivos/"+ archivo + ".csv")):
     Crear_Archivo(archivo)
-  if validar_simbolo(parametros[0][0]):
+  if validar_simbolo(parametros[0][0]): # valida que el simbolo este en lista
     mineral = traducir_simbolo(parametros[0][0])
     parametros[0][0] = mineral
     diccionario = dict(zip(archivos[archivo], parametros))

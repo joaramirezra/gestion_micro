@@ -1,3 +1,4 @@
+# Configuacion de entorno 
 from pandas.core import base
 from interfaz_grafica.interfaz_de_usuario import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -5,6 +6,8 @@ from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui import QPixmap
 from funciones.documento_plantilla import *
 from funciones.fijar_datos import *
+from PyQt5.QtWidgets import QMessageBox
+
 import sys
 
 
@@ -15,18 +18,17 @@ class interfaz(Ui_MainWindow):
     
     def setupUi( self, MW ):
         super().setupUi( MW )
-        
-        #self.MW.setsize(100,100) Holaaaa termina pls
         crear_los_archivos()
         #Inicialización de las cajas de conteo
         self.initial_box()
+        self.contar_puntos(55)
 
         # botones e input del tab general
         self.boton_guardar_calibracion.clicked.connect(self.calibracion_escala)
         self.boton_guardar_tipo_roca.clicked.connect(self.guardar_tipo_roca) 
         self.input_tipo_roca.currentTextChanged.connect(self.actualizar_despliegue)
         self.boton_agregar_mineral.clicked.connect(self.click_agregar)
-        self.boton_ver_lista.clicked.connect(self.lista_nueva)
+        # self.boton_ver_lista.clicked.connect(self.lista_nueva)
         self.boton_guardar_interprete.clicked.connect(self.interprete)
         self.boton_guardar_info_muestra.clicked.connect(self.info_muetra)
 
@@ -63,18 +65,47 @@ class interfaz(Ui_MainWindow):
 # tab general
 
     # calibración medidas
+#-------------------------------------------------------------------------------
     def calibracion_escala(self):
+        '''
+        Guardo los parametros de calibracion de objetivos del microscopio en el
+        archivo calibracion_escala.csv
+        '''
         reticulas = self.input_reticulas.value()
         reticulas = str(reticulas)
         milimetros = self.input_milimetros.value()
         milimetros = str(milimetros)
         objetivo = self.input_objetivo.value()
         objetivo = str(objetivo)
-        data = {"reticulas": [reticulas], "milimetros": [milimetros], "objetivo": [objetivo]}
-        llenado_csv("calibracion_escala", data)
-        
 
+        if (int(reticulas) != 0 and int(milimetros) != 0):
+            data = {"reticulas": [reticulas],
+                    "milimetros": [milimetros],
+                    "objetivo": [objetivo]}
+            llenado_csv("calibracion_escala", data)
+        else :
+            self.funcion_error_msg("Entrada invalida","Error de entrada",
+                                "Se ingreso milimetros o reticulas en cero")
+
+#-------------------------------------------------------------------------------
+    def funcion_error_msg(self,texto,error,detalles):
+        '''
+        Funcion encargada de desplegar mensajes de error personalizados
+        '''
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(texto)
+        msg.setWindowTitle(error)
+        msg.setDetailedText(detalles)
+        msg.exec_()
+
+#-------------------------------------------------------------------------------
     def click_agregar(self):
+        '''
+        Guarda la combinacion simbolo mineral en el archivo temporal 
+        Diccionario_simbolos.csv
+        '''
+        
         simbolo = self.input_simbolo.text()
         mineral = self.input_mineral_config.text()
         if not validar_exitencia_archivo("./archivos/Diccionario_simbolos.csv"):
@@ -84,50 +115,65 @@ class interfaz(Ui_MainWindow):
             self.input_mineral_config.clear()
             self.label_error.setText ('El mineral fue agregado exitosamente')
         elif simbolo == "":
-            self.label_error.setText ('Por favor ingrese un simbolo')
+            self.funcion_error_msg("Casilla Vacia","Error de entrada", "")
         else:
-            self.label_error.setText ('El mineral ya existe')
-
+            self.funcion_error_msg("'El mineral ya existe'","Error de entrada","")
             
-
-
+#-------------------------------------------------------------------------------
     def info_muetra(self):
-        igm = self.input_igm.text()
-        #self.input_igm.clear()
+        '''
+        Funcion que recopila la informacion contenida en el panel de informacion
+        de la muestra, y guarda la informacion en un archivo temporal llamado
+        current_general.csv 
+        '''
+        
+        igm = self.input_igm.text() # igm : indice general de muestra
         numero_campo= self.input_n_campo.text()
-        #self.input_n_campo.clear()
         unidad_lito= self.input_unidad_lito.text()
-        #self.input_unidad_lito.clear()
-        localidad= self.input_localidad.text()
-        #self.input_localidad.clear()
         departamento= self.input_departamento.text()
-        #self.input_departamento.clear()
+        localidad= self.input_localidad.text()
         municipio= self.input_municipio.text()
-        #self.input_municipio.clear()
         plancha= self.input_plancha.text()
-        #self.input_plancha.clear()
         escala= self.input_escala.text()
-        #self.input_escala.clear()
         origen_coor= self.input_origen.text()
-        #self.input_origen.clear()
         coor_x= self.input_coor_x.text()
-        #self.input_coor_x.clear()
-        coor_y= self.input_coor_y.text()
-        #self.input_coor_y.clear()
         colector= self.input_colector.text()
-        #self.input_colector.clear()
+        coor_y= self.input_coor_y.text()
         fecha_recol= self.input_fecha_recolec.text()
-        #self.input_fecha_recolec.clear()
         cantidad_p= self.input_cantidad_puntos.text()
-        #self.input_cantidad_puntos.clear()
-        data = {"igm": [igm],"numero_campo": [numero_campo], "unidad_lito": unidad_lito,"localidad": [localidad],
-                "departamento": [departamento], "municipio": [municipio], "plancha" : [plancha], "escala" : [escala],
-                "coor_x":[coor_x], "origen_coor" : [origen_coor], "coor_y": [coor_y],"colector": [colector], 
+
+        data = {"igm": [igm],"numero_campo": [numero_campo],
+                "unidad_lito": unidad_lito,"localidad": [localidad],
+                "departamento": [departamento], "municipio": [municipio],
+                "plancha" : [plancha], "escala" : [escala],
+                "coor_x":[coor_x], "origen_coor" : [origen_coor],
+                "coor_y": [coor_y],"colector": [colector], 
                 "fecha_recol": [fecha_recol], "cantidad_p": [cantidad_p]}
 
         llenado_csv("current_general",data)
 
+        #self.input_cantidad_puntos.clear()
+        #self.input_fecha_recolec.clear()
+        #self.input_igm.clear()
+        #self.input_n_campo.clear()
+        #self.input_unidad_lito.clear()
+        #self.input_localidad.clear()
+        #self.input_departamento.clear()
+        #self.input_municipio.clear()
+        #self.input_plancha.clear()
+        #self.input_escala.clear()
+        #self.input_origen.clear()
+        #self.input_coor_x.clear()
+        #self.input_coor_y.clear()
+        #self.input_colector.clear()
+    
+#-------------------------------------------------------------------------------
     def actualizar_despliegue(self):
+        '''
+        Cuando se selecciona un tipo de roca esta funcion permite la seleccion
+        automatica del subtipo dado 
+        '''
+
         self.input_subtipo_roca.clear()
         if self.input_tipo_roca.currentText() == "Sedimentaria":
             list = ["Siliciclástica", "Calcárea"]
@@ -142,21 +188,36 @@ class interfaz(Ui_MainWindow):
             for i in list:
                 self.input_subtipo_roca.addItem(i) 
 
-    def lista_nueva(self):
-        a = None
-        # Crear_Archivo("./archivos/lista_simbolos_minerales.csv", ['Simbolo', 'Mineral' ])
+    # def lista_nueva(self):
+    #     a = None
+    #     Crear_Archivo("./archivos/lista_simbolos_minerales.csv", ['Simbolo', 'Mineral' ])
 
+#-------------------------------------------------------------------------------
     def interprete(self):
+        '''
+        Guarda el nombre y fecha de interpretacion en el archivo temporal 
+        current_general.csv
+        '''
         nombre = self.input_nombre_interprete.text()
         fecha = self.input_fecha_analisis.text()
+
         data = {"Intemprete": [nombre] , "Fecha_interp": [fecha]}
         llenado_csv("current_general",data)
+        self.guardar_tipo_roca()
 
+#-------------------------------------------------------------------------------
     def guardar_tipo_roca(self):
+        '''
+        Guarda el tipo y subtipo de roca en el archivo temporal
+        current_general.csv
+        '''
 
         subtipo_r = self.input_subtipo_roca.currentText()
         tipo_r = self.input_tipo_roca.currentText()
         
+        # A partir de la seleccion de tipo y subtipo se actualizan los campos 
+        # desplegados (mostrados) en la pestaña 2 y 3
+
         if subtipo_r == "Siliciclástica":
             self.hide_boxes()
             self.frame_siliciclastica.setVisible(True)
@@ -181,29 +242,51 @@ class interfaz(Ui_MainWindow):
             self.hide_boxes()
             self.frame_regional.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-        elif subtipo_r == "Dinámico":
+        else: # subTpo dinamico
             self.hide_boxes()
             self.frame_dinamico.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
+
         data = {"Tipo_r": [tipo_r],"Subt_r": [subtipo_r]}
         llenado_csv("current_general", data)
 
     #tab marco
+#-------------------------------------------------------------------------------
     def cargar_foto_macro(self):
+        ''' 
+        se encarga de realizar la lectura de las rutas de los archivos para 
+        posteriormente mostralor en la interfaz grafica 
+        '''
+
         ruta, foto = agregar_imagen()
         self.label_foto_macro.setPixmap(foto)
         data = {"url_foto": [ruta]}
-        general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+
+        general = pd.read_csv("./archivos/current_general.csv",
+                               sep = ";", encoding= "latin")
+
         if general["Tipo_r"][0] != "Sedimentaria":
             llenado_csv("current_macro", data)
         else:
             llenado_csv("current_macro_sed", data)
 
+#-------------------------------------------------------------------------------
+    def contar_puntos(self,numero):
+        '''
+        configura ( setea ) el numero dentro del lcd display
+        '''
+        self.output_contador.setProperty('value',numero)
+
+#-------------------------------------------------------------------------------
     def cargar_escala(self):
+        '''
+        Colocar descripcion
+        '''
         ruta, foto = agregar_imagen()
         self.label_escala_macro.setPixmap(foto)
         data = {"url_escala": [ruta]}
-        general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
+        general = pd.read_csv("./archivos/current_general.csv", 
+                              sep = ";", encoding= "latin")
         if general["Tipo_r"][0] != "Sedimentaria":
             llenado_csv("current_macro", data)
         else:
@@ -332,7 +415,6 @@ class interfaz(Ui_MainWindow):
             self.input_din_observa.clear()
         else:
             print("Simbolo incorrecto")
-
 
     # funcion regional
     def siguiente_regional(self):
@@ -533,6 +615,7 @@ def main():
     ui = interfaz()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    # app.exec_()
     sys.exit(app.exec_())
 
 main()

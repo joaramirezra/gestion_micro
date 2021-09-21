@@ -37,7 +37,7 @@ def llenar_info_general():
     parametros.pop()
     parametros.insert(11,"")
     parametros = list(map(str, parametros))
-    #archivo = Document("./archivos/templates/template_1.docx") PREGUNTARLE A JOHAN
+    # archivo = Document("./archivos/templates/template_1.docx") PREGUNTARLE A JOHAN
     archivo = Document()
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
@@ -652,8 +652,7 @@ def llenar_inter_silici(nombre_archivo):
 
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
-<<<<<<< Updated upstream
-=======
+
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
     archivo.add_paragraph()
@@ -668,15 +667,10 @@ def llenar_inter_calc(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = general.iloc[0]["igm"]
     if igm == nan: igm = "IGM"
->>>>>>> Stashed changes
     archivo.add_page_break()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '_' + 'Colocar IGM')
     archivo.add_paragraph()
-<<<<<<< Updated upstream
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
-=======
-    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - " + igm)
->>>>>>> Stashed changes
     archivo.add_paragraph()
     lista= ['HOMOGENEIDAD DE LA ROCA:_____','ALOQUÍMICOS_____(%)']
     for i in lista:
@@ -709,12 +703,7 @@ def llenar_inter_calc(nombre_archivo):
         archivo.add_paragraph()    
         contador = contador +1 
     archivo.save(nombre_archivo)
-<<<<<<< Updated upstream
-
-
-=======
   
->>>>>>> Stashed changes
 def llenar_fotos_micro(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = general.iloc[0]["igm"]
@@ -735,7 +724,7 @@ def llenar_fotos_micro(nombre_archivo):
     archivo.save(nombre_archivo)
 
 
-llenar_inter_calc("./test_tabla.docx")
+# llenar_inter_calc("./test_tabla.docx")
 # archivo = Document()
 # tabla_macro = archivo.add_table(10,3)
 # imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(8,2))
