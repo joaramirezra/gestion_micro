@@ -5,32 +5,85 @@ import numpy as np
 import pandas as pd
 import ternary as tr
 
-micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
-reticulas = micro_carac.iloc[0]["reticulas"]
-mili = micro_carac.iloc[0]["milimetros"]
-escala = mili / reticulas
+def calculo_escala():
+    micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
+    reticulas = micro_carac.iloc[0]["reticulas"]
+    mili = micro_carac.iloc[0]["milimetros"]
+    escala = mili / reticulas
+    return escala
 
-limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
-sizes = ["Boloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
-         "Arena media", "Arena fina", "Arena muy fina", "Limo grueso", "Limo medio", 
-         "Limo fino", "Limo muy fino", "Arcilla", "Coloide"]
 
 def traduccion_grano(milimetros):
+    limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
+    sizes = ["Boloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
+            "Arena media", "Arena fina", "Arena muy fina", "Limo grueso", "Limo medio", 
+            "Limo fino", "Limo muy fino", "Arcilla", "Coloide"]
     for i in range(len(sizes)):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
 def seleccion_conteo():
     general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
 
-    if general["Subt_r"][0] == "Siliciclástica": conteo = pd.read_csv("./archivos/Conteo_siliciclasticas,csv", sep = ";", encoding= "latin")
+    if general["Subt_r"][0] == "Siliciclástica": conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Calcárea": conteo = pd.read_csv("./archivos/Conteo_calcareas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Regional o de Contacto": conteo = pd.read_csv("./archivos/Conteo_regionales.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Dinámico": conteo = pd.read_csv("./archivos/Conteo_dinamicas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Plutónica": conteo = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
-    elif general["Subt_r"][0] == "Volcanoclástica": conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
+    else: conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
     return conteo
 
+
+def simplificacion_conteo():
+    conteo = seleccion_conteo()
+    escala = calculo_escala()
+    conteo["milimetros"] = conteo["Size"] * escala
+    conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
+    df = conteo[["Mineral","milimetros",'nombres_grano']]
+
+    promedio_total = df['milimetros'].apply('mean')
+    av_size = traduccion_grano(promedio_total)
+    df.dropna(inplace=True)
+    tam = df.shape[0]
+    df.groupby('nombres_grano')['milimetros'].count()/tam
+
+    gravas = ["Boloque", "Guijo", "Guijarro", "Granulo"]
+    arena = ["Arena muy gruesa", "Arena gruesa", "Arena media", "Arena fina", "Arena muy fina"]
+    lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
+    arcilla = ["Arcilla"]
+
+    reducir_grava = lambda x : 'GRAVA' if (x in gravas) else x
+    reducir_arena = lambda x : 'ARENA' if (x in arena) else x
+    reducir_lodo = lambda x : "LODO" if (x in lodo) else x
+    reducir_limo = lambda x : "LIMO" if (x in lodo) else x
+    upcase = lambda x : x.upper()
+
+    df['nombres_grano'] = df['nombres_grano'].apply(reducir_grava)
+    df['nombres_grano'] = df['nombres_grano'].apply(reducir_arena)
+    if (df['nombres_grano'] == "GRAVA").sum() > 0:
+        df['nombres_grano'] = df['nombres_grano'].apply(reducir_lodo)
+        
+    else:
+        df['nombres_grano'] = df['nombres_grano'].apply(reducir_limo)
+        df['nombres_grano'] = df['nombres_grano'].apply(upcase)
+
+    tam = df.shape[0]
+    percs = []
+    var = df.groupby('nombres_grano')['milimetros'].count()/tam
+    names = df["nombres_grano"].unique().tolist()
+    names.sort()
+    for i in range(len(var)):
+        percs.append(var[i])
+    data = dict(zip(names,percs))
+    print(var)
+    print(data)
+
+
+
+
+
+
+simplificacion_conteo()
 
 def intersec(line_ini,line_end,corte):
     if len(line_ini) < 3:
@@ -416,6 +469,6 @@ muestras_QAP  = [[99.07,0.93,"DCF-007PA"], [71.43,28.57,"DCF-0013PA"],
                 ]
 
 
-streck76_QAP(*muestras_QAP)
+# streck76_QAP(*muestras_QAP)
 # for muestra in muestras_QAP:
 #     streck76_QAP(muestra)
