@@ -278,7 +278,7 @@ def llenar_inter_volcclas(nombre_archivo):
         r1.underline= True
         p1.add_run(" ")  
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN (% Vol.) - Colocar IGM ")
+    archivo.add_heading("COMPOSICIÓN (% Vol.) - IGM ")
     archivo.add_paragraph()
     tabla_comp_volcclas= archivo.add_table(19,3)
     tabla_comp_volcclas.style = 'TableGrid'
@@ -652,23 +652,11 @@ def llenar_inter_silici(nombre_archivo):
 
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
-
-    archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
-    archivo.add_paragraph()
-    subs = ["Textura general:", "Otras texturas:", "Observaciones:"]
-    for i in subs:
-        p1 = archivo.add_paragraph()
-        r1 = p1.add_run(i)
-        r1.bold = True
-        r1.underline = True
-        p1.add_run(" ")
-        archivo.add_paragraph()
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = general.iloc[0]["igm"]
     if igm == nan: igm = "IGM"
     archivo.add_page_break()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '_' + 'Colocar IGM')
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '-' + 'IGM')
     archivo.add_paragraph()
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
     archivo.add_paragraph()
@@ -687,7 +675,11 @@ def llenar_inter_calc(nombre_archivo):
              'Tipo(s), tamaño(s) y porcentaje(s):','Minerales Autigénicos _____(%)', 'Tipo(s), tamaño(s),'
               'forma(s) y porcentajes:','Extraclastos (fragmentos de rocas carbonatadas) _____(%)',
               'Tipo(s), tamaño(s), redondez y porcentajes:','ORTOQUÍMICOS _____(%)','Tipo(s), distribución'
-              'y porcentaje(s):','CEMENTO ESPARÍTICO: _____(%)','Tamaño de cristales, forma de cristales y distribución:']
+              'y porcentaje(s):','CEMENTO ESPARÍTICO: _____(%)','Tamaño de cristales, forma de cristales y '
+              'distribución:','SOPORTE DE LA ROCA:','Granos- aloquímicos _____%	Lodo calcáreo o micrita	_____% ',
+              'CONTACTO ENTRE GRANOS:','Flotante_____% Tangencial_____% \n Longitudinal_____ %'	
+              'Cóncavo-convexo_____ %	Suturado_____%','POROSIDAD:_____%','Primaria:_____%	Secundaria:_____% \n'
+              'Tipo(s), origen y descripción:']
     contador = 0
     for i in lista2: 
         if contador %2 == 0:
@@ -699,9 +691,27 @@ def llenar_inter_calc(nombre_archivo):
         else:
             p1= archivo.add_paragraph()
             r1= p1.add_run(i)
-            p1.add_run(" ")
-        archivo.add_paragraph()    
+            p1.add_run(" ")   
         contador = contador +1 
+    archivo.add_paragraph()
+    archivo.add_heading('CLASIFICACIÓN DE LA ROCA –  IGM:')
+    archivo.add_paragraph()
+    lista3=['Folk (1962):', 'Dunham (1962):', 'Gama textural de Folk (1962):'] 
+    for i in lista3:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.italic = True
+        r1.bold = True
+        p1.add_run(" ") 
+    archivo.add_paragraph()
+    archivo.add_heading('DIAGÉNESIS:')
+    lista4=['Autigénesis:' , 'Recristalización: ']
+    for i in lista4:
+        p1= archivo.add_paragraph()
+        r1= p1.add_run(i)
+        r1.italic = True
+        r1.bold = True
+        p1.add_run(" ") 
     archivo.save(nombre_archivo)
   
 def llenar_fotos_micro(nombre_archivo):

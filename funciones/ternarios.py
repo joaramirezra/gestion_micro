@@ -15,7 +15,7 @@ def calculo_escala():
 
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
-    sizes = ["Boloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
+    sizes = ["Bloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
             "Arena media", "Arena fina", "Arena muy fina", "Limo grueso", "Limo medio", 
             "Limo fino", "Limo muy fino", "Arcilla", "Coloide"]
     for i in range(len(sizes)):
@@ -23,7 +23,6 @@ def traduccion_grano(milimetros):
             return sizes[i]
 def seleccion_conteo():
     general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
-
     if general["Subt_r"][0] == "Siliciclástica": conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Calcárea": conteo = pd.read_csv("./archivos/Conteo_calcareas.csv", sep = ";", encoding= "latin")
     elif general["Subt_r"][0] == "Regional o de Contacto": conteo = pd.read_csv("./archivos/Conteo_regionales.csv", sep = ";", encoding= "latin")
@@ -40,7 +39,6 @@ def simplificacion_conteo():
     conteo["milimetros"] = conteo["Size"] * escala
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
     df = conteo[["Mineral","milimetros",'nombres_grano']]
-
     promedio_total = df['milimetros'].apply('mean')
     av_size = traduccion_grano(promedio_total)
     df.dropna(inplace=True)
