@@ -706,7 +706,7 @@ def llenar_inter_calc(nombre_archivo):
   
 def llenar_fotos_micro(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
-    igm = general.iloc[0]["igm"]
+    igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
