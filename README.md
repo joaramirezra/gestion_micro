@@ -18,9 +18,9 @@ posee los campos necesarios para poder identificar las caracteristicas macroscop
 
 # Colaboradores
 
-[milton](github.com/masantoss)
-[johan](github.com/joaramirezra)
-[elrolo](github.com/ivanfelipep)
+- [Milton](github.com/masantoss)
+- [Johan](github.com/joaramirezra)
+- [Elrolo](github.com/ivanfelipep)
 
 # Pasos
 1. Cambiarse a la rama de johan (git checkout johan)
