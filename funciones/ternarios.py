@@ -48,7 +48,6 @@ def simplificacion_conteo():
     gravas = ["Boloque", "Guijo", "Guijarro", "Granulo"]
     arena = ["Arena muy gruesa", "Arena gruesa", "Arena media", "Arena fina", "Arena muy fina"]
     lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
-    arcilla = ["Arcilla"]
 
     reducir_grava = lambda x : 'GRAVA' if (x in gravas) else x
     reducir_arena = lambda x : 'ARENA' if (x in arena) else x
