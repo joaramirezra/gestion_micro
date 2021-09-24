@@ -105,6 +105,9 @@ def llenar_macro(nombre_archivo):
 
 
 def llenar_inter_plut(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
@@ -125,7 +128,6 @@ def llenar_inter_plut(nombre_archivo):
         archivo.add_paragraph()
     archivo.add_page_break()
     archivo.add_paragraph()
-    igm = "IGM"
     archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% VOL) - " + igm)
     archivo.add_paragraph()
     rows = 12
@@ -181,6 +183,9 @@ def llenar_inter_plut(nombre_archivo):
     archivo.save(nombre_archivo)
 
 def llenar_inter_volcanico(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
@@ -193,7 +198,7 @@ def llenar_inter_volcanico(nombre_archivo):
         r1.underline= True
         p1.add_run(" ")  
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% Vol.) - Colocar IGM ")
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (% Vol.) - " + igm)
     archivo.add_paragraph()
     tabla_comp_volc= archivo.add_table(14,5)
     tabla_comp_volc.style = 'TableGrid'
@@ -266,6 +271,9 @@ def llenar_inter_volcanico(nombre_archivo):
     archivo.save(nombre_archivo)
 
 def llenar_inter_volcclas(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo=Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
@@ -278,7 +286,7 @@ def llenar_inter_volcclas(nombre_archivo):
         r1.underline= True
         p1.add_run(" ")  
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN (% Vol.) - IGM ")
+    archivo.add_heading("COMPOSICIÓN (% Vol.) - " + igm)
     archivo.add_paragraph()
     tabla_comp_volcclas= archivo.add_table(19,3)
     tabla_comp_volcclas.style = 'TableGrid'
@@ -349,6 +357,9 @@ def llenar_inter_volcclas(nombre_archivo):
 
 
 def llenar_inter_dinamico(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
@@ -368,7 +379,7 @@ def llenar_inter_dinamico(nombre_archivo):
     archivo.add_paragraph('Frágil _____')
     archivo.add_paragraph('Dúctil_____  Grado: Bajo	_____Medio_____Alto_____')
     archivo.add_paragraph()
-    archivo.add_heading('ASPECTOS COMPOSICIONALES___ IGM',2)
+    archivo.add_heading('ASPECTOS COMPOSICIONALES - ' + igm,2)
     archivo.add_paragraph()
     tabla_comp_din= archivo.add_table(10,10)
     tabla_comp_din.cell(0,0).merge(tabla_comp_din.cell(1,0))
@@ -431,6 +442,9 @@ def llenar_inter_dinamico(nombre_archivo):
     archivo.save(nombre_archivo)  
     
 def llenar_inter_regional(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA")
@@ -446,7 +460,7 @@ def llenar_inter_regional(nombre_archivo):
 
     archivo.add_page_break()
     archivo.add_paragraph()
-    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - IGM")
+    archivo.add_heading("COMPOSICIÓN MINERALÓGICA (%Vol) - " + igm)
     archivo.add_paragraph()
     rows = 12
     tabla_perc = archivo.add_table(rows,6)
@@ -507,10 +521,13 @@ def llenar_inter_regional(nombre_archivo):
     archivo.save(nombre_archivo)
 
 def llenar_inter_silici(nombre_archivo):
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    igm = str(general.iloc[0]["igm"])
+    if igm == nan: igm = "IGM"
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
     archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA" + '_' + 'Colocar IGM')
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA - "  + igm)
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN TEXTURAL",2)
     archivo.add_paragraph()
@@ -565,7 +582,7 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph('(Grava + Arena + Lodo = 100%)')
     archivo.add_page_break()
     archivo.add_paragraph()
-    archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL" + ' - ' + 'Colocar IGM')
+    archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL - "  + igm)
     archivo.add_paragraph()
     archivo.add_heading("TERRIGENOS" + '___'+ '(%)',3)
     archivo.add_paragraph()
@@ -653,10 +670,10 @@ def llenar_inter_silici(nombre_archivo):
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
-    igm = general.iloc[0]["igm"]
+    igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
     archivo.add_page_break()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA " + '-' + 'IGM')
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA - "  + igm)
     archivo.add_paragraph()
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
     archivo.add_paragraph()
@@ -694,7 +711,7 @@ def llenar_inter_calc(nombre_archivo):
             p1.add_run(" ")   
         contador = contador +1 
     archivo.add_paragraph()
-    archivo.add_heading('CLASIFICACIÓN DE LA ROCA –  IGM:')
+    archivo.add_heading('CLASIFICACIÓN DE LA ROCA – ' + igm +":")
     archivo.add_paragraph()
     lista3=['Folk (1962):', 'Dunham (1962):', 'Gama textural de Folk (1962):'] 
     for i in lista3:

@@ -10,6 +10,14 @@ def Crear_Archivo(nombre_archivo):
   with open("./archivos/"+ nombre_archivo+'.csv','w+') as file :
     file.write(titulo)
 
+def contar_puntos(archivo):
+  '''
+  configura ( setea ) el numero dentro del lcd display
+  '''
+  df = pd.read_csv("./archivos/"+ archivo + ".csv", sep=";", encoding= "latin")
+  rows = df.shape[0]
+  return rows
+
 #-------------------------------------------------------------------------------
 def llenado_csv(archivo,datos):
   '''
