@@ -141,10 +141,11 @@ def guardar_csv():
   elif general["Subt_r"][0] == "Plutónica": conteo = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
   elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
   elif general["Subt_r"][0] == "Volcanoclástica": conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
+  micro = pd.read_csv("./archivos/current_micro.csv", sep= ";", encoding="latin")
   name = str(general["numero_campo"][0])
   nombre_archivo = QFileDialog.getSaveFileName(directory= name,filter= " csv (*.csv)")[0]
   conteo.to_csv(nombre_archivo,encoding= "latin", sep=';',index=False)
-  opciones = ["_macro", "_general"]
+  opciones = ["_macro", "_general","_micro"]
   for i in opciones:
     print(i)
     lista = nombre_archivo.split("/")
@@ -156,6 +157,7 @@ def guardar_csv():
     ruta_mac = "/".join(lista)
     if i == "_macro": macro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
     elif i == "_general" : general.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+    else: micro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
 
 
 # def agregar_punto_siliciclastica(simbolo,size,rendondez,esfericidad,tipo_contacto,observaciones):
