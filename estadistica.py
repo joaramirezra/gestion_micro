@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 def calculo_escala():
     micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
     reticulas = micro_carac.iloc[0]["reticulas"]
