@@ -66,7 +66,7 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
                                      'Tipo_contacto',"Tipo_fragmento",'observaciones'],
               "Conteo_dinamicas": ["Mineral","Tipo", "Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
               "Conteo_regionales": ["Mineral","Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
-             'Diccionario_simbolos':['Simbolo','Mineral'],
+             'Diccionario_simbolos':['Simbolo','Mineral', "tipo", "subtipo", "subtipo_2" ],
              "current_general" : ["igm","numero_campo",  "unidad_lito", "localidad",  "departamento","municipio", "plancha",
                                   "escala","coor_x", "origen_coor", "coor_y","colector", "fecha_recol", "Intemprete", "Fecha_interp", 
                                   "cantidad_p", "Tipo_r", "Subt_r"],
@@ -79,7 +79,10 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
 
 def crear_los_archivos():
   for archivo in archivos :
-    titulo = ";".join(archivos[archivo])+'\n'
+    if archivo == 'Diccionario_simbolos':
+      continue
+    else:
+      titulo = ";".join(archivos[archivo])+'\n'
 
     with open( "./archivos/" +archivo+'.csv','w+') as file :
       file.write(titulo)
