@@ -44,6 +44,7 @@ class interfaz(Ui_MainWindow):
         self.boton_vol_clas_siguiente_p.clicked.connect(self.siguiente_vol_clas)
         self.boton_reg_siguiente_p.clicked.connect(self.siguiente_regional)
         self.boton_din_siguiente_p.clicked.connect(self.siguiente_dinamico)
+        self.boton_continuar_conteo.clicked.connect(self.continuar)
 
         # Observaciones sedimentarias y metamorficas
         self.boton_guardar_observaciones_gen.clicked.connect(self.observaciones)
@@ -559,6 +560,10 @@ class interfaz(Ui_MainWindow):
         self.input_size_relat_ig.setCurrentText("---------------")
         self.input_size_absol_ig.setCurrentText("---------------")
         self.input_textura_ig.setCurrentText("---------------")
+    
+    def continuar(self):
+        archivo = continuar_conteo()
+        self.output_contador.setProperty('value',contar_puntos(archivo))
 
     # funciones cargar fotos micro
     def cargar_ppl(self):

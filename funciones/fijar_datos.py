@@ -77,6 +77,25 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
               "current_micro": ["url_ppl", "url_xpl", "descrpcion_micro"],
               'auxiliar_micro': ["url_ppl", "url_xpl", "descrpcion_micro"]}
 
+def continuar_conteo():
+  url =  QFileDialog.getOpenFileName()[0]
+  if url != "":
+    general = pd.read_csv("./archivos/current_general.csv", sep=";", encoding= "latin")
+    prev = pd.read_csv(url, sep=";", encoding="latin")
+    if general["Subt_r"][0] == "Siliciclástica": archivo = "Conteo_siliciclasticas"
+    elif general["Subt_r"][0] == "Calcárea": archivo = "Conteo_calcareas"
+    elif general["Subt_r"][0] == "Regional o de Contacto": archivo = "Conteo_regionales"
+    elif general["Subt_r"][0] == "Dinámico": archivo = "Conteo_dinamicas"
+    elif general["Subt_r"][0] == "Plutónica": archivo = "Conteo_plutonicas"
+    elif general["Subt_r"][0] == "Volcánica": archivo = "Conteo_volcanicas"
+    else: archivo = "Conteo_volcanoclasticas"
+    prev.to_csv("./archivos/" + archivo + ".csv", sep = ";", encoding= "latin", index = False)
+    return archivo
+  else:
+    pass
+
+
+
 def crear_los_archivos():
   for archivo in archivos :
     if archivo == 'Diccionario_simbolos':
