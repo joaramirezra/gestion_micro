@@ -490,7 +490,6 @@ class interfaz(Ui_MainWindow):
         observaciones=[(self.input_plut_observa.toPlainText())]
         parametros = [mineral, size, forma, genesis, observaciones]
         if agregar_puntos(archivo, parametros):
-
             self.input_plut_mineral.clear()
             self.input_plut_size.setValue(0)
             self.input_plut_forma.setCurrentText("---------------")
