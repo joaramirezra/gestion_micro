@@ -7,7 +7,6 @@ from PyQt5.QtGui import QPixmap
 from funciones.documento_plantilla import *
 from funciones.fijar_datos import *
 from PyQt5.QtWidgets import QMessageBox
-
 import sys
 
 
@@ -21,6 +20,7 @@ class interfaz(Ui_MainWindow):
         crear_los_archivos()
         #Inicialización de las cajas de conteo
         self.initial_box()
+        self.contar_puntos(1)
 
         # botones e input del tab general
         self.boton_guardar_calibracion.clicked.connect(self.calibracion_escala)
@@ -104,7 +104,6 @@ class interfaz(Ui_MainWindow):
         Guarda la combinacion simbolo mineral en el archivo temporal 
         Diccionario_simbolos.csv
         '''
-        
         simbolo = self.input_simbolo.text()
         mineral = self.input_mineral_config.text()
         if not validar_exitencia_archivo("./archivos/Diccionario_simbolos.csv"):
@@ -221,37 +220,30 @@ class interfaz(Ui_MainWindow):
             self.hide_boxes()
             self.frame_siliciclastica.setVisible(True)
             self.frame_descripcion_macro_sed.setVisible(True)
-            self.frame_observaciones.setVisible(True)
         elif subtipo_r == "Calcárea":
             self.hide_boxes()
             self.frame_calcarea.setVisible(True)
             self.frame_descripcion_macro_sed.setVisible(True)
-            self.frame_observaciones.setVisible(True)
         elif subtipo_r == "Plutónica":
             self.hide_boxes()
             self.frame_pluton.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-            self.frame_observaciones_ig.setVisible(True)
         elif subtipo_r == "Volcánica":
             self.hide_boxes()
             self.frame_volcanica.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-            self.frame_observaciones_ig.setVisible(True)
         elif subtipo_r == "Volcanoclástica":
             self.hide_boxes()
             self.frame_volcanoclastica.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-            self.frame_observaciones_ig.setVisible(True)
         elif subtipo_r == "Regional o de Contacto":
             self.hide_boxes()
             self.frame_regional.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-            self.frame_observaciones.setVisible(True)
         else: # subTpo dinamico
             self.hide_boxes()
             self.frame_dinamico.setVisible(True)
             self.frame_descripcion_macro_ot.setVisible(True)
-            self.frame_observaciones.setVisible(True)
 
         data = {"Tipo_r": [tipo_r],"Subt_r": [subtipo_r]}
         llenado_csv("current_general", data)
@@ -277,7 +269,11 @@ class interfaz(Ui_MainWindow):
             llenado_csv("current_macro_sed", data)
 
 #-------------------------------------------------------------------------------
-
+    def contar_puntos(self,numero):
+        '''
+        configura ( setea ) el numero dentro del lcd display
+        '''
+        self.output_contador.setProperty('value',numero)
 
 #-------------------------------------------------------------------------------
     def cargar_escala(self):
@@ -395,8 +391,6 @@ class interfaz(Ui_MainWindow):
         self.frame_dinamico.setVisible(False)
         self.frame_descripcion_macro_ot.setVisible(False)
         self.frame_descripcion_macro_sed.setVisible(False)
-        self.frame_observaciones.setVisible(False)
-        self.frame_observaciones_ig.setVisible(False)
 
     # funcion dinamico
     def siguiente_dinamico(self):
@@ -411,15 +405,14 @@ class interfaz(Ui_MainWindow):
         parametros = [mineral, tipo, size, forma, borde, geometria, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_din_mineral.clear()
-            self.input_din_tipo.setCurrentText("---------------")
+            self.input_din_tipo.setCurrentText("Porfiroclásto")
             self.input_din_size.setValue(0)
-            self.input_din_forma.setCurrentText("---------------")
-            self.input_din_borde.setCurrentText("---------------")
-            self.input_din_geometria.setCurrentText("---------------")
+            self.input_din_forma.setCurrentText("Ideoblástico")
+            self.input_din_borde.setCurrentText("Recto")
+            self.input_din_geometria.setCurrentText("Poligonal")
             self.input_din_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
 
     # funcion regional
     def siguiente_regional(self):
@@ -434,13 +427,12 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_reg_mineral.clear()
             self.input_reg_size.setValue(0)
-            self.input_reg_forma.setCurrentText("---------------")
-            self.input_reg_borde.setCurrentText("---------------")
-            self.input_reg_geometria.setCurrentText("---------------")
+            self.input_reg_forma.setCurrentText("Ideoblástico")
+            self.input_reg_borde.setCurrentText("Recto")
+            self.input_reg_geometria.setCurrentText("Poligonal")
             self.input_reg_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
     # funcion volcanoclastica
     def siguiente_vol_clas(self):
         archivo = "Conteo_volcanoclasticas"
@@ -455,14 +447,13 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_vol_clas_mineral.clear()
             self.input_vol_clas_size.setValue(0)
-            self.input_vol_clas_redond.setCurrentText("---------------")
-            self.input_vol_clas_esfer.setCurrentText("---------------")
-            self.input_vol_clas_contacto.setCurrentText("---------------")
-            self.input_vol_clas_tipo_frag.setCurrentText("---------------")
+            self.input_vol_clas_redond.setCurrentText("Angular")
+            self.input_vol_clas_esfer.setCurrentText("Elongado")
+            self.input_vol_clas_contacto.setCurrentText("Tangencial")
+            self.input_vol_clas_tipo_frag.setCurrentText("Cristales y fragmentos cristalinos")
             self.input_vol_clas_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
 
     # funcion volcanica
     def siguiente_volcanica(self):
@@ -475,11 +466,10 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_vol_mineral.clear()
             self.input_vol_size.clear()
-            self.input_vol_forma.setCurrentText("---------------")
+            self.input_vol_forma.setCurrentText("Euhedral")
             self.input_vol_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
     #funcion plutonico
     def siguiente_pluton(self):
         archivo = "Conteo_plutonicas"
@@ -492,12 +482,11 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_plut_mineral.clear()
             self.input_plut_size.setValue(0)
-            self.input_plut_forma.setCurrentText("---------------")
-            self.input_plut_gene.setCurrentText("---------------")
+            self.input_plut_forma.setCurrentText("Euhedral")
+            self.input_plut_gene.setCurrentText("Primario")
             self.input_plut_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
 
     #funcion calcarea
     def siguiente_calc(self):
@@ -512,13 +501,12 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_cal_mineral.clear()
             self.input_cal_size.setValue(0)
-            self.input_cal_redond.setCurrentText("---------------")
-            self.input_cal_esfer.setCurrentText("---------------")
-            self.input_cal_contacto.setCurrentText("---------------")
+            self.input_cal_redond.setCurrentText("Angular")
+            self.input_cal_esfer.setCurrentText("Elongado")
+            self.input_cal_contacto.setCurrentText("Tangencial")
             self.input_cal_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto")
 
     #funcion siliciclastica
     def siguiente_silici(self):
@@ -533,13 +521,12 @@ class interfaz(Ui_MainWindow):
         if agregar_puntos(archivo, parametros):
             self.input_sil_mineral.clear()
             self.input_sil_size.setValue(0)
-            self.input_sil_redond.setCurrentText("---------------")
-            self.input_sil_esfer.setCurrentText("---------------")
-            self.input_sil_contacto.setCurrentText("---------------")
+            self.input_sil_redond.setCurrentText("Angular")
+            self.input_sil_esfer.setCurrentText("Elongado")
+            self.input_sil_contacto.setCurrentText("Tangencial")
             self.input_sil_observa.clear()
-            self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("simbolo incorrecto")
+            self.funcion_error_msg("simbolo incorrecto")
 
     #funcion observaciones sedimentarias y metamorficas
     def observaciones(self):
@@ -555,9 +542,9 @@ class interfaz(Ui_MainWindow):
         print(self.input_observaciones_gen_ig.toPlainText())
         self.input_observaciones_gen_ig.clear()
         self.input_indice_c.clear()
-        self.input_size_relat_ig.setCurrentText("---------------")
-        self.input_size_absol_ig.setCurrentText("---------------")
-        self.input_textura_ig.setCurrentText("---------------")
+        self.input_size_relat_ig.setCurrentText("Equigranular")
+        self.input_size_absol_ig.setCurrentText("Ultra fino")
+        self.input_textura_ig.setCurrentText("Holocristalina")
 
     # funciones cargar fotos micro
     def cargar_ppl(self):
