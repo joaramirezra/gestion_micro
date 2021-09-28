@@ -11,7 +11,8 @@ def calculo_escala():
     mili = micro_carac.iloc[0]["milimetros"]
     escala = mili / reticulas
     return escala
-
+limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
+print(limites_size)
 
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
@@ -72,10 +73,21 @@ def simplificacion_conteo():
     for i in range(len(var)):
         percs.append(var[i])
     data = dict(zip(names,percs))
-    print(var)
-    print(data)
 
-simplificacion_conteo()
+def grano_critalinas(milimetros):
+    sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
+    limites_size = [4096,16,4,1,0.1, 0.01, 0]
+    for i in range(len(sizes)):
+        if limites_size[i] >= milimetros > limites_size[i+1]:
+            return sizes[i]
+
+def simplificacion_comp():
+    conteo = seleccion_conteo()
+    df = conteo[["Mineral"],["Size"]]
+    df.dropna(inplace=True)
+    tam = df.shape[0]
+
+
 
 def intersec(line_ini,line_end,corte):
     if len(line_ini) < 3:
@@ -107,12 +119,15 @@ def streck76_QAP(*puntos):
     tax.left_corner_label("A", Fontsize = 18 , position = (-0.02,0.05,0))
     tax.right_corner_label("P", Fontsize = 18, position=(0.97,0.05,0))
     tax.top_corner_label("Q", Fontsize = 18, offset = 0.18)
+    
+
     coordenadas = [[2,95],[12.5,75],[2.5,30],
                 [16,30],[35,30],[55,30],
                 [65,30],[5,10],[20,10],
                 [45,10],[70,10],[85,10],
                 [5,2],[22,2],[50,2],
-                [76,2],[91,2]]
+                [76,2],[91,2]
+                ]
 
     for indice , coordenada in enumerate(coordenadas):
         tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
@@ -138,6 +153,8 @@ def streck76_QAP(*puntos):
 15- Monzonita
 16- Monzodiorita o Monzogabro
 17- Diorita, Gabro o Anortosita'''
+
+
     tax.annotate(indices, position=(35, 100,0),
                 size=9, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
@@ -162,6 +179,7 @@ def streck76_ol_2px(*puntos):
     tax.left_parallel_line(90)
     tax.horizontal_line(90)
     tax.right_parallel_line(90)
+
     tax.ticks( multiple=10)
     tax.line([5,90],[90,5])
     tax.line([5,5],[5,90])
@@ -174,7 +192,8 @@ def streck76_ol_2px(*puntos):
     coordenadas = [[2,95],[2.5,60],[20,60],
                 [37,60],[2.5,20],[40,20],
                 [77,20],[3,2.5],[47,2.5],
-                [93,2.5]]
+                [93,2.5]
+                ]
 
     for indice , coordenada in enumerate(coordenadas):
         tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
@@ -189,6 +208,8 @@ def streck76_ol_2px(*puntos):
 8- Ortopiroxenita
 9- Websterita
 10- Clinopiroxenita'''
+
+
     tax.annotate(indices, position=(40, 100,0),
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
@@ -208,6 +229,7 @@ def streck76_ol_anf_px(*puntos):
     tax.left_parallel_line(90)
     tax.horizontal_line(90)
     tax.right_parallel_line(90)
+
     tax.ticks( multiple=10)
     tax.line([5,90],[90,5])
     tax.line([5,5],[5,90])
