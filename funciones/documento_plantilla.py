@@ -673,7 +673,7 @@ def llenar_inter_calc(nombre_archivo):
     igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
     archivo.add_page_break()
-    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA - "  + str(igm))
+    archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA - "  + igm)
     archivo.add_paragraph()
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
     archivo.add_paragraph()
@@ -711,7 +711,7 @@ def llenar_inter_calc(nombre_archivo):
             p1.add_run(" ")   
         contador = contador +1 
     archivo.add_paragraph()
-    archivo.add_heading('CLASIFICACIÓN DE LA ROCA – ' + str(igm) +":")
+    archivo.add_heading('CLASIFICACIÓN DE LA ROCA – ' + igm +":")
     archivo.add_paragraph()
     lista3=['Folk (1962):', 'Dunham (1962):', 'Gama textural de Folk (1962):'] 
     for i in lista3:
@@ -746,7 +746,7 @@ def llenar_fotos_micro(nombre_archivo):
         url_img1= micro_tab.iloc[i]["url_ppl"]
         url_img2= micro_tab.iloc[i][ "url_xpl"]
         text = micro_tab.iloc[i][ "descrpcion_micro"] 
-        text = "IGM: " + str(igm) + ". " + text      
+        text = "IGM: " + igm + ". " + text      
         archivo = fill_fields(archivo,url_img1,url_img2,text)
     archivo.save(nombre_archivo)
 
