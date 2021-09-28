@@ -243,9 +243,9 @@ color: rgb(238, 238, 236);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>350</y>
-        <width>241</width>
-        <height>171</height>
+        <y>310</y>
+        <width>261</width>
+        <height>231</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -282,89 +282,112 @@ lista de minerales</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="boton_agregar_mineral">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>110</y>
-         <width>75</width>
-         <height>23</height>
+         <x>3</x>
+         <y>40</y>
+         <width>251</width>
+         <height>178</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Agregar</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="boton_ver_lista">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>110</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Ver lista</string>
-       </property>
-      </widget>
-      <widget class="QSplitter" name="splitter_9">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>231</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <widget class="QSplitter" name="splitter_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <widget class="QLabel" name="label_simbolo">
-         <property name="text">
-          <string>Simbolo</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="input_simbolo"/>
-       </widget>
-       <widget class="QSplitter" name="splitter_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <widget class="QLabel" name="label_mineral_config">
-         <property name="text">
-          <string>Mineral</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="input_mineral_config"/>
-       </widget>
-      </widget>
-      <widget class="QLabel" name="label_error">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>140</y>
-         <width>221</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
-       </property>
-       <property name="text">
-        <string>error</string>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QLabel" name="label_mineral_config">
+            <property name="text">
+             <string>Mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_simbolo"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
+          <item>
+           <widget class="QLabel" name="label_simbolo">
+            <property name="text">
+             <string>Simbolo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="input_mineral_config"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_2"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_44">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_3"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_45">
+          <item>
+           <widget class="QPushButton" name="boton_agregar_mineral">
+            <property name="text">
+             <string>Agregar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="boton_ver_lista">
+            <property name="text">
+             <string>Ver lista</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
      <widget class="QWidget" name="frame_informacion" native="true">
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>170</y>
+        <y>150</y>
         <width>591</width>
         <height>331</height>
        </rect>
@@ -6360,7 +6383,7 @@ color: rgb(238, 238, 236);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>170</y>
+        <y>150</y>
         <width>251</width>
         <height>151</height>
        </rect>
@@ -6477,6 +6500,22 @@ color: rgb(238, 238, 236);</string>
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QLabel" name="label_error">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>500</y>
+        <width>221</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>error</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="macro">
