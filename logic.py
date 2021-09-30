@@ -408,7 +408,7 @@ class interfaz(Ui_MainWindow):
         forma= [(self.input_din_forma.currentText())]
         borde= [(self.input_din_borde.currentText())]
         geometria= [(self.input_din_geometria.currentText())]
-        observaciones= [(self.input_din_observa.toPlainText())]
+        observaciones= [(self.input_din_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, tipo, size, forma, borde, geometria, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_din_mineral.clear()
@@ -430,7 +430,7 @@ class interfaz(Ui_MainWindow):
         forma= [(self.input_reg_forma.currentText())]
         borde= [(self.input_reg_borde.currentText())]
         geometria= [(self.input_reg_geometria.currentText())]
-        observaciones= [(self.input_reg_observa.toPlainText())]
+        observaciones= [(self.input_reg_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, forma, borde, geometria, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_reg_mineral.clear()
@@ -451,7 +451,7 @@ class interfaz(Ui_MainWindow):
         esfericidad= [(self.input_vol_clas_esfer.currentText())]
         t_contacto= [(self.input_vol_clas_contacto.currentText())]
         t_fragmento= [(self.input_vol_clas_tipo_frag.currentText())]
-        observaciones= [(self.input_vol_clas_observa.toPlainText())]
+        observaciones= [(self.input_vol_clas_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, redondez, esfericidad, t_contacto, t_fragmento, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_vol_clas_mineral.clear()
@@ -471,7 +471,7 @@ class interfaz(Ui_MainWindow):
         mineral= [(self.input_vol_mineral.text())]
         size= [(self.input_vol_size.value())]
         forma= [(self.input_vol_forma.currentText())]
-        observaciones= [(self.input_vol_observa.toPlainText())]
+        observaciones= [(self.input_vol_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, forma, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_vol_mineral.clear()
@@ -488,7 +488,7 @@ class interfaz(Ui_MainWindow):
         size=[(self.input_plut_size.value())]
         forma=[(self.input_plut_forma.currentText())]
         genesis=[(self.input_plut_gene.currentText())]
-        observaciones=[(self.input_plut_observa.toPlainText())]
+        observaciones=[(self.input_plut_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, forma, genesis, observaciones]
         if agregar_puntos(archivo, parametros):
 
@@ -509,7 +509,7 @@ class interfaz(Ui_MainWindow):
         redondez= [(self.input_cal_redond.currentText())]
         esfericidad= [(self.input_cal_esfer.currentText())]
         t_contacto= [(self.input_cal_contacto.currentText())]
-        observaciones= [(self.input_cal_observa.toPlainText())]
+        observaciones= [(self.input_cal_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, redondez, esfericidad, t_contacto, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_cal_mineral.clear()
@@ -530,7 +530,7 @@ class interfaz(Ui_MainWindow):
         redondez =[(self.input_sil_redond.currentText())]
         esfericidad = [(self.input_sil_esfer.currentText())]
         t_contacto = [(self.input_sil_contacto.currentText())]
-        observaciones = [(self.input_sil_observa.toPlainText())]
+        observaciones = [(self.input_sil_observa.toPlainText().replace("\n"," "))]
         parametros = [mineral, size, redondez, esfericidad, t_contacto, observaciones]
         if agregar_puntos(archivo, parametros):
             self.input_sil_mineral.clear()
@@ -545,7 +545,7 @@ class interfaz(Ui_MainWindow):
 
     #funcion observaciones sedimentarias y metamorficas
     def observaciones(self):
-        print(self.input_observaciones_gen.toPlainText())
+        print(self.input_observaciones_gen.toPlainText().replace("\n"," "))
         self.input_observaciones_gen.clear()
 
     #funcion observaciones igneas
@@ -554,7 +554,7 @@ class interfaz(Ui_MainWindow):
         print(self.input_size_absol_ig.currentText())
         print(self.input_textura_ig.currentText())
         print(self.input_indice_c.value())
-        print(self.input_observaciones_gen_ig.toPlainText())
+        print(self.input_observaciones_gen_ig.toPlainText().replace("\n"," "))
         self.input_observaciones_gen_ig.clear()
         self.input_indice_c.clear()
         self.input_size_relat_ig.setCurrentText("---------------")
@@ -579,13 +579,17 @@ class interfaz(Ui_MainWindow):
         llenado_csv('auxiliar_micro',data)
 
     def guardar_descripcion_micro(self):
-        descripcion  = self.input_descripcion_fotos_micro.toPlainText()
+        descripcion  = self.input_descripcion_fotos_micro.toPlainText().replace("\n"," ")
         data = {"descrpcion_micro": [descripcion]}
         llenado_csv('auxiliar_micro',data)
-        self.input_descripcion_fotos_micro.clear()
-        self.label_micro_xpl.clear()
-        self.label_micro_ppl.clear()
-        stack_micro_data()
+        aux = pd.read_csv("./archivos/auxiliar_micro.csv", sep= ";", encoding= "latin")
+        if not aux.isnull().sum().sum():
+            self.input_descripcion_fotos_micro.clear()
+            self.label_micro_xpl.clear()
+            self.label_micro_ppl.clear()
+            stack_micro_data()
+        else:
+            self.funcion_error_msg("Ingrese ambas fotos y una descripción","Error de entrada","")
 
     # exportaciones
     def export_csv(self):
