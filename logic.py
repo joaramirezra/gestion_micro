@@ -1,4 +1,5 @@
 # Configuacion de entorno 
+from numpy import isinf
 from pandas.core import base
 from interfaz_grafica.interfaz_de_usuario import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -30,6 +31,7 @@ class interfaz(Ui_MainWindow):
         # self.boton_ver_lista.clicked.connect(self.lista_nueva)
         self.boton_guardar_interprete.clicked.connect(self.interprete)
         self.boton_guardar_info_muestra.clicked.connect(self.info_muetra)
+        self.input_tipo_mineral.currentTextChanged.connect(self.actual_despli_calibracion)
 
         #tab macro
         self.boton_cargar_foto.clicked.connect(self.cargar_foto_macro)
@@ -192,6 +194,34 @@ class interfaz(Ui_MainWindow):
     #     a = None
     #     Crear_Archivo("./archivos/lista_simbolos_minerales.csv", ['Simbolo', 'Mineral' ])
 
+
+    def actual_despli_calibracion(self):
+        '''
+        
+        '''
+        self.input_subt_mineral.clear()
+        lista= ['Formador de roca' , 'Accesorio','Alteración', 'Introducción','Ortoquímicos','Cemento Esparítico',
+                'Materia Orgánica', 'Porfiroclástos','Matriz']
+        for elemento in lista:
+            if self.input_tipo_mineral.currentText() == elemento:
+                list = []
+                for i in list:
+                    self.input_subt_mineral.addItem(i)
+            elif self.input_tipo_mineral.currentText() == 'Aloquímicos':
+                list = ['Bioclástos','Peloides','Ooides','Intraclastos','Oncoides','Otros aloquímicos','Terrígenos'
+                        'Minerales autigénicos','Extraclastos']
+                for i in list:
+                    self.input_subt_mineral.addItem(i)
+            elif self.input_tipo_mineral.currentText() == 'Terrígenos':
+                list = ['Qz mono','Qz poli','Feldespato potásico','Feldespato sódico-cálcico','Micas',
+                        'Minerales de arcilla','Aloquímicos','Otros Terrígenos','Opacos']
+                for i in list:
+                    self.input_subt_mineral.addItem(i)
+            elif self.input_tipo_mineral.currentText() == 'Líticos':
+                list = ['Líticos Metamórficos','Líticos Volcánicos','Líticos Plutónicos','Líticos Sedimentarios']
+                for i in list:
+                    self.input_subt_mineral.addItem(i)
+            
 #-------------------------------------------------------------------------------
     def interprete(self):
         '''
