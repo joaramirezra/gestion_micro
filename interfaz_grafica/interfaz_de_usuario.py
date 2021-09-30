@@ -3443,7 +3443,7 @@ class Ui_MainWindow(object):
         self.Label_reticulas.setText(_translate("MainWindow", "Cantidad reticulas"))
         self.label_milimetros.setText(_translate("MainWindow", "Cantidad de milímetros"))
         self.boton_guardar_calibracion.setText(_translate("MainWindow", "Fijar calibración"))
-        self.label_error.setText(_translate("MainWindow", "error"))
+        self.label_error.setText(_translate("MainWindow", "error 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.general), _translate("MainWindow", "General"))
         self.titulo_descripcion_macro_sed.setText(_translate("MainWindow", "Descripción macroscópica"))
         self.label_mac_tipo_roca.setText(_translate("MainWindow", "Tipo de roca"))

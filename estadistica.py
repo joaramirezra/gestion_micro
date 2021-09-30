@@ -83,6 +83,8 @@ def simplificacion_comp():
     df.dropna(inplace=True)
     tam = df.shape[0]
 
+    
+
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
 # minerales = [mineral[random.randint(0,11)] for x in range (10000)]
