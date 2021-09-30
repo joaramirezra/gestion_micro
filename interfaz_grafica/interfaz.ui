@@ -323,28 +323,200 @@ lista de minerales</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="label_tipo_mineral">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Tipo</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_2"/>
+           <widget class="QComboBox" name="input_tipo_mineral">
+            <item>
+             <property name="text">
+              <string>Formador de roca</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Accesorio</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Alteración</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Introducción</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Aloquímicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ortoquímicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cemento esparítico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Terrígenos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Líticos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Materia orgánica</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Porfiroclástos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Matriz</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_44">
           <item>
-           <widget class="QLabel" name="label_9">
+           <widget class="QLabel" name="label_subt_mineral">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Subtipo1</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_3"/>
+           <widget class="QComboBox" name="input_subt_mineral">
+            <item>
+             <property name="text">
+              <string>Bioclástos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Peloides</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ooides</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Intraclastos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Oncoides</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Otros aloquímicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Terrígenos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Minerales Autigénicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Extraclastos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Qz mono</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Qz poli</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Feldespato potásico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Feldespato sódico-cálcico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Micas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Minerales de arcilla</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Aloquímicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Otros Terrígenos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Opacos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Líticos Metamórficos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Líticos Volcánicos</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Líticos Plutónicos </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Líticos Sedimentarios</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
@@ -353,7 +525,7 @@ lista de minerales</string>
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Subtipo 2</string>
             </property>
            </widget>
           </item>
