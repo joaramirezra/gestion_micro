@@ -94,8 +94,6 @@ def continuar_conteo():
   else:
     pass
 
-
-
 def crear_los_archivos():
   for archivo in archivos :
     if archivo == 'Diccionario_simbolos':
@@ -122,13 +120,13 @@ def traducir_simbolo(simbolo):
   mask = lista_minerales['Simbolo'] == simbolo
   return lista_minerales[mask]['Mineral'].values[0]
 
-def agregar_elemento(simbolo,mineral):
+def agregar_elemento(simbolo,mineral,tipo, subtipo_1):
   df = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
   if simbolo == "":
     return False
   elif not (validar_simbolo(simbolo)):
     df2 = pd.DataFrame({'Simbolo':[simbolo],
-           'Mineral':[mineral]})
+           'Mineral':[mineral],'Tipo':[tipo], 'Subtipo':[subtipo_1]})
     df = pd.concat([df,df2])
     df.to_csv("./archivos/Diccionario_simbolos.csv", encoding= "latin" ,sep = ";", index = False)
     return True
