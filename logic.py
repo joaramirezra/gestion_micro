@@ -110,12 +110,17 @@ class interfaz(Ui_MainWindow):
         
         simbolo = self.input_simbolo.text()
         mineral = self.input_mineral_config.text()
+        tipo= self.input_tipo_mineral.currentText()
+        subtipo_1= self.input_subt_mineral.currentText()
+    
         if not validar_exitencia_archivo("./archivos/Diccionario_simbolos.csv"):
             Crear_Archivo("Diccionario_simbolos")
-        if agregar_elemento(simbolo, mineral):
+        if agregar_elemento(simbolo, mineral,tipo, subtipo_1):
             self.input_simbolo.clear()
             self.input_mineral_config.clear()
-            self.label_error.setText ('El mineral fue agregado exitosamente')
+            self.input_tipo_mineral.clear()
+            self.input_subt_mineral.clear()
+            self.funcion_error_msg("El mineral fue agregado correctamente","Confirmación", "")
         elif simbolo == "":
             self.funcion_error_msg("Casilla Vacia","Error de entrada", "")
         else:
