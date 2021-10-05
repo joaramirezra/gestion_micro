@@ -6673,22 +6673,6 @@ color: rgb(238, 238, 236);</string>
        </layout>
       </widget>
      </widget>
-     <widget class="QLabel" name="label_error">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>500</y>
-        <width>221</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
-      </property>
-      <property name="text">
-       <string>error 1</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="macro">
      <attribute name="title">
