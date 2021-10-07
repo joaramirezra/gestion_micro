@@ -293,11 +293,11 @@ lista de minerales</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
           <item>
-           <widget class="QLabel" name="label_mineral_config">
+           <widget class="QLabel" name="label_simbolo">
             <property name="text">
-             <string>Mineral</string>
+             <string>Simbolo</string>
             </property>
            </widget>
           </item>
@@ -307,11 +307,11 @@ lista de minerales</string>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_25">
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
           <item>
-           <widget class="QLabel" name="label_simbolo">
+           <widget class="QLabel" name="label_mineral_config">
             <property name="text">
-             <string>Simbolo</string>
+             <string>Mineral</string>
             </property>
            </widget>
           </item>
@@ -331,6 +331,11 @@ lista de minerales</string>
           </item>
           <item>
            <widget class="QComboBox" name="input_tipo_mineral">
+            <item>
+             <property name="text">
+              <string>---------------</string>
+             </property>
+            </item>
             <item>
              <property name="text">
               <string>Formador de roca</string>
@@ -406,6 +411,11 @@ lista de minerales</string>
           </item>
           <item>
            <widget class="QComboBox" name="input_subt_mineral">
+            <item>
+             <property name="text">
+              <string>---------------</string>
+             </property>
+            </item>
             <item>
              <property name="text">
               <string>Bioclástos</string>
@@ -530,7 +540,13 @@ lista de minerales</string>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="input_subt2_mineral">
+            <item>
+             <property name="text">
+              <string>---------------</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
