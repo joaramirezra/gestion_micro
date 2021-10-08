@@ -210,11 +210,11 @@ class interfaz(Ui_MainWindow):
         '''
         self.input_tipo_mineral.clear()
         if self.input_subtipo_roca.currentText() == "Siliciclástica":
-            lista = ["---------------"]
+            lista = ["---------------", "Terrigeno", "Lítico", "Materia Organica", "Cemento", "Otros ortoquímicos"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         elif self.input_subtipo_roca.currentText() == "Calcárea":
-            lista = ["---------------", "Aloquímico", "Ortoquímico", "Cemento esparítico"]
+            lista = ["---------------", "Aloquímico", "Ortoquímico", "Cemento esparítico", "Porosidad"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         
@@ -234,11 +234,11 @@ class interfaz(Ui_MainWindow):
                 self.input_tipo_mineral.addItem(i)
 
         elif self.input_subtipo_roca.currentText() == "Dinámico":
-            lista = ["---------------", "Something", "1"]
+            lista = ["---------------", "Porfiroclásto", "Matriz", "Secundario"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         else:
-            lista = ["---------------"]
+            lista = ["---------------", "Principal", "Accesorio", "Alteración", "Introducción"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
 
@@ -249,8 +249,31 @@ class interfaz(Ui_MainWindow):
         
         '''
         self.input_subt_mineral.clear()
-        if self.input_tipo_mineral.currentText() == "Something":
-            lista = ["---------------", "2"]
+        if self.input_tipo_mineral.currentText() == "Aloquímico":
+            lista = ["---------------", "Bioclastos", "Peloides", "Ooides", "Intraclastos", "Oncoides",
+                     "Otros aloquímicos", "Terrígenos", "Minerales autigénicos", "Extraclastos"]
+            for i in lista:
+                self.input_subt_mineral.addItem(i)
+        elif self.input_tipo_mineral.currentText() == "Porosidad": 
+            lista = ["---------------", "Primaria", "Secundaria"]
+
+        elif self.input_tipo_mineral.currentText() == "Terrigeno":
+            lista = ["---------------", "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato Potásico", "Feldespato Na - Ca",
+                     "Mica", "Mineral arcilloso", "Grano aloquímico", "Otros terrigenos", "Opaco"]
+            for i in lista:
+                self.input_subt_mineral.addItem(i)
+        elif self.input_tipo_mineral.currentText() == "Lítico":
+            lista = ["---------------", "Volcánico", "Plutónico", "Metamórfico", "Sedimentario"]
+            for i in lista:
+                self.input_subt_mineral.addItem(i)
+
+        elif self.input_tipo_mineral.currentText() == "Matriz" and self.input_subtipo_roca.currentText() == "Dinámico":
+            lista = ["---------------", "Relíctica", "Neo-formada"]
+            for i in lista:
+                self.input_subt_mineral.addItem(i)
+        
+        elif self.input_tipo_mineral.currentText() == "Secundario" and self.input_subtipo_roca.currentText() == "Dinámico":
+            lista = ["---------------", "Alteración", "Introducción"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
         else:
