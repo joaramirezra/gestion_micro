@@ -118,7 +118,7 @@ def validar_simbolo(simbolo):
 def traducir_simbolo(simbolo):
   lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
   mask = lista_minerales['Simbolo'] == simbolo
-  return lista_minerales[mask]['Mineral'].values[0]
+  return (lista_minerales[mask]['Mineral'].values[0])
 
 def agregar_elemento(simbolo,mineral,tipo, subtipo_1):
   df = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
@@ -138,7 +138,10 @@ def agregar_puntos(archivo, parametros):
     Crear_Archivo(archivo)
   if validar_simbolo(parametros[0][0]): # valida que el simbolo este en lista
     mineral = traducir_simbolo(parametros[0][0])
+    # tipo= traducir_tipo(parametros [0][0])
+    # subtipo= traducir_subtipo(parametros [0][0])
     parametros[0][0] = mineral
+    parametros.append([tipo,subtipo])
     diccionario = dict(zip(archivos[archivo], parametros))
     data = pd.read_csv("./archivos/"+archivo+".csv",sep=';', encoding= "latin")
     punto = pd.DataFrame(diccionario)
