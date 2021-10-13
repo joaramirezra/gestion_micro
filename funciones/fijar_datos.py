@@ -120,6 +120,16 @@ def traducir_simbolo(simbolo):
   mask = lista_minerales['Simbolo'] == simbolo
   return (lista_minerales[mask]['Mineral'].values[0])
 
+def traducir_tipo(tipo):
+  tipos = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
+  mask = tipos['tipo'] == tipo
+  return (tipos[mask]['tipo'].values[0])
+
+def traducir_subtipo(subtipo):
+  subtipos = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
+  mask = subtipos['subtipo_1'] == subtipo
+  return (subtipos[mask]['Mineral'].values[0])
+
 def agregar_elemento(simbolo,mineral,tipo, subtipo_1):
   df = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
   if simbolo == "":
@@ -138,8 +148,8 @@ def agregar_puntos(archivo, parametros):
     Crear_Archivo(archivo)
   if validar_simbolo(parametros[0][0]): # valida que el simbolo este en lista
     mineral = traducir_simbolo(parametros[0][0])
-    # tipo= traducir_tipo(parametros [0][0])
-    # subtipo= traducir_subtipo(parametros [0][0])
+    tipo= traducir_tipo(parametros [0][0])
+    subtipo= traducir_subtipo(parametros [0][0])
     parametros[0][0] = mineral
     parametros.append([tipo,subtipo])
     diccionario = dict(zip(archivos[archivo], parametros))
