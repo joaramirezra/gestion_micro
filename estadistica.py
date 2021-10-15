@@ -7,9 +7,9 @@ def calculo_escala():
     mili = micro_carac.iloc[0]["milimetros"]
     escala = mili / reticulas
     return escala
+
 limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
 print(limites_size)
-
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
     sizes = ["Bloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
@@ -28,7 +28,6 @@ def seleccion_conteo():
     elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
     else: conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
     return conteo
-
 
 def simplificacion_conteo():
     conteo = seleccion_conteo()
@@ -82,9 +81,11 @@ def simplificacion_comp():
     df = conteo[["Mineral"],["Size"]]
     df.dropna(inplace=True)
     tam = df.shape[0]
+    return tam 
 
+def perc_comp ():
+    conteo = seleccion_conteo()
     
-
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
 # minerales = [mineral[random.randint(0,11)] for x in range (10000)]

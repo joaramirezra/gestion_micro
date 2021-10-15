@@ -57,16 +57,18 @@ def stack_micro_data():
   base.to_csv("./archivos/current_micro.csv", encoding= "latin" ,sep = ";", index = False)
 
 archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad',
-                                     'tipo_contacto','observaciones'],
+                                     'tipo_contacto','observaciones',"Tipo", "Subtipo",'Ternarios'],
              'Conteo_calcareas':['Mineral','Size','redondez','esfericidad',
-                                     'tipo_contacto','observaciones'],
-              "Conteo_plutonicas": ["Mineral", "Size", "Forma", "Genesis", "Observaciones"],
-              "Conteo_volcanicas": ["Mineral", "Size", "Forma", "Observaciones"],
+                                     'tipo_contacto','observaciones',"Tipo", "Subtipo",'Ternarios'],
+              "Conteo_plutonicas": ["Mineral", "Size", "Forma", "Genesis", "Observaciones","Tipo", "Subtipo"],
+              "Conteo_volcanicas": ["Mineral", "Size", "Forma", "Observaciones","Tipo", "Subtipo",'Ternarios'],
               "Conteo_volcanoclasticas": ['Mineral','Size','redondez','esfericidad',
-                                     'Tipo_contacto',"Tipo_fragmento",'observaciones'],
-              "Conteo_dinamicas": ["Mineral","Tipo", "Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
-              "Conteo_regionales": ["Mineral","Size", "Forma", "Borde", "Geometria_borde", "Observaciones"],
-             'Diccionario_simbolos':['Simbolo','Mineral', "tipo", "subtipo_1", "subtipo_2" ],
+                                     'Tipo_contacto',"Tipo_fragmento",'observaciones',"Tipo", "Subtipo",'Ternarios'],
+              "Conteo_dinamicas": ["Mineral","Tipo", "Size", "Forma", "Borde", "Geometria_borde", "Observaciones",
+                                  "Tipo", "Subtipo",'Ternarios'],
+              "Conteo_regionales": ["Mineral","Size", "Forma", "Borde", "Geometria_borde", "Observaciones",
+                                  "Tipo", "Subtipo",'Ternarios'],
+             'Diccionario_simbolos':['Simbolo','Mineral', "Tipo", "Subtipo",'Ternarios'],
              "current_general" : ["igm","numero_campo",  "unidad_lito", "localidad",  "departamento","municipio", "plancha",
                                   "escala","coor_x", "origen_coor", "coor_y","colector", "fecha_recol", "Intemprete", "Fecha_interp", 
                                   "cantidad_p", "Tipo_r", "Subt_r"],
@@ -120,28 +122,44 @@ def traducir_simbolo(simbolo):
   mask = lista_minerales['Simbolo'] == simbolo
   return (lista_minerales[mask]['Mineral'].values[0])
 
-def agregar_elemento(simbolo,mineral,tipo, subtipo_1):
+def traducir_tipo(simbolo):
+  lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
+  mask = lista_minerales['Simbolo'] == simbolo
+  return (lista_minerales[mask]['Tipo'].values[0])
+def traducir_ternarios (simbolo):
+  lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
+  mask = lista_minerales['Simbolo'] == simbolo
+  return (lista_minerales[mask]['Ternarios'].values[0])
+
+def traducir_subtipo(simbolo):
+  lista_minerales = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';', encoding= "latin")
+  mask = lista_minerales['Simbolo'] == simbolo
+  return (lista_minerales[mask]['Subtipo'].values[0])
+
+def agregar_elemento(simbolo,mineral,tipo, subtipo_1,ternarios):
   df = pd.read_csv("./archivos/Diccionario_simbolos.csv",sep=';')
   if simbolo == "":
     return False
   elif not (validar_simbolo(simbolo)):
     df2 = pd.DataFrame({'Simbolo':[simbolo],
-           'Mineral':[mineral],'Tipo':[tipo], 'Subtipo':[subtipo_1]})
+           'Mineral':[mineral],'Tipo':[tipo], 'Subtipo':[subtipo_1], 'Ternarios':[ternarios]})
     df = pd.concat([df,df2])
     df.to_csv("./archivos/Diccionario_simbolos.csv", encoding= "latin" ,sep = ";", index = False)
     return True
   
-
 def agregar_puntos(archivo, parametros):
   
   if(not validar_exitencia_archivo("./archivos/"+ archivo + ".csv")):
     Crear_Archivo(archivo)
   if validar_simbolo(parametros[0][0]): # valida que el simbolo este en lista
     mineral = traducir_simbolo(parametros[0][0])
-    # tipo= traducir_tipo(parametros [0][0])
-    # subtipo= traducir_subtipo(parametros [0][0])
+    tipo= [traducir_tipo(parametros [0][0])]
+    subtipo= [traducir_subtipo(parametros [0][0])]
+    ternario= traducir_ternarios(parametros[0][0])
     parametros[0][0] = mineral
-    parametros.append([tipo,subtipo])
+    parametros.append(tipo)
+    parametros.append(subtipo)
+    parametros.append(ternario)
     diccionario = dict(zip(archivos[archivo], parametros))
     data = pd.read_csv("./archivos/"+archivo+".csv",sep=';', encoding= "latin")
     punto = pd.DataFrame(diccionario)
