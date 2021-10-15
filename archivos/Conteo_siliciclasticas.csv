@@ -1,1 +1,4 @@
-Mineral;Size;redondez;esfericidad;tipo_contacto;observaciones
+Mineral;Size;redondez;esfericidad;tipo_contacto;observaciones;Tipo;Subtipo;Ternarios
+cuarzo;0;---------------;---------------;---------------;;Formador de roca;---------------;---------------
+cuarzo;0;---------------;---------------;---------------;;Formador de roca;---------------;---------------
+cuarzo;0;---------------;---------------;---------------;;Formador de roca;---------------;---------------
