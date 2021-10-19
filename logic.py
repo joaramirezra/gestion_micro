@@ -514,7 +514,7 @@ class interfaz(Ui_MainWindow):
             self.input_din_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+           self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
 
     # funcion regional
     def siguiente_regional(self):
@@ -535,7 +535,7 @@ class interfaz(Ui_MainWindow):
             self.input_reg_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+           self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
     # funcion volcanoclastica
     def siguiente_vol_clas(self):
         archivo = "Conteo_volcanoclasticas"
@@ -557,7 +557,7 @@ class interfaz(Ui_MainWindow):
             self.input_vol_clas_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
 
     # funcion volcanica
     def siguiente_volcanica(self):
@@ -574,7 +574,7 @@ class interfaz(Ui_MainWindow):
             self.input_vol_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
     #funcion plutonico
     def siguiente_pluton(self):
         archivo = "Conteo_plutonicas"
@@ -593,7 +593,7 @@ class interfaz(Ui_MainWindow):
             self.input_plut_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
 
     #funcion calcarea
     def siguiente_calc(self):
@@ -614,7 +614,7 @@ class interfaz(Ui_MainWindow):
             self.input_cal_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("Simbolo incorrecto")
+            self.funcion_error_msg("Simbolo incorrecto","Error de entrada","")
 
     #funcion siliciclastica
     def siguiente_silici(self):
@@ -635,7 +635,7 @@ class interfaz(Ui_MainWindow):
             self.input_sil_observa.clear()
             self.output_contador.setProperty('value',contar_puntos(archivo))
         else:
-            print("simbolo incorrecto")
+            self.funcion_error_msg("simbolo incorrecto","Error de entrada","")
 
     #funcion observaciones sedimentarias y metamorficas
     def observaciones(self):
