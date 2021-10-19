@@ -1,10 +1,8 @@
 
-import mplstereonet as mpl
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import ternary as tr
-
 
 def intersec(line_ini,line_end,corte):
     if len(line_ini) < 3:
@@ -96,7 +94,6 @@ def streck76_ol_2px(*puntos):
     tax.left_parallel_line(90)
     tax.horizontal_line(90)
     tax.right_parallel_line(90)
-
     tax.ticks( multiple=10)
     tax.line([5,90],[90,5])
     tax.line([5,5],[5,90])

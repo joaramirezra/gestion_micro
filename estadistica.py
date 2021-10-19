@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+from funciones.ternarios import *
+
 
 def calculo_escala():
     micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
@@ -9,7 +11,8 @@ def calculo_escala():
     return escala
 
 limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
-print(limites_size)
+
+
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
     sizes = ["Bloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
@@ -18,6 +21,7 @@ def traduccion_grano(milimetros):
     for i in range(len(sizes)):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
+
 def seleccion_conteo():
     general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
     if general["Subt_r"][0] == "Siliciclástica": conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
@@ -68,6 +72,7 @@ def simplificacion_conteo():
     for i in range(len(var)):
         percs.append(var[i])
     data = dict(zip(names,percs))
+    return data
 
 def grano_critalinas(milimetros):
     sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
@@ -85,7 +90,19 @@ def simplificacion_comp():
 
 def perc_comp ():
     conteo = seleccion_conteo()
-    
+    tam = conteo.shape[0]
+    var= conteo.groupby('Ternarios')['Mineral'].count()/tam
+    names = conteo['Ternarios'].unique().tolist()
+    names.sort()
+    percs=[]
+    for i in range(len(var)):
+        percs.append(var[i]*100)
+    percs.append('texto') #colocar el nombre de la muestra 
+    print (percs)
+    print (type (percs))
+    return percs
+streck76_ol_2px(perc_comp())
+
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
 # minerales = [mineral[random.randint(0,11)] for x in range (10000)]
