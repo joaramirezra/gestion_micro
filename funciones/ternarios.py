@@ -131,7 +131,7 @@ def streck76_ol_2px(*puntos):
         tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
-
+streck76_ol_2px([1,2,"3"])
 def streck76_ol_anf_px(*puntos):
     fig, tax = tr.figure(scale=100)
     fig.set_size_inches(10,10)
