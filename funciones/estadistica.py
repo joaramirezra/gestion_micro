@@ -98,10 +98,20 @@ def perc_comp ():
     for i in range(len(var)):
         percs.append(var[i]*100)
     percs.append('texto') #colocar el nombre de la muestra 
+
+    #del percs[0]
     print (percs)
     print (type (percs))
-    return percs
-streck76_ol_2px(perc_comp())
+    filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
+    tam = filtro.shape[0]
+    var= filtro.groupby('Ternarios')['Mineral'].count()/tam
+    names = filtro['Ternarios'].unique().tolist()
+    names.sort()
+    print(var)
+    print (filtro)
+    print (names)
+    #return percs
+perc_comp ()
 
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
