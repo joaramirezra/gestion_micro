@@ -338,42 +338,7 @@ lista de minerales</string>
             </item>
             <item>
              <property name="text">
-              <string>Formador de roca</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Accesorio</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Alteración</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Introducción</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Aloquímicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Ortoquímicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cemento esparítico</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Terrígenos</string>
+              <string>Terrigenos</string>
              </property>
             </item>
             <item>
@@ -388,12 +353,7 @@ lista de minerales</string>
             </item>
             <item>
              <property name="text">
-              <string>Porfiroclástos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Matriz</string>
+              <string>Cemento</string>
              </property>
             </item>
            </widget>
@@ -414,116 +374,6 @@ lista de minerales</string>
             <item>
              <property name="text">
               <string>---------------</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Bioclástos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Peloides</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Ooides</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Intraclastos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Oncoides</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Otros aloquímicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Terrígenos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Minerales Autigénicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Extraclastos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Qz mono</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Qz poli</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Feldespato potásico</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Feldespato sódico-cálcico</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Micas</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Minerales de arcilla</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Aloquímicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Otros Terrígenos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Opacos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Líticos Metamórficos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Líticos Volcánicos</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Líticos Plutónicos </string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Líticos Sedimentarios</string>
              </property>
             </item>
            </widget>
@@ -548,17 +398,37 @@ lista de minerales</string>
             </item>
             <item>
              <property name="text">
-              <string>1</string>
+              <string>Cuarzo</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>2</string>
+              <string>Lítico volcánico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>3</string>
+              <string>Lítico plutónico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Lítico metamórfico</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Lítico sedimentario</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Plagioclasa</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Feldespato k</string>
              </property>
             </item>
            </widget>
