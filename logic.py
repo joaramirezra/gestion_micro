@@ -122,7 +122,7 @@ class interfaz(Ui_MainWindow):
             self.input_mineral_config.clear()
             self.input_tipo_mineral.setCurrentText("---------------")
             self.actualualizar_subtipo_1()
-            self.actualizar_subtipo_2()
+            self.actualizar_ternario()
             self.funcion_error_msg("El mineral fue agregado correctamente","Confirmación", "")
         elif simbolo == "":
             self.funcion_error_msg("Casilla Vacia","Error de entrada", "")

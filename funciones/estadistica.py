@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-from funciones.ternarios import *
+from ternarios import *
+from numpy import NaN, nan
 
 
 def calculo_escala():
@@ -97,22 +98,23 @@ def perc_comp ():
     percs=[]
     for i in range(len(var)):
         percs.append(var[i]*100)
-    percs.append('texto') #colocar el nombre de la muestra 
-
-    #del percs[0]
-    print (percs)
-    print (type (percs))
-    filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    nc = str(general.iloc[0]["numero_campo"])
+    if nc == nan: nc = "Numero de campo"
+    percs.append(nc) #colocar el nombre de la muestra 
+    opciones=["Feldespato k", "Plagioclasa","Cuarzo", "Ortopiroxeno", "Clinopiroxeno",
+              "Olivino", "Hornblenda", "Feldespatoide","Cuarzo", "Lítico volcánico", "Lítico plutónico", 
+              "Lítico metamórfico", "Lítico sedimentario", "Plagioclasa","Feldespato k"]
+    filtro= conteo[conteo['Ternarios'].isin(opciones)].copy()
     tam = filtro.shape[0]
     var= filtro.groupby('Ternarios')['Mineral'].count()/tam
     names = filtro['Ternarios'].unique().tolist()
     names.sort()
-    print(var)
-    print (filtro)
-    print (names)
-    #return percs
-perc_comp ()
+    print (percs)
 
+    return percs
+
+perc_comp()
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
 # minerales = [mineral[random.randint(0,11)] for x in range (10000)]
