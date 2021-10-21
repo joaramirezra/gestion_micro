@@ -75,6 +75,12 @@ def simplificacion_conteo():
     data = dict(zip(names,percs))
     return data
 
+def datos_silic():
+    conteo = seleccion_conteo()
+    filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
+    del conteo["observaciones"]
+    print(conteo)
+
 def grano_critalinas(milimetros):
     sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
     limites_size = [4096,16,4,1,0.1, 0.01, 0]
@@ -110,9 +116,10 @@ def perc_comp ():
     var= filtro.groupby('Ternarios')['Mineral'].count()/tam
     names = filtro['Ternarios'].unique().tolist()
     names.sort()
-    print (percs)
-
-    return percs
+    print(var)
+    print (filtro)
+    print (names)
+    #return percs
 
 perc_comp()
 
