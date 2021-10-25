@@ -76,9 +76,45 @@ def simplificacion_conteo():
     data = dict(zip(names,percs))
     return data
 
+
+def grano_critalinas(milimetros):
+    sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
+    limites_size = [4096,16,4,1,0.1, 0.01, 0]
+    for i in range(len(sizes)):
+        if limites_size[i] >= milimetros > limites_size[i+1]:
+            return sizes[i]
+
+def render ():
+    lista = []
+    for i in range(2):
+        a = np.random.rand()
+        lista.append(a*100)
+    return lista
+
+def rounder (perc_list):
+    total = 0
+    for i in range(len(perc_list)):
+        perc_list[i] = round(perc_list[i],2)
+        total += perc_list[i]
+    if total > 100.000:
+        while total > 100.000:
+            a = np.random.randint(len(perc_list))
+            perc_list[a] -= 0.001
+            total -= 0.001
+    else:
+        while total < 100.000:
+            a = np.random.randint(len(perc_list))
+            perc_list[a] += 0.001
+            total += 0.001
+    total = 0
+    for i in range(len(perc_list)):
+        perc_list[i] = round(perc_list[i],2)
+        total += perc_list[i]
+    return perc_list
+    
+
 def datos_silic():
     conteo = seleccion_conteo()
-    filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
     del conteo["observaciones"]
     print(conteo)
     tam = conteo.shape[0]
@@ -100,20 +136,6 @@ def datos_silic():
     data = dict(zip(titles, percs))
     
     return data
-
-def grano_critalinas(milimetros):
-    sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
-    limites_size = [4096,16,4,1,0.1, 0.01, 0]
-    for i in range(len(sizes)):
-        if limites_size[i] >= milimetros > limites_size[i+1]:
-            return sizes[i]
-
-def simplificacion_comp():
-    conteo = seleccion_conteo()
-    df = conteo[["Mineral"],["Size"]]
-    df.dropna(inplace=True)
-    tam = df.shape[0]
-    return tam 
 
 def conteo_normalizado(df):
   tam = df.shape[0]
