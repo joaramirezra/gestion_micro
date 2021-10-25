@@ -5,7 +5,6 @@ from ternarios import *
 from numpy import NaN, nan
 
 
-
 def calculo_escala():
     micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
     reticulas = micro_carac.iloc[0]["reticulas"]
@@ -77,6 +76,14 @@ def simplificacion_conteo():
     data = dict(zip(names,percs))
     return data
 
+
+def grano_critalinas(milimetros):
+    sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
+    limites_size = [4096,16,4,1,0.1, 0.01, 0]
+    for i in range(len(sizes)):
+        if limites_size[i] >= milimetros > limites_size[i+1]:
+            return sizes[i]
+
 def render ():
     lista = []
     for i in range(2):
@@ -129,20 +136,6 @@ def datos_silic():
     data = dict(zip(titles, percs))
     
     return data
-
-def grano_critalinas(milimetros):
-    sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
-    limites_size = [4096,16,4,1,0.1, 0.01, 0]
-    for i in range(len(sizes)):
-        if limites_size[i] >= milimetros > limites_size[i+1]:
-            return sizes[i]
-
-def simplificacion_comp():
-    conteo = seleccion_conteo()
-    df = conteo[["Mineral"],["Size"]]
-    df.dropna(inplace=True)
-    tam = df.shape[0]
-    return tam 
 
 def conteo_normalizado(df):
   tam = df.shape[0]
