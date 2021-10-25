@@ -29,7 +29,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="general">
      <attribute name="title">
@@ -348,12 +348,17 @@ lista de minerales</string>
             </item>
             <item>
              <property name="text">
-              <string>Materia orgánica</string>
+              <string>Materia org.</string>
              </property>
             </item>
             <item>
              <property name="text">
               <string>Cemento</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Porosidad</string>
              </property>
             </item>
            </widget>
@@ -403,22 +408,22 @@ lista de minerales</string>
             </item>
             <item>
              <property name="text">
-              <string>Lítico volcánico</string>
+              <string>Litico volcánico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Lítico plutónico</string>
+              <string>Litico plutónico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Lítico metamórfico</string>
+              <string>Litico metamórfico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Lítico sedimentario</string>
+              <string>Litico sedimentario</string>
              </property>
             </item>
             <item>
@@ -6539,7 +6544,7 @@ color: rgb(238, 238, 236);</string>
             <cursorShape>ArrowCursor</cursorShape>
            </property>
            <property name="maximum">
-            <number>500</number>
+            <number>9999</number>
            </property>
           </widget>
          </widget>
@@ -6913,9 +6918,9 @@ background-color: rgb(114, 159, 207)</string>
      <widget class="QFrame" name="frame_observaciones">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>160</y>
-        <width>41</width>
+        <x>680</x>
+        <y>90</y>
+        <width>61</width>
         <height>41</height>
        </rect>
       </property>
@@ -6978,10 +6983,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_calcarea">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>230</y>
-        <width>71</width>
-        <height>61</height>
+        <x>820</x>
+        <y>70</y>
+        <width>61</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -7138,12 +7143,12 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Subesférico</string>
+              <string>Subesferico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Esférico</string>
+              <string>Esferico</string>
              </property>
             </item>
            </widget>
@@ -7225,9 +7230,9 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_siliciclastica">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>320</y>
-        <width>61</width>
+        <x>840</x>
+        <y>10</y>
+        <width>31</width>
         <height>41</height>
        </rect>
       </property>
@@ -7385,12 +7390,12 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Subesférico</string>
+              <string>Subesferico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Esférico</string>
+              <string>Esferico</string>
              </property>
             </item>
            </widget>
@@ -7472,9 +7477,9 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_pluton">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>240</y>
-        <width>61</width>
+        <x>690</x>
+        <y>160</y>
+        <width>41</width>
         <height>41</height>
        </rect>
       </property>
@@ -7622,7 +7627,7 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Introducción</string>
+              <string>Introduccion</string>
              </property>
             </item>
            </widget>
@@ -7659,8 +7664,8 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_volcanica">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>30</y>
+        <x>820</x>
+        <y>140</y>
         <width>51</width>
         <height>41</height>
        </rect>
@@ -8093,10 +8098,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_regional">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>30</y>
-        <width>51</width>
-        <height>51</height>
+        <x>830</x>
+        <y>200</y>
+        <width>41</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8198,17 +8203,17 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Idioblástico</string>
+              <string>Idioblastico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Subidioblástico (hipidioblástico)</string>
+              <string>Subidioblastico (hipidioblastico)</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Xenoblástico</string>
+              <string>Xenoblastico</string>
              </property>
             </item>
             <item>
@@ -8258,7 +8263,7 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Cúspides</string>
+              <string>Cuspides</string>
              </property>
             </item>
             <item>
@@ -8350,10 +8355,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_dinamico">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>380</y>
-        <width>71</width>
-        <height>41</height>
+        <x>200</x>
+        <y>50</y>
+        <width>451</width>
+        <height>551</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8432,12 +8437,12 @@ color: rgb(238, 238, 236);</string>
            <widget class="QComboBox" name="input_din_tipo">
             <item>
              <property name="text">
-              <string>Porfiroclásto</string>
+              <string>Porfiroclasto</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Matriz Relíctica</string>
+              <string>Matriz Relictica</string>
              </property>
             </item>
             <item>
@@ -8447,12 +8452,12 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Secundario de Alteración</string>
+              <string>Secundario de Alteracion</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Secundario de Introducción</string>
+              <string>Secundario de Introduccion</string>
              </property>
             </item>
            </widget>
@@ -8495,17 +8500,17 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item>
              <property name="text">
-              <string>Idioblástico</string>
+              <string>Idioblastico</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Subidioblástico (hipidioblástico)</string>
+              <string>Subidioblastico (hipidioblastico)</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Xenoblástico</string>
+              <string>Xenoblastico</string>
              </property>
             </item>
             <item>
@@ -8673,9 +8678,9 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_observaciones_ig">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>90</y>
-        <width>51</width>
+        <x>670</x>
+        <y>20</y>
+        <width>81</width>
         <height>41</height>
        </rect>
       </property>
