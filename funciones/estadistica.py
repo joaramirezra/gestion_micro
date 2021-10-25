@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from ternarios import *
+#from funciones.ternarios import *
 from numpy import NaN, nan
 
 
@@ -80,6 +81,25 @@ def datos_silic():
     filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
     del conteo["observaciones"]
     print(conteo)
+    tam = conteo.shape[0]
+    reemplazo = ["Materia org.", "Cemento","Otros ortoq."]
+    for i in reemplazo:
+        conteo.loc[conteo["Tipo"] == i, "Subtipo"] = i
+    print(conteo)
+    df_percs = conteo.groupby("Subtipo")["Ternarios"].count()/tam
+    print(df_percs)
+    df2 = conteo.groupby("Tipo")["Subtipo"].count()/tam
+    titles =list (df_percs.index)
+    percs = df_percs.tolist()
+    for i in range(len(percs)):
+        percs[i] = percs[i] * 100
+    percs = rounder(percs)
+    total = 0
+    for i in percs:
+        total += i
+    data = dict(zip(titles, percs))
+    
+    return data
 
 def grano_critalinas(milimetros):
     sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
@@ -95,66 +115,73 @@ def simplificacion_comp():
     tam = df.shape[0]
     return tam 
 
+def conteo_normalizado(df):
+  tam = df.shape[0]
+  var = df.groupby('Ternarios')['Mineral'].count()/tam
+  return var
+
+def conteo_normalizado_filtrado(df,lista_elementos):
+  filtrado = df[df['Ternarios'].isin(lista_elementos)]
+  return conteo_normalizado(filtrado)
+
+def normal_select(df,general):
+    tam = df.shape[0]
+    var= df.groupby('Ternarios')['Mineral'].count()/tam
+    if(general == 'Siliciclástica'):
+        lista = ['Cuarzo','Feldespato k','Plagioclasa']
+    elif(general == 'Plutónica'):
+        try:
+            a=var['Feldespatoide']
+            lista = ['Feldespatoide','Feldespato k','Plagioclasa']
+        except:
+            try:
+                a=var['Olivino']
+                if a>0.05 :
+                    try:
+                        if var['Plagioclasa'] >0:
+                            lista=['Ortopiroxeno','Clinopiroxeno','Olivino','Plagioclasa']
+                    except:
+                        try:
+                            if var['Hornblenda'] >0:
+                                lista= ['Ortopiroxeno','Clinopiroxeno','Olivino','Hornblenda']
+                        except:
+                            lista = ['Ortopiroxeno','Clinopiroxeno','Olivino']
+                else:
+                    lista = ['Cuarzo','Feldespato k','Plagioclasa']
+            except:
+                try:
+                    a=var['Ortopiroxeno']
+                    try:
+                        if var['Cuarzo']<0.05:
+                            lista= ['Ortopiroxeno','Clinopiroxeno','Plagioclasa']
+                        else:
+                            lista = ['Cuarzo','Feldespato k','Plagioclasa']
+                    except:
+                        lista= ['Ortopiroxeno','Clinopiroxeno','Plagioclasa','Hornlenda']
+                except:
+                    try:
+                        a=var['Clinopiroxeno']
+                        lista = ['Clinopiroxeno','Plagioclasa','Hornlenda']
+                    except:
+                        lista = ['Cuarzo','Feldespato k','Plagioclasa']
+    return lista
+
 def perc_comp ():
     conteo = seleccion_conteo()
-    tam = conteo.shape[0]
-    var= conteo.groupby('Ternarios')['Mineral'].count()/tam
-    names = conteo['Ternarios'].unique().tolist()
-    names.sort()
+    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+    tipo_r= general["Subt_r"][0]
+    nc = str(general.iloc[0]["numero_campo"])
+    if nc == nan: nc = "Numero de campo"
+    lista= normal_select(conteo,tipo_r)
+    var= conteo_normalizado_filtrado(conteo,lista)
+    #suma=var['Clinopiroxeno']+ var['Clinopiroxeno'] #pdte
     percs=[]
     for i in range(len(var)):
         percs.append(var[i]*100)
-    general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
-    nc = str(general.iloc[0]["numero_campo"])
-    if nc == nan: nc = "Numero de campo"
-    percs.append(nc) #colocar el nombre de la muestra 
-    opcion_ig=["Cuarzo","Feldespato k", "Plagioclasa", "Ortopiroxeno", "Clinopiroxeno",
-              "Olivino", "Hornblenda", "Feldespatoide"]
-    opcion_sed=["Cuarzo", "Lítico volcánico", "Lítico plutónico", 
-                 "Lítico metamórfico", "Lítico sedimentario","Feldespato k", "Plagioclasa"]
-    general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
-    if general["Subt_r"][0] == "Siliciclástica": 
-        filtro= conteo[conteo['Ternarios'].isin(opcion_sed)].copy()
-    else: 
-        filtro= conteo[conteo['Ternarios'].isin(opcion_ig)].copy()
-    tam = filtro.shape[0]
-    var= filtro.groupby('Ternarios')['Mineral'].count()/tam
-    names = filtro['Ternarios'].unique().tolist()
-    names.sort()
+    percs.append(nc) 
+    print (var)
     print (percs)
     return percs
-
-perc_comp()
-
-# tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
-# minerales = [mineral[random.randint(0,11)] for x in range (10000)]
-# formas = [forma[random.randint(0,3)] for x in range (10000)]
-
-# df = pd.DataFrame({'tama単os' : tamanos,
-#                    'minerales' : minerales,
-#                    'formas':formas
-#                    })
-# df
-
-# plt.figure(figsize=(15,5))
-# df['formas'].value_counts(dropna=False,normalize = True).sort_index().plot.bar()
-# plt.grid(alpha = 0.7)
-# plt.title('esto es un histograma'.upper())
-# plt.xlabel('minerales')
-# plt.ylabel('porcentaje[%]')
-# plt.savefig('minerales.jpg')
-
-# for columna in df.columns:
-    # plt.figure(figsize=(15,5))
-    # df[columna].value_counts(dropna=False,normalize = True).sort_index().plot.bar()
-    # plt.grid(alpha = 0.7)
-    # plt.title('esto es un histograma'.upper())
-    # plt.xlabel('minerales')
-    # plt.ylabel('porcentaje[%]')
-    # plt.savefig(columna+'.jpg')
-
-# minerales = ['Cuarzo','Plagioclasa','feldespato']
-# mask = df['mineral'].isin(minerales)
-# df = df[mask]
-# tam = df.shape[0]
-# df.groupby('mineral')['milimetros'].count()/tam
+lista_aux=perc_comp()
+lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
+streck76_QAP(lista_n)

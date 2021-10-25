@@ -1,5 +1,5 @@
 Simbolo;Mineral;Tipo;Subtipo;Ternarios
-q;asdf;Terrigenos;Cuarzo mono;---------------
-w;asdf;Materia org.;---------------;---------------
-e;asdfa;Porosidad;Primaria;---------------
-r;sdfasf;Cemento;---------------;---------------
+q;adfa;Principal;---------------;Cuarzo
+w;plag;Principal;---------------;Plagioclasa
+e;fk;Principal;---------------;Feldespato k
+r;px;Accesorio;---------------;---------------
