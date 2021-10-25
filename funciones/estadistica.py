@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
 from ternarios import *
-# from funciones.ternarios import *
 from numpy import NaN, nan
-
 
 
 def calculo_escala():
@@ -77,59 +75,12 @@ def simplificacion_conteo():
     data = dict(zip(names,percs))
     return data
 
-def render ():
-    lista = []
-    for i in range(2):
-        a = np.random.rand()
-        lista.append(a*100)
-    return lista
-
-def rounder (perc_list):
-    total = 0
-    for i in range(len(perc_list)):
-        perc_list[i] = round(perc_list[i],2)
-        total += perc_list[i]
-    if total > 100.000:
-        while total > 100.000:
-            a = np.random.randint(len(perc_list))
-            perc_list[a] -= 0.001
-            total -= 0.001
-    else:
-        while total < 100.000:
-            a = np.random.randint(len(perc_list))
-            perc_list[a] += 0.001
-            total += 0.001
-    total = 0
-    for i in range(len(perc_list)):
-        perc_list[i] = round(perc_list[i],2)
-        total += perc_list[i]
-    return perc_list
-    
-
 def datos_silic():
     conteo = seleccion_conteo()
+    filtro= conteo[conteo['Ternarios'].isin(['2','3'])].copy()
     del conteo["observaciones"]
     print(conteo)
-    tam = conteo.shape[0]
-    reemplazo = ["Materia org.", "Cemento","Otros ortoq."]
-    for i in reemplazo:
-        conteo.loc[conteo["Tipo"] == i, "Subtipo"] = i
-    print(conteo)
-    df_percs = conteo.groupby("Subtipo")["Ternarios"].count()/tam
-    print(df_percs)
-    df2 = conteo.groupby("Tipo")["Subtipo"].count()/tam
-    titles =list (df_percs.index)
-    percs = df_percs.tolist()
-    for i in range(len(percs)):
-        percs[i] = percs[i] * 100
-    percs = rounder(percs)
-    total = 0
-    for i in percs:
-        total += i
-    data = dict(zip(titles, percs))
-    
-    return data
-datos_silic()
+
 def grano_critalinas(milimetros):
     sizes = ["Muy Grueso", "Grueso", "Medio", "Fino", "Muy fino", "Ultra fino"]
     limites_size = [4096,16,4,1,0.1, 0.01, 0]
@@ -157,18 +108,23 @@ def perc_comp ():
     nc = str(general.iloc[0]["numero_campo"])
     if nc == nan: nc = "Numero de campo"
     percs.append(nc) #colocar el nombre de la muestra 
-    opciones=["Feldespato k", "Plagioclasa","Cuarzo", "Ortopiroxeno", "Clinopiroxeno",
-              "Olivino", "Hornblenda", "Feldespatoide","Cuarzo", "Litico volcanico", "Litico plutonico", 
-              "Litico metamorfico", "Litico sedimentario", "Plagioclasa","Feldespato k"]
-    filtro= conteo[conteo['Ternarios'].isin(opciones)].copy()
+    opcion_ig=["Cuarzo","Feldespato k", "Plagioclasa", "Ortopiroxeno", "Clinopiroxeno",
+              "Olivino", "Hornblenda", "Feldespatoide"]
+    opcion_sed=["Cuarzo", "Lítico volcánico", "Lítico plutónico", 
+                 "Lítico metamórfico", "Lítico sedimentario","Feldespato k", "Plagioclasa"]
+    general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
+    if general["Subt_r"][0] == "Siliciclástica": 
+        filtro= conteo[conteo['Ternarios'].isin(opcion_sed)].copy()
+    else: 
+        filtro= conteo[conteo['Ternarios'].isin(opcion_ig)].copy()
     tam = filtro.shape[0]
     var= filtro.groupby('Ternarios')['Mineral'].count()/tam
     names = filtro['Ternarios'].unique().tolist()
     names.sort()
-    print(var)
-    print (filtro)
-    print (names)
-    #return percs
+    print (percs)
+    return percs
+
+perc_comp()
 
 # tamanos = [tama単os[random.randint(0,2)] for x in range (10000)]
 # minerales = [mineral[random.randint(0,11)] for x in range (10000)]
