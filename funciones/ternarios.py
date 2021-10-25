@@ -74,13 +74,13 @@ def streck76_QAP(*puntos):
                 size=9, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
-    file_name = "QAP_" + punto[2] + ".png"
+    file_name = "QAP_" + punto[3] + ".png"
     file_name = "QAP_general.png"
     
-    #tax.show()
-    tax.savefig(file_name)
+    tax.show()
+    #tax.savefig(file_name)
     #tax.close()
 
 def streck76_ol_2px(*puntos):
@@ -128,7 +128,7 @@ def streck76_ol_2px(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),]], label = punto[2])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 

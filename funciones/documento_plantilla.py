@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-# from funciones.estadistica import *
-from estadistica import *
+from funciones.estadistica import *
+#from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -712,7 +712,7 @@ def llenar_inter_silici(nombre_archivo):
     z1.bold= True
     z2.bold= True
     archivo.save(nombre_archivo)    
-llenar_inter_silici(".\CMA-423.docx")
+
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
