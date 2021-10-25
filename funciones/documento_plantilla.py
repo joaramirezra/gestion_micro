@@ -1,6 +1,9 @@
 from typing import Text
+from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
+# from funciones.estadistica import *
+from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -524,6 +527,46 @@ def llenar_inter_silici(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
+    campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
+                   "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
+                   "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos", "Materia org.",
+                   "Cemento", "Otros ortoq.", "Porosidad", "Cuarzo", "Liticos", "Feldespato"]
+    porosidad = ["Primaria", "Secundaria"]
+    feldes = ["Feldespato K", "Feldespato Na - Ca"]
+    litic = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios"]
+    quartz = ["Cuarzo mono", "Cuarzo poli"]
+    datos_comp = datos_silic()
+    complete = ["Porosidad", "Cuarzo", "Liticos", "Feldespato", "Terrigenos"]
+    terrig = ["Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
+              "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos"]
+    for i in complete:
+        datos_comp[i] = 0.00
+    for i in porosidad:
+        try:
+            datos_comp["Porosidad"] += datos_comp[i]
+        except:
+            continue
+    for i in feldes:
+        try:
+            datos_comp["Feldespato"] += datos_comp[i]
+        except:
+            continue
+
+    for i in quartz:
+        try:
+            datos_comp["Cuarzo"] += datos_comp[i]
+        except:
+            continue
+    for i in litic:
+        try:
+            datos_comp["Liticos"] += datos_comp[i]
+        except:
+            continue
+    for i in campos_form:
+        try:
+            datos_comp[i] = str(datos_comp[i])
+        except:
+            datos_comp[i] = str(0.00)
     archivo = Document(nombre_archivo)
     archivo.add_page_break()
     archivo.add_paragraph()
@@ -562,10 +605,11 @@ def llenar_inter_silici(nombre_archivo):
         archivo.add_paragraph()    
         contador = contador +1 
     p1 = archivo.add_paragraph()
-    r1 = p1.add_run("POROSIDAD:") 
+    r1 = p1.add_run("POROSIDAD: ") 
     r1.bold = True
     r1.underline = True
-    p1.add_run('_______% Primaria:_______% Secundaria:_______% \nTipo(s), origen y descripción')
+    p1.add_run(datos_comp["Porosidad"]+ ' % Primaria: ' + datos_comp["Primaria"] + ' % Secundaria: ' +datos_comp["Secundaria"]+ 
+    ' % \nTipo(s), origen y descripción')
     archivo.add_paragraph()
     r1 = p1.add_run("ESTRUCTURAS:") 
     r1.bold = True
@@ -584,13 +628,15 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN COMPOSICIONAL - "  + igm)
     archivo.add_paragraph()
-    archivo.add_heading("TERRIGENOS" + '___'+ '(%)',3)
+    archivo.add_heading("TERRIGENOS" + datos_comp["Terrigenos"] + '(%)',3)
     archivo.add_paragraph()
-    list2= ['Cuarzo _____ (%)','Monocristalino:______(%) Tamaño promedio:___mm/μm Esfericidad:___Redondez:___'
-            '\nPolicristalino:_____%	Tamaño promedio:____mm/μm Esfericidad____Redondez:___'
-            '\nObservaciones:____ ','Chert:___%', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: %',
-            'Potásico:_____% Tamaño promedio:_____mm/μm	Esfericidad	_____Redondez:_____'	
-            '\nSódico-Cálcico	_____% Tamaño promedio:_____mm/μm Esfericidad_____Redondez:_____']
+
+    list2= ['Cuarzo: '+ datos_comp["Cuarzo"]+' (%)','Monocristalino: ' + datos_comp["Cuarzo mono"]+ ' (%) Tamaño promedio:___mm/μm Esfericidad:___Redondez:___'
+            '\nPolicristalino: '+ datos_comp["Cuarzo poli"]+ ' %	Tamaño promedio:____mm/μm Esfericidad____Redondez:___'
+            '\nObservaciones:____ ','Chert: ' + datos_comp["Chert"] + ' %', 'Tamaño promedio: mm/μm Esfericidad_____ Redondez:_____', 'Feldespato: ' + 
+            datos_comp["Feldespato"] +' %',
+            'Potásico: ' + datos_comp["Feldespato K"] + ' % Tamaño promedio:_____mm/μm	Esfericidad	_____Redondez:_____'	
+            '\nSódico-Cálcico: '+ datos_comp["Feldespato Na - Ca"]+ ' % Tamaño promedio:_____mm/μm Esfericidad_____Redondez:_____']
     contador=0
     for i in list2: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
         if contador %2 == 0:
@@ -666,7 +712,7 @@ def llenar_inter_silici(nombre_archivo):
     z1.bold= True
     z2.bold= True
     archivo.save(nombre_archivo)    
-
+llenar_inter_silici(".\CMA-423.docx")
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")

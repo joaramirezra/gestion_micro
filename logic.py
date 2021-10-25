@@ -207,27 +207,27 @@ class interfaz(Ui_MainWindow):
         '''
         self.input_tipo_mineral.clear()
         if self.input_subtipo_roca.currentText() == "Siliciclástica":
-            lista = ["---------------","Terrigenos", "Líticos", "Materia orgánica", "Cemento",
-                     "Otros ortoquímicos"]
+            lista = ["---------------","Terrigenos", "Liticos", "Materia org.", "Cemento",
+                     "Otros ortoq.", "Porosidad"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         elif self.input_subtipo_roca.currentText() == "Calcárea":
-            lista = ["---------------", "Aloquímico", "Ortoquímico", "Cemento esparítico", "Porosidad"]
+            lista = ["---------------", "Aloquimico", "Ortoquimico", "Cemento esp.", "Porosidad"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         
         elif self.input_subtipo_roca.currentText() == "Plutónica":
-            lista = ["---------------", "Principal", "Accesorio", "Alteración", "Introducción"]
+            lista = ["---------------", "Principal", "Accesorio", "Alteracion", "Introduccion"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
 
         elif self.input_subtipo_roca.currentText() == "Volcánica":
-            lista = ["---------------", "Principal", "Accesorio", "Alteración","Matriz"]
+            lista = ["---------------", "Principal", "Accesorio", "Alteracion","Matriz"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
 
         elif self.input_subtipo_roca.currentText() == "Volcanoclástica":
-            lista = ["---------------", "Frg cristalinos", "Frg líticos",
+            lista = ["---------------", "Frg cristalinos", "Frg liticos",
                      "Frg vesiculados y vidrio"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
@@ -237,7 +237,7 @@ class interfaz(Ui_MainWindow):
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
         else:
-            lista = ["---------------", "Principal", "Accesorio", "Alteración", "Introducción"]
+            lista = ["---------------", "Principal", "Accesorio", "Alteracion", "Introduccion"]
             for i in lista:
                 self.input_tipo_mineral.addItem(i)
 
@@ -246,9 +246,9 @@ class interfaz(Ui_MainWindow):
         
         '''
         self.input_subt_mineral.clear()
-        if self.input_tipo_mineral.currentText() == "Aloquímico":
+        if self.input_tipo_mineral.currentText() == "Aloquimico":
             lista = ["Bioclasto", "Peloide", "Ooide", "Intraclasto", 
-                     "Oncoide", "Otros aloquímicos", "Terrígenos", "Min. autigénicos", 
+                     "Oncoide", "Otros aloquimicos", "Terrigenos", "Min. autigenicos", 
                      "Extraclastos"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
@@ -258,28 +258,28 @@ class interfaz(Ui_MainWindow):
                 self.input_subt_mineral.addItem(i)
         elif self.input_tipo_mineral.currentText() == "Terrigenos":
             lista = ["Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K",
-                     "Feldespato Na - Ca", "Micas","Min. arcillosos", "Granos aloquímicos",
-                     "Otros terrígenos", "Opacos"]
+                     "Feldespato Na - Ca", "Micas","Min. arcillosos", "Granos aloq.",
+                     "Otros terrigenos", "Opacos"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
-        elif self.input_tipo_mineral.currentText() == "Líticos":
-            lista = ["Metamórficos", "Volcánicos", "Plutónicos", "Sedimentarios"]
+        elif self.input_tipo_mineral.currentText() == "Liticos":
+            lista = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
 
         elif self.input_tipo_mineral.currentText() == "Matriz" and self.input_subtipo_roca.currentText() == "Dinámico":
-            lista = ["Relíctica", "Neoformada"]
+            lista = ["Relictica", "Neoformada"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
         elif self.input_tipo_mineral.currentText() == "Secundario" and self.input_subtipo_roca.currentText() == "Dinámico":
-            lista = ["Alteración", "Introducción"]
+            lista = ["Alteracion", "Introduccion"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
         elif self.input_tipo_mineral.currentText() == "Matriz" and self.input_subtipo_roca.currentText() == "Volcánica":
             lista = ["Criptocristalina", "Vidrio"]
             for i in lista:
                 self.input_subt_mineral.addItem(i)
-        elif self.input_tipo_mineral.currentText() == "Frg líticos":
+        elif self.input_tipo_mineral.currentText() == "Frg liticos":
             lista = ["Juveniles", "Accesorios", "Accidentales"]
         else:
             self.input_subt_mineral.addItem("---------------")
@@ -296,8 +296,8 @@ class interfaz(Ui_MainWindow):
             for i in lista:
                 self.input_subt2_mineral.addItem(i)
         elif self.input_subtipo_roca.currentText() == "Siliciclástica":
-            lista = ["---------------", "Cuarzo", "Lítico volcánico", "Lítico plutónico", "Lítico metamórfico", 
-                     "Lítico sedimentario", "Plagioclasa","Feldespato k"]
+            lista = ["---------------", "Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
+                     "Litico sedimentario", "Plagioclasa","Feldespato k"]
             for i in lista:
                 self.input_subt2_mineral.addItem(i)
         else:
