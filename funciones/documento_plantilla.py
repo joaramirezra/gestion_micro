@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-# from funciones.estadistica import *
-from estadistica import *
+from funciones.estadistica import *
+#from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm

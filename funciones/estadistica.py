@@ -1,14 +1,8 @@
 import numpy as np
 import pandas as pd
-<<<<<<< Updated upstream
 #from ternarios import *
 from funciones.ternarios import *
 from numpy import NaN, nan
-=======
-from ternarios import *
-#from funciones.ternarios import *
-from numpy import NaN, average, nan
->>>>>>> Stashed changes
 
 def rounder (perc_list):
     total = 0
@@ -62,7 +56,7 @@ def seleccion_conteo():
     return conteo
 
 def simplificacion_conteo():
-    conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     escala = calculo_escala()
     conteo["milimetros"] = conteo["Size"] * escala
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
@@ -76,11 +70,12 @@ def simplificacion_conteo():
     gravas = ["Boloque", "Guijo", "Guijarro", "Granulo"]
     arena = ["Arena muy gruesa", "Arena gruesa", "Arena media", "Arena fina", "Arena muy fina"]
     lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
+    limo =["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino"]
 
     reducir_grava = lambda x : 'GRAVA' if (x in gravas) else x
     reducir_arena = lambda x : 'ARENA' if (x in arena) else x
     reducir_lodo = lambda x : "LODO" if (x in lodo) else x
-    reducir_limo = lambda x : "LIMO" if (x in lodo) else x
+    reducir_limo = lambda x : "LIMO" if (x in limo) else x
     upcase = lambda x : x.upper()
 
     df['nombres_grano'] = df['nombres_grano'].apply(reducir_grava)
@@ -236,7 +231,6 @@ def perc_comp ():
     data = dict(zip(titles, percs))
     data['label']=nc
     print (var)
-<<<<<<< Updated upstream
     print (data)
     return data
 
@@ -245,9 +239,3 @@ def perc_comp ():
 # lista_aux=perc_comp()
 # lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
 # streck76_QAP(lista_n)
-=======
-    print (percs)
-    return percs
-# lista_aux=perc_comp()
-# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
->>>>>>> Stashed changes
