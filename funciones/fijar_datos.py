@@ -3,6 +3,7 @@ import pandas as pd
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui import QPixmap
+import matplotlib.pyplot as plt
 
 def Crear_Archivo(nombre_archivo):
   titulo = ";".join(archivos[nombre_archivo])+'\n'
@@ -168,6 +169,8 @@ def agregar_puntos(archivo, parametros):
     return True
   else:
     return False
+
+
 
 def guardar_csv():
   general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
