@@ -234,8 +234,10 @@ def perc_comp ():
     print (data)
     return data
 
+def histogramas():
+  y=simplificacion_conteo()
+  plt.style.use('ggplot')
+  plt.hist(y)
+  plt.show()
+ 
 
-#perc_comp ()
-# lista_aux=perc_comp()
-# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
-# streck76_QAP(lista_n)

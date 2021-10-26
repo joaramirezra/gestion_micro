@@ -8,6 +8,8 @@ from PyQt5.QtGui import QPixmap
 from funciones.documento_plantilla import *
 from funciones.fijar_datos import *
 from PyQt5.QtWidgets import QMessageBox
+import matplotlib.pyplot as plt
+
 
 import sys
 
@@ -817,7 +819,7 @@ class interfaz(Ui_MainWindow):
             
     
     def export_histograma(self):
-        print("|iL|")
+        histogramas()
 
     def export_formato(self):
         nombre_a = llenar_info_general()
