@@ -15,7 +15,71 @@ def intersec(line_ini,line_end,corte):
     left_coor = 100- top_coor - right_coor
     return [right_coor, top_coor, left_coor]
 
-def streck76_QAP(*puntos):
+def streck76_QAP_volc(*puntos):
+    fig, tax = tr.figure(scale=100)
+    fig.set_size_inches(10,10)
+    tax.set_title("Diagrama de clasificación de rocas volcánicas (Streckeisen 1976)", pad = 50, Fontsize = 20)
+    tax.gridlines(multiple=10, color = "k")
+    tax.gridlines(5)
+    tax.get_axes().axis('off')
+    tax.horizontal_line(20)
+    tax.horizontal_line(60)
+    tax.horizontal_line(90)
+    tax.horizontal_line(5)
+    tax.ticks( multiple=10)
+    tax.line([10,0],[4,60])
+    tax.line([35,0],[14,60])
+    tax.line([65,0],[26,60])
+    tax.line([90,0],[36,60])
+    tax.left_corner_label("A", Fontsize = 18 , position = (-0.02,0.05,0))
+    tax.right_corner_label("P", Fontsize = 18, position=(0.97,0.05,0))
+    tax.top_corner_label("Q", Fontsize = 18, offset = 0.18)
+    
+
+    coordenadas = [[2,95],[12.5,75],[2.5,30],
+                [16,30],[35,30],[55,30],
+                [65,30],[5,10],[20,10],
+                [45,10],[70,10],[85,10],
+                [5,2],[22,2],[50,2],
+                [76,2],[91,2]
+                ]
+
+    for indice , coordenada in enumerate(coordenadas):
+        tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
+
+    indices = '''1- desconocida
+                2- Riolita de feldespato alcalino
+                3- Riolita
+                4- Riolita
+                5- Dacita
+                6- Cuarzo-Andesita
+                7- Traquita de feldespato alcalino
+                8- Traquita
+                9- Latita
+                10- Lati-andesita/ Basalto
+                11- Andesita /Basalto
+                12- 
+                13- 
+                14- 
+                15- 
+                16- 
+                17- '''
+
+
+    tax.annotate(indices, position=(35, 100,0),
+                size=9, ha='left', va='top',
+                bbox=dict(boxstyle='round', fc='w'))
+    for punto in puntos:
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
+    fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
+    file_name = "QAP_" + punto[3] + ".png"
+    file_name = "QAP_general.png"
+    
+    tax.show()
+    tax.savefig(file_name)
+    #tax.close()
+
+def streck76_QAP_plut(*puntos):
     fig, tax = tr.figure(scale=100)
     fig.set_size_inches(10,10)
     tax.set_title("Diagrama de clasificación de rocas plutónicas (Streckeisen 1976)", pad = 50, Fontsize = 20)
@@ -48,26 +112,26 @@ def streck76_QAP(*puntos):
         tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
 
     indices = '''1- Cuarzolita (Silexita) 
-2- Granitoides ricos en cuarzo
-3- Granito de Feldespato alcalino
-4- Sieno-granito
-5- Monzogranito
-6- Granodiorita
-7- Tonalita
-8- Sienita de cuarzo
-    y feldespato alcalino
-9- Cuarzosienita
-10- Cuarzo monzonita
-11- Cuarzo monzodiorita o 
-    Cuarzo monzogabro
-12- Cuarzo diorita, Cuarzo gabro o
-    Cuarzo anortosita
-13- Sienita de feldepato
-    alcalino
-14- Sienita
-15- Monzonita
-16- Monzodiorita o Monzogabro
-17- Diorita, Gabro o Anortosita'''
+                2- Granitoides ricos en cuarzo
+                3- Granito de Feldespato alcalino
+                4- Sieno-granito
+                5- Monzogranito
+                6- Granodiorita
+                7- Tonalita
+                8- Sienita de cuarzo
+                    y feldespato alcalino
+                9- Cuarzosienita
+                10- Cuarzo monzonita
+                11- Cuarzo monzodiorita o 
+                    Cuarzo monzogabro
+                12- Cuarzo diorita, Cuarzo gabro o
+                    Cuarzo anortosita
+                13- Sienita de feldepato
+                    alcalino
+                14- Sienita
+                15- Monzonita
+                16- Monzodiorita o Monzogabro
+                17- Diorita, Gabro o Anortosita'''
 
 
     tax.annotate(indices, position=(35, 100,0),
@@ -80,8 +144,135 @@ def streck76_QAP(*puntos):
     file_name = "QAP_general.png"
     
     tax.show()
-    #tax.savefig(file_name)
+    tax.savefig(file_name)
     #tax.close()
+def streck76_plut_maf(*puntos):
+    fig, tax = tr.figure(scale=100)
+    fig.set_size_inches(10,10)
+    tax.set_title("Diagrama de clasificación de rocas plutónicas Máficas (Streckeisen 1976)", pad = 50, Fontsize = 20)
+    tax.gridlines(multiple=10, color = "k")
+    tax.gridlines(5)
+    tax.get_axes().axis('off')
+    tax.horizontal_line(10)
+    tax.horizontal_line(90)
+    tax.line([5,65],[70,65],color='r')
+    tax.line([5,35],[100,35],color='r')
+    tax.ticks( multiple=10)
+    tax.line([5,10],[5,90])
+    tax.line([85,10],[5,90])
+    tax.left_corner_label("Px", Fontsize = 18, position = (-0.02,0.05,0))
+    tax.right_corner_label("Ol", Fontsize = 18,position=(0.97,0.05,0))
+    tax.top_corner_label("Pl", Fontsize = 18, offset = 0.18)
+
+    coordenadas = [[3,93],[3,50],[25,50],
+                [47.5,50],[47.5,5]
+                ]
+
+    for indice , coordenada in enumerate(coordenadas):
+       tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
+
+    indices = '''1- Anortosita  
+                2- Gabro, Gabronorita
+                3- Gabro olivínico, Gabronorita olivínica, norita olivínica
+                4- Troctolita
+                5-Rocas ultramáficas ricas en plagioclasa
+                '''
+
+    tax.annotate(indices, position=(40, 100,0),
+                size=10, ha='left', va='top',
+                bbox=dict(boxstyle='round', fc='w'))
+    for punto in puntos:
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
+    fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
+    tax.show()
+
+def streck76_plut_maf_hbl(*puntos):
+    fig, tax = tr.figure(scale=100)
+    fig.set_size_inches(10,10)
+    tax.set_title("Diagrama de clasificación de rocas gabróideas con hornblenda (Streckeisen 1976)", pad = 50, Fontsize = 20)
+    tax.gridlines(multiple=10, color = "k")
+    tax.gridlines(5)
+    tax.get_axes().axis('off')
+    tax.horizontal_line(10)
+    tax.horizontal_line(90)
+    tax.line([5,65],[70,65],color='r')
+    tax.line([5,35],[100,35],color='r')
+    tax.ticks( multiple=10)
+    tax.line([5,10],[5,90])
+    tax.line([50,0],[45,10])
+    tax.line([85,10],[5,90])
+    tax.left_parallel_line(90)
+    tax.right_parallel_line(90)
+    tax.left_corner_label("Px", Fontsize = 18, position = (-0.02,0.05,0))
+    tax.right_corner_label("Hbl", Fontsize = 18,position=(0.97,0.05,0))
+    tax.top_corner_label("Pl", Fontsize = 18, offset = 0.18)
+
+    coordenadas = [[3,93],[2,50],[25,50],
+                [46.5,50], [3,4],[25,4],
+                [70,4],[93,4]
+                ]
+
+    for indice , coordenada in enumerate(coordenadas):
+       tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
+
+    indices = '''1- Anortosita  
+2- Gabro, Gabronorita, norita
+3- Gabro/Gabronorita/norita de hornblenda y piroxeno
+4- Gabro hornblendico
+5- Piroxenita rica en plagioclasa
+6- Piroxenita de hornblenda rica en plagioclasa
+7- Hornblendita de piroxeno rica en plagioclasa
+8- Hornblendita rica en plagioclasa
+'''
+
+
+    tax.annotate(indices, position=(40, 100,0),
+                size=10, ha='left', va='top',
+                bbox=dict(boxstyle='round', fc='w'))
+    for punto in puntos:
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
+    fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
+    tax.show()
+
+def streck76_pl_2px(*puntos):
+    fig, tax = tr.figure(scale=100)
+    fig.set_size_inches(10,10)
+    tax.set_title("Diagrama de clasificación de rocas gabróideas con Clino y Orto piroxeno (Streckeisen 1976)", pad = 50, Fontsize = 20)
+    tax.gridlines(multiple=10, color = "k")
+    tax.gridlines(5)
+    tax.get_axes().axis('off')
+    tax.horizontal_line(10)
+    tax.horizontal_line(90)
+    tax.ticks( multiple=10)
+    tax.line([5,10],[5,90])
+    tax.line([5,90],[45,10])
+    tax.line([85,10],[5,90])
+    tax.left_corner_label("OPx", Fontsize = 18, position = (-0.02,0.05,0))
+    tax.right_corner_label("CPx", Fontsize = 18,position=(0.97,0.05,0))
+    tax.top_corner_label("Pl", Fontsize = 18, offset = 0.18)
+
+    coordenadas = [[3,30],[20,30],[50,30],
+                   [67.5, 30], [45,5]
+                ]
+
+    for indice , coordenada in enumerate(coordenadas):
+       tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
+
+    indices = '''1- Norita 
+2- Gabro de ortopiroxeno
+3- Norita de clinopiroxeno
+4- Gabro 
+5- Piroxenita pobre en plagioclasa
+'''
+
+
+    tax.annotate(indices, position=(40, 100,0),
+                size=10, ha='left', va='top',
+                bbox=dict(boxstyle='round', fc='w'))
+    for punto in puntos:
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
+    fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
+    tax.show()
 
 def streck76_ol_2px(*puntos):
     fig, tax = tr.figure(scale=100)
@@ -128,11 +319,11 @@ def streck76_ol_2px(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1]),]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 
-def streck76_ol_anf_px(*puntos):
+def streck76_ol_hbl_px(*puntos):
     fig, tax = tr.figure(scale=100)
     fig.set_size_inches(10,10)
     tax.set_title("Diagrama de clasificación de rocas ultramáficas (Streckeisen 1976)", pad = 50, Fontsize = 20)
@@ -183,7 +374,7 @@ def streck76_ol_anf_px(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 
@@ -242,7 +433,7 @@ def folk_grava(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 
@@ -290,7 +481,7 @@ def folk_arena_arcilla(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 
@@ -334,7 +525,7 @@ def folk_comp(*puntos):
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     tax.show()
 
@@ -371,7 +562,7 @@ de rocas siliciclásticas (Folk 1974)''', pad = 50, Fontsize = 20)
                 size=10, ha='left', va='top',
                 bbox=dict(boxstyle='round', fc='w'))
     for punto in puntos:
-        tax.scatter([[float(punto[0]),float(punto[1])]], label = punto[2])
+        tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     file_name = punto[2] + ".png"
     fig.savefig(file_name)
