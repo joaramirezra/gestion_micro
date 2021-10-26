@@ -22,14 +22,14 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>10</x>
+      <y>10</y>
       <width>931</width>
       <height>571</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="general">
      <attribute name="title">
@@ -8895,10 +8895,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_descripcion_micro">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>370</y>
+        <x>0</x>
+        <y>330</y>
         <width>831</width>
-        <height>161</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8913,9 +8913,9 @@ color: rgb(238, 238, 236);</string>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>30</x>
          <y>0</y>
-         <width>581</width>
+         <width>551</width>
          <height>153</height>
         </rect>
        </property>
@@ -8942,10 +8942,10 @@ color: rgb(238, 238, 236);</string>
       <widget class="QWidget" name="layoutWidget_4">
        <property name="geometry">
         <rect>
-         <x>630</x>
+         <x>590</x>
          <y>0</y>
-         <width>181</width>
-         <height>138</height>
+         <width>241</width>
+         <height>201</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -8957,9 +8957,74 @@ color: rgb(238, 238, 236);</string>
          </widget>
         </item>
         <item>
+         <layout class="QVBoxLayout" name="verticalLayout_16">
+          <item>
+           <widget class="QLabel" name="label_elegir_triangulo">
+            <property name="text">
+             <string>Elija tipo triángulo:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="boton_elegir_triangulo">
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 QAP Plutonicas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 QAP Volcánicas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 Pl, Px, Ol Maficas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 gabroideas con hornblenda  Pl, Px, Hbl</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 gabroideas Cpx, Opx, Pl</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 Ultramaficas Cpx, Opx, Ol</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Streckeisen 76 Ultramaficas con hornblenda Px, Hbl, Ol</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Folk 54 textural Arena-Arcilla-Limo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Folk 54 textural Grava-Arena-Lodo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Folk 74 Composicion</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QPushButton" name="boton_exp_triangulo">
           <property name="text">
-           <string>Triángulo composicional</string>
+           <string>Exportar Triángulo </string>
           </property>
          </widget>
         </item>
@@ -9026,8 +9091,8 @@ color: rgb(238, 238, 236);</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>391</width>
-         <height>301</height>
+         <width>381</width>
+         <height>271</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -9077,10 +9142,10 @@ color: rgb(238, 238, 236);</string>
       <widget class="QLabel" name="recuapdro_xpl">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>0</y>
-         <width>391</width>
-         <height>301</height>
+         <width>381</width>
+         <height>271</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -9097,7 +9162,7 @@ color: rgb(238, 238, 236);</string>
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>340</y>
+        <y>300</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -9110,7 +9175,7 @@ color: rgb(238, 238, 236);</string>
       <property name="geometry">
        <rect>
         <x>620</x>
-        <y>340</y>
+        <y>300</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -9120,6 +9185,43 @@ color: rgb(238, 238, 236);</string>
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QSplitter" name="splitter_7">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QSplitter" name="splitter_8">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>2</width>
+      <height>2</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_15"/>
    </widget>
   </widget>
  </widget>

@@ -64,6 +64,7 @@ class interfaz(Ui_MainWindow):
         self.boton_exp_formato.clicked.connect(self.export_formato)
         self.boton_exp_triangulo.clicked.connect(self.export_triangulo)
         
+        
 
 # tab general
 
@@ -707,7 +708,115 @@ class interfaz(Ui_MainWindow):
         guardar_csv()
     
     def export_triangulo(self):
-        print("los super triangulos")
+        if  self.boton_elegir_triangulo.currentText ()== 'Streckeisen 76 QAP Plutonicas':
+            lista=['Plagioclasa','Cuarzo','Feldespato k']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Plagioclasa'],variable['Cuarzo'],variable['Feldespato k'],variable['label']]
+            streck76_QAP_plut(datos)
+        elif self.boton_elegir_triangulo.currentText() == 'Streckeisen 76 QAP Volcánicas':
+            lista=['Plagioclasa','Cuarzo','Feldespato k']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Plagioclasa'],variable['Cuarzo'],variable['Feldespato k'],variable['label']]
+            streck76_QAP_volc(datos)
+        elif self.boton_elegir_triangulo.currentText() == 'Streckeisen 76 Pl, Px, Ol Maficas':
+            lista=['Clinopiroxeno','Ortopiroxeno','Plagioclasa','Olivino']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            suma= variable['Clinopiroxeno']+variable['Ortopiroxeno']
+            datos=[suma,variable['Plagioclasa'],variable['Olivino'],variable['label']]
+            streck76_plut_maf(datos)
+        elif self.boton_elegir_triangulo.currentText() == 'Streckeisen 76 gabroideas con hornblenda  Pl, Px, Hbl':
+            lista=['Clinopiroxeno','Ortopiroxeno','Plagioclasa','Hornblenda']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            suma= variable['Clinopiroxeno']+variable['Ortopiroxeno']
+            datos=[variable['Hornblenda'],variable['Plagioclasa'],suma,variable['label']]
+            streck76_plut_maf_hbl(datos)
+        elif self.boton_elegir_triangulo.currentText() == 'Streckeisen 76 gabroideas Cpx, Opx, Pl':
+            lista=['Clinopiroxeno','Ortopiroxeno','Plagioclasa']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Clinopiroxeno'],variable['Plagioclasa'],variable['Ortopiroxeno'],variable['label']]
+            streck76_pl_2px(datos) 
+        elif self.boton_elegir_triangulo.currentText() == 'Streckeisen 76 Ultramaficas Cpx, Opx, Ol':
+            lista=['Clinopiroxeno','Olivino','Ortopiroxeno']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
+            streck76_ol_2px(datos)
+        elif self.boton_elegir_triangulo.currentText == 'Streckeisen 76 Ultramaficas con hornblenda Px, Hbl, Ol':
+            lista=['Hornblenda','Olivino','Clinopiroxeno', 'Ortopiroxeno']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            suma= variable['Clinopiroxeno']+variable['Ortopiroxeno']
+            datos=[variable['Hornblenda'],variable['Olivino'],suma,variable['label']]
+            streck76_ol_hbl_px(datos)
+        elif self.boton_elegir_triangulo.currentText == 'Folk 74 Composicion':
+            lista=["Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
+                     "Litico sedimentario", "Plagioclasa","Feldespato k"]
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            feldespato=variable['Plagioclasa']+variable['Feldespato k']
+            liticos=variable["Litico volcanico"]+variable["Litico plutonico"]+variable["Litico metamorfico"]+variable["Litico sedimentario"]
+            datos=[feldespato,variable['Cuarzo'],liticos,variable['label']]
+            folk_comp(datos)
+        elif self.boton_elegir_triangulo.currentText =='Folk 54 textural Arena-Arcilla-Limo':
+            lista=['Clinopiroxeno','Olivino','Ortopiroxeno']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
+            folk_arena_arcilla(perc_comp())
+        elif self.boton_elegir_triangulo.currentText == 'Folk 54 textural Grava-Arena-Lodo':
+            lista=['Clinopiroxeno','Olivino','Ortopiroxeno']
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
+            folk_grava(perc_comp())
+        else:
+            print ('Excelente')
+            
     
     def export_histograma(self):
         print("|iL|")

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from ternarios import *
-#from funciones.ternarios import *
+#from ternarios import *
+from funciones.ternarios import *
 from numpy import NaN, nan
 
 
@@ -150,7 +150,8 @@ def normal_select(df,general):
     tam = df.shape[0]
     var= df.groupby('Ternarios')['Mineral'].count()/tam
     if(general == 'Siliciclástica'):
-        lista = ['Cuarzo','Feldespato k','Plagioclasa']
+        lista = ["Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
+                     "Litico sedimentario", "Plagioclasa","Feldespato k"]
     elif(general == 'Plutónica'):
         try:
             a=var['Feldespatoide']
@@ -196,14 +197,18 @@ def perc_comp ():
     if nc == nan: nc = "Numero de campo"
     lista= normal_select(conteo,tipo_r)
     var= conteo_normalizado_filtrado(conteo,lista)
-    #suma=var['Clinopiroxeno']+ var['Clinopiroxeno'] #pdte
     percs=[]
     for i in range(len(var)):
         percs.append(var[i]*100)
-    percs.append(nc) 
+    titles =list (var.index)
+    data = dict(zip(titles, percs))
+    data['label']=nc
     print (var)
-    print (percs)
-    return percs
-lista_aux=perc_comp()
-lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
-streck76_QAP(lista_n)
+    print (data)
+    return data
+
+
+#perc_comp ()
+# lista_aux=perc_comp()
+# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
+# streck76_QAP(lista_n)
