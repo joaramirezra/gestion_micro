@@ -1,9 +1,35 @@
 import numpy as np
 import pandas as pd
+<<<<<<< Updated upstream
 #from ternarios import *
 from funciones.ternarios import *
 from numpy import NaN, nan
+=======
+from ternarios import *
+#from funciones.ternarios import *
+from numpy import NaN, average, nan
+>>>>>>> Stashed changes
 
+def rounder (perc_list):
+    total = 0
+    for i in range(len(perc_list)):
+        perc_list[i] = round(perc_list[i],2)
+        total += perc_list[i]
+    if total > 100.00:
+        while round(total,2) > 100.00:
+            a = np.random.randint(len(perc_list))
+            perc_list[a] -= 0.01
+            total -= 0.01
+    else:
+        while round(total,2) < 100.00:
+            a = np.random.randint(len(perc_list))
+            perc_list[a] += 0.01
+            total += 0.01
+    total = 0
+    for i in range(len(perc_list)):
+        perc_list[i] = round(perc_list[i],2)
+        total += perc_list[i]
+    return perc_list
 
 def calculo_escala():
     micro_carac = pd.read_csv("./archivos/calibracion_escala.csv", sep= ";" , encoding= "latin")
@@ -36,7 +62,7 @@ def seleccion_conteo():
     return conteo
 
 def simplificacion_conteo():
-    conteo = seleccion_conteo()
+    conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     escala = calculo_escala()
     conteo["milimetros"] = conteo["Size"] * escala
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
@@ -67,14 +93,47 @@ def simplificacion_conteo():
         df['nombres_grano'] = df['nombres_grano'].apply(upcase)
 
     tam = df.shape[0]
-    percs = []
     var = df.groupby('nombres_grano')['milimetros'].count()/tam
-    names = df["nombres_grano"].unique().tolist()
-    names.sort()
-    for i in range(len(var)):
-        percs.append(var[i])
+    names = list(var.index)
+    percs = var.tolist()
+    percs = rounder(percs)
     data = dict(zip(names,percs))
-    return data
+    campos = ["ARENA", "GRAVA", "LODO", "LIMO" , "ARCILLA"]
+    for i in campos:
+        try:
+            data[i] = str(data[i])
+        except:
+            data[i] = str(0.00)
+    return data, av_size
+
+def redondez_p():
+    conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    size = conteo.shape[0]
+    redond = conteo.groupby("redondez")["Mineral"].count()/size
+    names = list(redond.index)
+    percs = redond.tolist()
+    data = dict(zip(names,percs))
+    first = names[0]
+    for i in data:
+        if data[i] > data[first]:
+            redondez = i
+            first = i
+        else:
+            redondez = first
+    redond = conteo.groupby("esfericidad")["Mineral"].count()/size
+    names = list(redond.index)
+    percs = redond.tolist()
+    data = dict(zip(names,percs))
+    first = names[0]
+    for i in data:
+        if data[i] > data[first]:
+            esfericidad = i
+            first = i
+        else:
+            esfericidad = first
+    
+    return redondez, esfericidad
+
 
 
 def grano_critalinas(milimetros):
@@ -84,58 +143,31 @@ def grano_critalinas(milimetros):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
 
-def render ():
-    lista = []
-    for i in range(2):
-        a = np.random.rand()
-        lista.append(a*100)
-    return lista
-
-def rounder (perc_list):
-    total = 0
-    for i in range(len(perc_list)):
-        perc_list[i] = round(perc_list[i],2)
-        total += perc_list[i]
-    if total > 100.000:
-        while total > 100.000:
-            a = np.random.randint(len(perc_list))
-            perc_list[a] -= 0.001
-            total -= 0.001
-    else:
-        while total < 100.000:
-            a = np.random.randint(len(perc_list))
-            perc_list[a] += 0.001
-            total += 0.001
-    total = 0
-    for i in range(len(perc_list)):
-        perc_list[i] = round(perc_list[i],2)
-        total += perc_list[i]
-    return perc_list
     
 
 def datos_silic():
-    conteo = seleccion_conteo()
+    conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     del conteo["observaciones"]
-    print(conteo)
+    escala = calculo_escala()
     tam = conteo.shape[0]
     reemplazo = ["Materia org.", "Cemento","Otros ortoq."]
     for i in reemplazo:
         conteo.loc[conteo["Tipo"] == i, "Subtipo"] = i
-    print(conteo)
     df_percs = conteo.groupby("Subtipo")["Ternarios"].count()/tam
-    print(df_percs)
-    df2 = conteo.groupby("Tipo")["Subtipo"].count()/tam
+    conteo["milim"] = conteo["Size"] * escala
+    df2 = conteo.groupby("Subtipo")["milim"].mean()
+    avera_mm = df2.tolist()
     titles =list (df_percs.index)
     percs = df_percs.tolist()
     for i in range(len(percs)):
         percs[i] = percs[i] * 100
     percs = rounder(percs)
-    total = 0
-    for i in percs:
-        total += i
     data = dict(zip(titles, percs))
-    
-    return data
+    promedios_tam = dict(zip(titles, avera_mm))
+    df3 = conteo.loc[conteo["Subtipo"] == "Hola"]
+
+    return data, promedios_tam
+
 
 def conteo_normalizado(df):
   tam = df.shape[0]
@@ -204,6 +236,7 @@ def perc_comp ():
     data = dict(zip(titles, percs))
     data['label']=nc
     print (var)
+<<<<<<< Updated upstream
     print (data)
     return data
 
@@ -212,3 +245,9 @@ def perc_comp ():
 # lista_aux=perc_comp()
 # lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
 # streck76_QAP(lista_n)
+=======
+    print (percs)
+    return percs
+# lista_aux=perc_comp()
+# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
+>>>>>>> Stashed changes
