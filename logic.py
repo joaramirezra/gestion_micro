@@ -770,7 +770,7 @@ class interfaz(Ui_MainWindow):
                     variable[i]=0.00
             datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
             streck76_ol_2px(datos)
-        elif self.boton_elegir_triangulo.currentText == 'Streckeisen 76 Ultramaficas con hornblenda Px, Hbl, Ol':
+        elif self.boton_elegir_triangulo.currentText()== 'Streckeisen 76 Ultramaficas con hornblenda Px, Hbl, Ol':
             lista=['Hornblenda','Olivino','Clinopiroxeno', 'Ortopiroxeno']
             variable= perc_comp()
             for i in lista:
@@ -781,7 +781,7 @@ class interfaz(Ui_MainWindow):
             suma= variable['Clinopiroxeno']+variable['Ortopiroxeno']
             datos=[variable['Hornblenda'],variable['Olivino'],suma,variable['label']]
             streck76_ol_hbl_px(datos)
-        elif self.boton_elegir_triangulo.currentText == 'Folk 74 Composicion':
+        elif self.boton_elegir_triangulo.currentText()== 'Folk 74 Composicion':
             lista=["Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
                      "Litico sedimentario", "Plagioclasa","Feldespato k"]
             variable= perc_comp()
@@ -794,28 +794,26 @@ class interfaz(Ui_MainWindow):
             liticos=variable["Litico volcanico"]+variable["Litico plutonico"]+variable["Litico metamorfico"]+variable["Litico sedimentario"]
             datos=[feldespato,variable['Cuarzo'],liticos,variable['label']]
             folk_comp(datos)
-        elif self.boton_elegir_triangulo.currentText =='Folk 54 textural Arena-Arcilla-Limo':
-            lista=['Clinopiroxeno','Olivino','Ortopiroxeno']
-            variable= perc_comp()
-            for i in lista:
-                try:
-                    variable [i]=float(variable[i])
-                except:
-                    variable[i]=0.00
-            datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
-            folk_arena_arcilla(perc_comp())
-        elif self.boton_elegir_triangulo.currentText == 'Folk 54 textural Grava-Arena-Lodo':
-            lista=['Clinopiroxeno','Olivino','Ortopiroxeno']
-            variable= perc_comp()
-            for i in lista:
-                try:
-                    variable [i]=float(variable[i])
-                except:
-                    variable[i]=0.00
-            datos=[variable['Clinopiroxeno'],variable['Olivino'],variable['Ortopiroxeno'],variable['label']]
-            folk_grava(perc_comp())
+        elif self.boton_elegir_triangulo.currentText() =='Folk 54 textural Arena-Arcilla-Limo':
+            lista=['Arena','Olivino','Ortopiroxeno']
+            variable, tamano_prom= simplificacion_conteo()
+            general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+            nc = str(general.iloc[0]["numero_campo"])
+            if nc == nan: nc = "Numero de campo"
+            variable['label']=nc    
+            datos=[variable['Limo'],variable['Arena'],variable['Arcilla'],variable['label']]
+            folk_arena_arcilla(datos)
+        elif self.boton_elegir_triangulo.currentText() == 'Folk 54 textural Grava-Arena-Lodo':
+            lista=['Grava','Arena','Lodo']
+            variable, tamano_prom= simplificacion_conteo()
+            general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
+            nc = str(general.iloc[0]["numero_campo"])
+            if nc == nan: nc = "Numero de campo"
+            variable['label']=nc    
+            datos=[variable['Arena'],variable['Grava'],variable['Lodo'],variable['label']]
+            folk_grava(datos)
         else:
-            print ('Excelente')
+            print ('hay algo mal')
             
     
     def export_histograma(self):
