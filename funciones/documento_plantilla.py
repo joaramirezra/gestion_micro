@@ -529,6 +529,9 @@ def llenar_inter_silici(nombre_archivo):
     igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
     redondez, esfericidad = redondez_p()
+    promedios_grano = promedios_silic()
+    soportes = soporte_g()
+    t_contactos = contactos_sed()
     campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
                    "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
                    "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos", "Materia org.",
@@ -605,11 +608,13 @@ def llenar_inter_silici(nombre_archivo):
         r1.bold = True
         p1.add_run(" ")
     p1 = archivo.add_paragraph()
-    list= ['GRAVA: ' + porcent_tam["GRAVA"]+ ' (%)','Tamaño promedio:  ____ mm	 Redondez:  _____ Esfericidad:  ______',
-     'ARENA: ' + porcent_tam["GRAVA"]+' (%)', 
-           'Tamaño promedio:  ____ mm	 Redondez:  _____ Esfericidad:  ______', 'LODO: '+ porcent_tam["GRAVA"]+ ' (%)',
-           'Arcilla: ' + porcent_tam["GRAVA"]+ ' % Tamaño promedio: mm fracción arcilla:______mm \nLimo __________% Tamaño promedio fracción limo:______mm ',
-           'CONTACTO ENTRE GRANOS:', 'Flotante:______% Tangencial:______%\nLongitudinal:______% Cóncavo-convexo:______%\nSuturado:______%',
+    list= ['GRAVA: ' + porcent_tam["GRAVA"]+ ' (%)','Tamaño promedio: ' + promedios_grano[0]+ ' mm	 Redondez:  _____ Esfericidad:  ______',
+     'ARENA: ' + porcent_tam["ARENA"]+' (%)', 
+           'Tamaño promedio: ' + promedios_grano[1]+ ' mm	 Redondez:  _____ Esfericidad:  ______', 'LODO: '+ porcent_tam["LODO"]+ ' (%)',
+           'Arcilla: ' + porcent_tam["ARCILLA"]+ ' % Tamaño promedio fracción arcilla: ' + promedios_grano[3]+
+           ' mm \nLimo: ' +porcent_tam["LIMO"] + ' %' + 'Tamaño promedio fracción limo: ' + promedios_grano[4]+ ' mm ',
+           'CONTACTO ENTRE GRANOS:', 'Flotante: ' +t_contactos["Flotante"] + ' % Tangencial: ' +t_contactos["Tangencial"] +' %\nLongitudinal: '+
+           t_contactos["Longitudinal"]+ ' % Cóncavo-convexo: ' + t_contactos["Concavo-Convexo"] + ' %\nSuturado: ' + t_contactos["Suturado"] + ' %',
            'SOPORTE DE LA ROCA:', 'Granos terrígenos-aloquímicos_________% Minerales arcillosos_________%' ]
     
     contador = 0
@@ -736,6 +741,7 @@ def llenar_inter_silici(nombre_archivo):
     z1.bold= True
     z2.bold= True
     archivo.save(nombre_archivo)    
+llenar_inter_silici("CMA-423.docx")
 
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)

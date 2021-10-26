@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
-#from ternarios import *
-from funciones.ternarios import *
+# from funciones.fijar_datos import contar_puntos
+from ternarios import *
+# from funciones.ternarios import *
 from numpy import NaN, nan
 
 def rounder (perc_list):
@@ -54,6 +55,66 @@ def seleccion_conteo():
     elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
     else: conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
     return conteo
+def promedios_silic():
+    conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    escala = calculo_escala()
+    conteo["milimetros"] = conteo["Size"] * escala
+    conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
+    gravas = ["Boloque", "Guijo", "Guijarro", "Granulo"]
+    arena = ["Arena muy gruesa", "Arena gruesa", "Arena media", "Arena fina", "Arena muy fina"]
+    lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
+    limo =["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino"]
+    sizes = [gravas, arena, lodo, limo, ["Arcilla"]]
+    promedios = []
+    for i in sizes:
+        print(i)
+        grava = conteo.loc[conteo["nombres_grano"].isin(i)]
+        tam = grava.shape[0]
+        if tam > 0:
+            av= str(round(grava["milimetros"].sum()/tam,2))
+            promedios.append(av)
+        else:
+            av = "N/A"
+            promedios.append(av)
+    return promedios
+
+def contactos_sed():
+    conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    contactos = ["Flotante", "Tangencial", "Longitudinal", "Concavo-Convexo", "Suturado"]
+    tam = conteo.shape[0]
+    contact = conteo.loc[conteo["tipo_contacto"] != "---------------" ]
+    df_percs = contact.groupby("tipo_contacto")["Mineral"].count()/tam
+    percs = df_percs.tolist()
+    names = df_percs.index
+    data = dict(zip(names, percs))
+    for i in contactos:
+        try:
+            data[i] = str(data[i])
+        except:
+            data[i] = str(0.00)
+    return data
+
+def soporte_g():
+    conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    escala = calculo_escala()
+    conteo["milimetros"] = conteo["Size"] * escala
+    lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
+    sp_arci = lambda x : 'arcilloso' if (x in lodo) else "grano"
+    conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
+    conteo["soporte"] = conteo["nombres_grano"].apply(sp_arci)
+    tam = conteo.shape[0]
+    df_percs = conteo.groupby("soporte")["Mineral"].count()/tam
+    percs = df_percs.tolist()
+    percs = rounder(percs)
+    names = df_percs.index
+    data = dict(zip(names, percs))
+    soportes = ["grano", "arcilloso"]
+    for i in soportes:
+        try:
+            data[i] = str(round(data[i],2))
+        except:
+            data[i] = str(0.00)
+    return data
 
 def simplificacion_conteo():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
@@ -86,7 +147,6 @@ def simplificacion_conteo():
     else:
         df['nombres_grano'] = df['nombres_grano'].apply(reducir_limo)
         df['nombres_grano'] = df['nombres_grano'].apply(upcase)
-
     tam = df.shape[0]
     var = df.groupby('nombres_grano')['milimetros'].count()/tam
     names = list(var.index)
@@ -100,7 +160,7 @@ def simplificacion_conteo():
         except:
             data[i] = str(0.00)
     return data, av_size
-
+    
 def redondez_p():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     size = conteo.shape[0]
@@ -241,3 +301,7 @@ def histogramas():
   plt.show()
  
 
+#perc_comp ()
+# lista_aux=perc_comp()
+# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
+# streck76_QAP(lista_n)
