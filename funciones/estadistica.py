@@ -33,17 +33,18 @@ def calculo_escala():
     escala = mili / reticulas
     return escala
 
-limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
-
 
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
+    print(len(limites_size))
     sizes = ["Bloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
             "Arena media", "Arena fina", "Arena muy fina", "Limo grueso", "Limo medio", 
             "Limo fino", "Limo muy fino", "Arcilla", "Coloide"]
+    print(len(sizes))
     for i in range(len(sizes)):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
+    return "nulo"
 
 def seleccion_conteo():
     general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin") 
@@ -55,6 +56,7 @@ def seleccion_conteo():
     elif general["Subt_r"][0] == "Volcánica": conteo = pd.read_csv("./archivos/Conteo_volcanicas.csv", sep = ";", encoding= "latin")
     else: conteo = pd.read_csv("./archivos/Conteo_volcanoclasticas.csv", sep = ";", encoding= "latin")
     return conteo
+
 def promedios_silic():
     conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     escala = calculo_escala()
@@ -66,6 +68,8 @@ def promedios_silic():
     limo =["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino"]
     sizes = [gravas, arena, lodo, limo, ["Arcilla"]]
     promedios = []
+    redond = []
+    esfer = []
     for i in sizes:
         print(i)
         grava = conteo.loc[conteo["nombres_grano"].isin(i)]
@@ -73,11 +77,20 @@ def promedios_silic():
         if tam > 0:
             av= str(round(grava["milimetros"].sum()/tam,2))
             promedios.append(av)
+            if conteo["redondez"].mode()[0] != "---------------":
+                redond.append(conteo["redondez"].mode()[0])
+            else:
+                redond.append("N/A")
+            if conteo["esfericidad"].mode()[0] != "---------------":
+                esfer.append(conteo["esfericidad"].mode()[0])
         else:
             av = "N/A"
             promedios.append(av)
-    return promedios
-
+            redond.append(av)
+            esfer.append(av)
+    print(promedios, redond, esfer)
+    return promedios, redond, esfer
+promedios_silic()
 def contactos_sed():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     contactos = ["Flotante", "Tangencial", "Longitudinal", "Concavo-Convexo", "Suturado"]
@@ -121,9 +134,9 @@ def simplificacion_conteo():
     escala = calculo_escala()
     conteo["milimetros"] = conteo["Size"] * escala
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
+    av_size = conteo["nombres_grano"].mode()[0]
     df = conteo[["Mineral","milimetros",'nombres_grano']]
-    promedio_total = df['milimetros'].apply('mean')
-    av_size = traduccion_grano(promedio_total)
+    print(df)
     df.dropna(inplace=True)
     tam = df.shape[0]
     df.groupby('nombres_grano')['milimetros'].count()/tam
@@ -151,16 +164,23 @@ def simplificacion_conteo():
     var = df.groupby('nombres_grano')['milimetros'].count()/tam
     names = list(var.index)
     percs = var.tolist()
-    percs = rounder(percs)
     data = dict(zip(names,percs))
     campos = ["ARENA", "GRAVA", "LODO", "LIMO" , "ARCILLA"]
+    lodos = ["LIMO", "ARCILLA"]
+    for i in lodos:
+        try:
+            data[i] = round(data[i],2)
+        except:
+            data[i] = 0.00
+    data["LODO"] = data["LIMO"] + data["ARCILLA"]
     for i in campos:
         try:
-            data[i] = str(data[i])
+            data[i] = str(round(data[i]))
         except:
             data[i] = str(0.00)
+    # print(data)
     return data, av_size
-    
+
 def redondez_p():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     size = conteo.shape[0]
