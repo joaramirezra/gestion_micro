@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-# from funciones.estadistica import *
-from estadistica import *
+from funciones.estadistica import *
+# from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -40,8 +40,7 @@ def llenar_info_general():
     parametros.pop()
     parametros.insert(11,"")
     parametros = list(map(str, parametros))
-    # archivo = Document("./archivos/templates/template_1.docx")
-    archivo = Document()
+    archivo = Document("./archivos/templates/template_1.docx")
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
     campos = ["IGM", "Número de campo", "Unidad litoestratigráfica", "Localidad",
@@ -76,7 +75,6 @@ def llenar_macro(nombre_archivo):
     parametros = df.values[-1].tolist()
     parametros = list(map(str, parametros))
     img_macro = df["url_foto"][0]
-    # escala = df["url_escala"]
     for i in range(2):
         campos.pop()
         parametros.pop()
@@ -184,7 +182,8 @@ def llenar_inter_plut(nombre_archivo):
     archivo.add_heading("OBSERVACIONES")
     archivo.add_paragraph()
     archivo.save(nombre_archivo)
-llenar_inter_plut('patata.docx')
+
+
 def llenar_inter_volcanico(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = str(general.iloc[0]["igm"])
@@ -532,7 +531,7 @@ def llenar_inter_silici(nombre_archivo):
     promedios_grano, redond_p, esfer_p = promedios_silic()
     soportes = soporte_g()
     t_contactos = contactos_sed()
-    datos_comp, prom_tam = datos_silic()
+    datos_comp, prom_tam, redon_com, esfer_com = datos_silic()
     porcent_tam, av_size = simplificacion_conteo()
     archivo = Document(nombre_archivo)
     
@@ -579,7 +578,7 @@ def llenar_inter_silici(nombre_archivo):
     r1 = p1.add_run("POROSIDAD:") 
     r1.bold = True
     r1.underline = True
-    p1.add_run(" " +datos_comp["Porosidad"]+ ' %    Primaria: ' + datos_comp["Primaria"] + ' %    Secundaria: ' +datos_comp["Secundaria"]+ 
+    p1.add_run(" " + soportes["Porosidad"] + ' %    Primaria: ' + soportes["Primaria"] + ' %    Secundaria: ' + soportes["Secundaria"] + 
     ' % \nTipo(s), origen y descripción')
     archivo.add_paragraph()
     p2 = archivo.add_paragraph()
@@ -604,12 +603,12 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_paragraph()
 
     list2= ['Cuarzo: '+ datos_comp["Cuarzo"]+' (%)','Monocristalino: ' + datos_comp["Cuarzo mono"]+ ' (%) Tamaño promedio: ' + 
-    prom_tam["Cuarzo mono"]+  ' mm Esfericidad:___Redondez:___'
-    '\nPolicristalino: '+ datos_comp["Cuarzo poli"]+ ' %	Tamaño promedio: ' +prom_tam["Cuarzo poli"] + ' mm Esfericidad____Redondez:___'
-    '\nObservaciones:____ ','Chert: ' + datos_comp["Chert"] + ' %', 'Tamaño promedio: ' + prom_tam["Chert"]+ ' mm Esfericidad_____ Redondez:_____',
+    prom_tam["Cuarzo mono"]+  ' mm Esfericidad: ' + esfer_com["Cuarzo mono"] + ' Redondez: ' +redon_com["Cuarzo mono"] +
+    '\nPolicristalino: '+ datos_comp["Cuarzo poli"]+ ' %	Tamaño promedio: ' +prom_tam["Cuarzo poli"] + ' mm Esfericidad: ' + esfer_com["Cuarzo poli"] + ' Redondez: ' +redon_com["Cuarzo poli"] +
+    '\nObservaciones:____ ','Chert: ' + datos_comp["Chert"] + ' %', 'Tamaño promedio: ' + prom_tam["Chert"]+ ' mm Esfericidad: ' + esfer_com["Chert"] + ' Redondez: ' +redon_com["Chert"] ,
     'Feldespato: ' +  datos_comp["Feldespato"] +' %', 'Potásico: ' + datos_comp["Feldespato K"] + 
-    ' % Tamaño promedio: ' +prom_tam["Feldespato K"] + ' mm	Esfericidad	_____Redondez:_____'+ 	
-    '\nSódico-Cálcico: '+ datos_comp["Feldespato Na - Ca"]+ ' % Tamaño promedio: '+ prom_tam["Feldespato Na - Ca"]  +' mm Esfericidad_____Redondez:_____']
+    ' % Tamaño promedio: ' +prom_tam["Feldespato K"] + ' mm	Esfericidad: ' + esfer_com["Feldespato K"] + ' Redondez: ' +redon_com["Feldespato K"] + 	
+    '\nSódico-Cálcico: '+ datos_comp["Feldespato Na - Ca"]+ ' % Tamaño promedio: '+ prom_tam["Feldespato Na - Ca"]  +' mm Esfericidad: ' + esfer_com["Feldespato Na - Ca"] + ' Redondez: ' +redon_com["Feldespato Na - Ca"] ]
     contador=0
     for i in list2: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
         if contador %2 == 0:
@@ -645,13 +644,13 @@ def llenar_inter_silici(nombre_archivo):
     archivo.add_heading('LÍTICOS (Ígneos, Metamórficos, Sedimentarios): '+datos_comp["Liticos"] +' (%)',3)
     archivo.add_paragraph()
     list4= ['Líticos Metamórficos: ' + datos_comp["Metamorficos"]+ ' %',	
-            'Tamaño promedio: ' + prom_tam["Metamorficos"] + ' mm	Esfericidad:_____Redondez:_____',	
+            'Tamaño promedio: ' + prom_tam["Metamorficos"] + ' mm	Esfericidad: ' + esfer_com["Metamorficos"] + ' Redondez: ' +redon_com["Metamorficos"],	
             'Líticos Volcánicos: '+ datos_comp["Volcanicos"]+' %',	
-            'Tamaño promedio: ' + prom_tam["Volcanicos"] + ' mm	Esfericidad:_____Redondez:_____',	
+            'Tamaño promedio: ' + prom_tam["Volcanicos"] + ' mm	Esfericidad: ' + esfer_com["Volcanicos"] + ' Redondez: ' +redon_com["Volcanicos"],	
             'Líticos Plutónicos: '+ datos_comp["Plutonicos"]+ ' %',	
-            'Tamaño promedio: ' + prom_tam["Plutonicos"] + ' mm	Esfericidad:_____Redondez:_____',	
+            'Tamaño promedio: ' + prom_tam["Plutonicos"] + ' mm	Esfericidad: ' + esfer_com["Plutonicos"] + ' Redondez: ' +redon_com["Plutonicos"],	
             'Líticos Sedimentarios: ' + datos_comp["Sedimentarios"]+ ' %',
-            'Tamaño promedio: ' + prom_tam["Sedimentarios"] + ' mm	Esfericidad:_____Redondez:_____'	
+            'Tamaño promedio: ' + prom_tam["Sedimentarios"] + ' mm	Esfericidad: ' + esfer_com["Sedimentarios"] + ' Redondez: ' +redon_com["Sedimentarios"]	+
             '\nObservaciones:_____', 'Materia Orgánica: ' + datos_comp["Materia org."] + ' %', 'Tipo(s):_____',
             'Cemento: '+ datos_comp["Cemento"]+ ' %','Tipo(s):'+'\nTamaño cristalino: ' +prom_tam["Cemento"] + ' mm', 'Otros Ortoquímicos: ' +
              datos_comp["Otros ortoq."]+ ' %', 'Tipo(s)(incluye minerales autigénicos):_____' '\nTamaño:____mm']

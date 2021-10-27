@@ -7217,10 +7217,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_siliciclastica">
       <property name="geometry">
        <rect>
-        <x>840</x>
-        <y>10</y>
-        <width>31</width>
-        <height>41</height>
+        <x>210</x>
+        <y>50</y>
+        <width>441</width>
+        <height>491</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8342,10 +8342,10 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_dinamico">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>30</x>
         <y>50</y>
-        <width>451</width>
-        <height>551</height>
+        <width>51</width>
+        <height>101</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -8932,7 +8932,7 @@ color: rgb(238, 238, 236);</string>
          <x>560</x>
          <y>0</y>
          <width>344</width>
-         <height>191</height>
+         <height>192</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
