@@ -75,9 +75,6 @@ def llenar_macro(nombre_archivo):
     parametros = df.values[-1].tolist()
     parametros = list(map(str, parametros))
     img_macro = df["url_foto"][0]
-    for i in range(2):
-        campos.pop()
-        parametros.pop()
     for i in range(len(campos)):
         campos[i] = campos[i].replace("_", " ")
     archivo = Document(nombre_archivo)
