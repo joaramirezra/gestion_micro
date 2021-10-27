@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-from funciones.estadistica import *
-#from estadistica import *
+# from funciones.estadistica import *
+from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -40,7 +40,7 @@ def llenar_info_general():
     parametros.pop()
     parametros.insert(11,"")
     parametros = list(map(str, parametros))
-    # archivo = Document("./archivos/templates/template_1.docx") PREGUNTARLE A JOHAN
+    # archivo = Document("./archivos/templates/template_1.docx")
     archivo = Document()
     archivo.add_heading('INFORMACIÓN GENERAL' )
     archivo.add_paragraph()
@@ -76,7 +76,7 @@ def llenar_macro(nombre_archivo):
     parametros = df.values[-1].tolist()
     parametros = list(map(str, parametros))
     img_macro = df["url_foto"][0]
-    escala = df["url_escala"]
+    # escala = df["url_escala"]
     for i in range(2):
         campos.pop()
         parametros.pop()
@@ -529,7 +529,7 @@ def llenar_inter_silici(nombre_archivo):
     igm = str(general.iloc[0]["igm"])
     if igm == nan: igm = "IGM"
     redondez, esfericidad = redondez_p()
-    promedios_grano = promedios_silic()
+    promedios_grano, redond_p, esfer_p = promedios_silic()
     soportes = soporte_g()
     t_contactos = contactos_sed()
     campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
@@ -608,14 +608,14 @@ def llenar_inter_silici(nombre_archivo):
         r1.bold = True
         p1.add_run(" ")
     p1 = archivo.add_paragraph()
-    list= ['GRAVA: ' + porcent_tam["GRAVA"]+ ' (%)','Tamaño promedio: ' + promedios_grano[0]+ ' mm	 Redondez:  _____ Esfericidad:  ______',
-     'ARENA: ' + porcent_tam["ARENA"]+' (%)', 
-           'Tamaño promedio: ' + promedios_grano[1]+ ' mm	 Redondez:  _____ Esfericidad:  ______', 'LODO: '+ porcent_tam["LODO"]+ ' (%)',
-           'Arcilla: ' + porcent_tam["ARCILLA"]+ ' % Tamaño promedio fracción arcilla: ' + promedios_grano[3]+
-           ' mm \nLimo: ' +porcent_tam["LIMO"] + ' %' + 'Tamaño promedio fracción limo: ' + promedios_grano[4]+ ' mm ',
-           'CONTACTO ENTRE GRANOS:', 'Flotante: ' +t_contactos["Flotante"] + ' % Tangencial: ' +t_contactos["Tangencial"] +' %\nLongitudinal: '+
-           t_contactos["Longitudinal"]+ ' % Cóncavo-convexo: ' + t_contactos["Concavo-Convexo"] + ' %\nSuturado: ' + t_contactos["Suturado"] + ' %',
-           'SOPORTE DE LA ROCA:', 'Granos terrígenos-aloquímicos_________% Minerales arcillosos_________%' ]
+    list= ['GRAVA: ' + porcent_tam["GRAVA"]+ ' (%)','Tamaño promedio: ' + promedios_grano[0]+ ' mm	 Redondez: '+ redond_p[0] +
+    ' Esfericidad: ' + esfer_p[0], 'ARENA: ' + porcent_tam["ARENA"]+' (%)',  'Tamaño promedio: ' + promedios_grano[1]+ 
+    ' mm	 Redondez: ' +redond_p[1] +  ' Esfericidad: ' + esfer_p[1], 'LODO: '+ porcent_tam["LODO"]+ ' (%)',
+    'Arcilla: ' + porcent_tam["ARCILLA"]+ ' % Tamaño promedio fracción arcilla: ' + promedios_grano[4]+
+    ' mm \nLimo: ' +porcent_tam["LIMO"] + ' %' + 'Tamaño promedio fracción limo: ' + promedios_grano[3]+ ' mm ',
+    'CONTACTO ENTRE GRANOS:', 'Flotante: ' +t_contactos["Flotante"] + ' % Tangencial: ' +t_contactos["Tangencial"] +' %\nLongitudinal: '+
+    t_contactos["Longitudinal"]+ ' % Cóncavo-convexo: ' + t_contactos["Concavo-Convexo"] + ' %\nSuturado: ' + t_contactos["Suturado"] + ' %',
+    'SOPORTE DE LA ROCA:', 'Granos terrígenos-aloquímicos: ' + soportes["grano"] + ' % Minerales arcillosos: ' + soportes["arcilloso"] + ' %' ]
     
     contador = 0
     for i in list: #los datos de grava y tamaño y lo demás de la list se pueden llenar con info de interfaz
@@ -741,8 +741,8 @@ def llenar_inter_silici(nombre_archivo):
     z1.bold= True
     z2.bold= True
     archivo.save(nombre_archivo)    
-llenar_inter_silici("CMA-423.docx")
 
+llenar_inter_silici("CMA-423.docx")
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
