@@ -9,8 +9,6 @@ from funciones.documento_plantilla import *
 from funciones.fijar_datos import *
 from PyQt5.QtWidgets import QMessageBox
 import matplotlib.pyplot as plt
-
-
 import sys
 
 
@@ -18,7 +16,6 @@ class interfaz(Ui_MainWindow):
     def __init__( self ):
         super().__init__()
 
-    
     def setupUi( self, MW ):
         super().setupUi( MW )
         crear_los_archivos()
@@ -62,12 +59,12 @@ class interfaz(Ui_MainWindow):
 
         #exportaciones
         self.boton_exp_csv.clicked.connect(self.export_csv)
-        self.boton_exp_histograma.clicked.connect(self.export_histograma)
+        self.boton_exp_histograma_min.clicked.connect(self.export_histograma_min)
+        self.boton_exp_histograma_tam.clicked.connect(self.export_histograma_tam)
         self.boton_exp_formato.clicked.connect(self.export_formato)
         self.boton_exp_triangulo.clicked.connect(self.export_triangulo)
         
         
-
 # tab general
 
     # calibración medidas
@@ -790,18 +787,18 @@ class interfaz(Ui_MainWindow):
             liticos=variable["Litico volcanico"]+variable["Litico plutonico"]+variable["Litico metamorfico"]+variable["Litico sedimentario"]
             datos=[feldespato,variable['Cuarzo'],liticos,variable['label']]
             folk_comp(datos)
-        # elif self.boton_elegir_triangulo.currentText()== 'Folk 74 Composicion liticos':
-        #     lista=["Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
-        #              "Litico sedimentario", "Plagioclasa","Feldespato k"]
-        #     variable= perc_comp()
-        #     for i in lista:
-        #         try:
-        #             variable [i]=float(variable[i])
-        #         except:
-        #             variable[i]=0.00
-        #     liticosig= variable["Litico volcanico"] + variable["Litico plutonico"]
-        #     datos=[variable["Litico metamorfico"],variable["Litico sedimentario"],liticosig,variable['label']]
-        #     folk_litic(datos)
+        elif self.boton_elegir_triangulo.currentText()== 'Folk 74 Composicion liticos':
+            lista=["Litico volcanico", "Litico plutonico", "Litico metamorfico", 
+                     "Litico sedimentario"]
+            variable= perc_comp()
+            for i in lista:
+                try:
+                    variable [i]=float(variable[i])
+                except:
+                    variable[i]=0.00
+            liticosig= variable["Litico volcanico"] + variable["Litico plutonico"]
+            datos=[variable["Litico metamorfico"],variable["Litico sedimentario"],liticosig,variable['label']]
+            folk_litic(datos)
         elif self.boton_elegir_triangulo.currentText() =='Folk 54 textural Arena-Arcilla-Limo':
             lista=['Arena','Olivino','Ortopiroxeno']
             variable, tamano_prom= simplificacion_conteo()
@@ -823,11 +820,18 @@ class interfaz(Ui_MainWindow):
         else:
             print ('hay algo mal')
                 
-    def export_histograma(self):
+    def export_histograma_min(self):
         try:
-            histogramas()
+            histograma_mineral()
         except:
             pass
+    
+    def export_histograma_tam(self):
+        try:
+            histograma_size()
+        except:
+            pass
+    
     def export_formato(self):
         nombre_a = llenar_info_general()
         general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
@@ -839,13 +843,16 @@ class interfaz(Ui_MainWindow):
         elif general["Subt_r"][0] == "Plutónica": llenar_inter_plut(nombre_a)
         elif general["Subt_r"][0] == "Volcánica": llenar_inter_plut(nombre_a)
         elif general["Subt_r"][0] == "Volcanoclástica": llenar_inter_plut(nombre_a)
+        llenar_fotos_micro(nombre_a)    
 
-        llenar_fotos_micro(nombre_a)        
 def main():
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
     MainWindow = QtWidgets.QMainWindow()
     ui = interfaz()
     ui.setupUi(MainWindow)
     MainWindow.show()
     # app.exec_()
     sys.exit(app.exec_())
+
+main()
