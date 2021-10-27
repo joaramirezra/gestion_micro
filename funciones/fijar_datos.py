@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui import QPixmap
 import matplotlib.pyplot as plt
+from pandas.io.parsers import read_csv
 
 def Crear_Archivo(nombre_archivo):
   titulo = ";".join(archivos[nombre_archivo])+'\n'
@@ -99,11 +100,7 @@ def continuar_conteo():
 
 def crear_los_archivos():
   for archivo in archivos :
-    if archivo == 'Diccionario_simbolos':
-      continue
-    else:
-      titulo = ";".join(archivos[archivo])+'\n'
-
+    titulo = ";".join(archivos[archivo])+'\n'
     with open( "./archivos/" +archivo+'.csv','w+') as file :
       file.write(titulo)
 
@@ -188,66 +185,32 @@ def guardar_csv():
   micro = pd.read_csv("./archivos/current_micro.csv", sep= ";", encoding="latin")
   name = str(general["numero_campo"][0])
   nombre_archivo = QFileDialog.getSaveFileName(directory= name,filter= " csv (*.csv)")[0]
-  conteo.to_csv(nombre_archivo,encoding= "latin", sep=';',index=False)
-  opciones = ["_macro", "_general","_micro"]
-  for i in opciones:
-    print(i)
-    lista = nombre_archivo.split("/")
-    name = lista[-1]
-    name_sp = name.split(".")
-    name_sp[0] = name_sp[0] + i
-    name2 = ".".join(name_sp)
-    lista[-1] = name2
-    ruta_mac = "/".join(lista)
-    if i == "_macro": macro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
-    elif i == "_general" : general.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
-    else: micro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+  if nombre_archivo== '':
+    pass
+  else:
+    conteo.to_csv(nombre_archivo,encoding= "latin", sep=';',index=False)
+    opciones = ["_macro", "_general","_micro"]
+    for i in opciones:
+      lista = nombre_archivo.split("/")
+      name = lista[-1]
+      name_sp = name.split(".")
+      name_sp[0] = name_sp[0] + i
+      name2 = ".".join(name_sp)
+      lista[-1] = name2
+      ruta_mac = "/".join(lista)
+      if i == "_macro": macro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+      elif i == "_general" : general.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+      else: micro.to_csv(ruta_mac,encoding= "latin", sep=';',index=False)
+
+def guardar_diccionario():
+  diccionario=pd.read_csv("./archivos/Diccionario_simbolos.csv", sep = ";", encoding= "latin")
+  nombre_archivo = QFileDialog.getSaveFileName(directory= 'Diccionario_simbolos',filter= "CSV (*.csv)")[0]
+  diccionario.to_csv(nombre_archivo, encoding= "latin" ,sep = ";", index = False)
+
+def cargar_diccionario():
+  url =  QFileDialog.getOpenFileName()[0]
+  if url != "":
+    prev = pd.read_csv(url, sep=";", encoding="latin")
+    prev.to_csv("./archivos/Diccionario_simbolos.csv", sep = ";", encoding= "latin", index = False)
 
 
-# def agregar_punto_siliciclastica(simbolo,size,rendondez,esfericidad,tipo_contacto,observaciones):
-#   if(not validar_exitencia_archivo('./archivos/Conteo_siliciclasticas.csv')):
-#     Crear_Archivo('Conteo_siliciclasticas')
-#   if validar_simbolo(simbolo):
-#     mineral = traducir_simbolo(simbolo)
-#     data = pd.read_csv('./archivos/Conteo_siliciclasticas.csv',sep=';')
-#     punto = pd.DataFrame({'Mineral':[mineral],
-#                             'Size':[size],
-#                             'redondez':[rendondez],
-#                             'esfericidad':[esfericidad],
-#                             'tipo_contacto':[tipo_contacto],
-#                             'observaciones':[observaciones]
-#                             }
-#                         )
-#     data = pd.concat([data,punto])
-#     data.to_csv('./archivos/Conteo_siliciclasticas.csv',sep=';',index=False)
-#     return True
-#   else:
-#     return False
-
-# def agregar_punto_silicilastica(mineral, size, redondez, esfericidad, tipo_contacto, observaciones):
-#   data = pd.read_csv("./archivos/conteo_sedimentarias.csv")
-#   punto = pd.DataFrame({"Mineral"})
-#   data = pd.concat(data, punto)
-#   data.to_csv("")
-
-
-# def agragar_interfaz(simbolo, etc):
-  
-# # def guardar_punto(*valores):
-# #     with open('./archivos/puntos.csv', 'a+') as file:
-# #         file.write(";".join(valores)+'\n')
-
-# # def ultimo_valor():
-# #     df = pd.read_csv('./archivos/puntos.csv',sep= ';')
-# #     return df.tail(1)
-
-
-# # def cantidad_puntos():
-# #     df = pd.read_csv('./archivos/puntos.csv',sep= ';')
-# #     return df.shape[0]
-
-    
-# parametros = ['mineral', 'tamaño', 'esfericidad', 'redondez', 'coor_x', 'coor_y']
-# dato_conteo = ["Qz", "6", "5", "5", "1", "5"]
-# crear_archivo(nombre, parametros)
-# escribir_archivo(nombre, dato_conteo)

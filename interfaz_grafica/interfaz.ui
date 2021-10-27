@@ -450,9 +450,16 @@ lista de minerales</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="boton_ver_lista">
+           <widget class="QPushButton" name="boton_guardar_dict">
             <property name="text">
-             <string>Ver lista</string>
+             <string>Guardar </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="boton_cargar_dict">
+            <property name="text">
+             <string>Cargar</string>
             </property>
            </widget>
           </item>
@@ -6791,13 +6798,6 @@ background-color: rgb(114, 159, 207)</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="boton_cargar_escala">
-          <property name="text">
-           <string>Cargar escala</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
       <widget class="QLabel" name="label_foto_macro">
@@ -6806,24 +6806,11 @@ background-color: rgb(114, 159, 207)</string>
          <x>20</x>
          <y>10</y>
          <width>351</width>
-         <height>321</height>
+         <height>361</height>
         </rect>
        </property>
        <property name="text">
         <string>Imagen </string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_escala_macro">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>351</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Escala </string>
        </property>
       </widget>
      </widget>
@@ -9015,6 +9002,11 @@ color: rgb(238, 238, 236);</string>
             <item>
              <property name="text">
               <string>Folk 74 Composicion</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Folk 74 Composicion liticos</string>
              </property>
             </item>
            </widget>

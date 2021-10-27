@@ -1,4 +1,3 @@
-
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
@@ -17,7 +16,7 @@ def intersec(line_ini,line_end,corte):
 
 def streck76_QAP_volc(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas volcánicas (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -73,15 +72,12 @@ def streck76_QAP_volc(*puntos):
         tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     file_name = "QAP_" + punto[3] + ".png"
-    file_name = "QAP_general.png"
-    
+        
     tax.show()
-    tax.savefig(file_name)
-    #tax.close()
 
 def streck76_QAP_plut(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas plutónicas (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -141,14 +137,12 @@ def streck76_QAP_plut(*puntos):
         tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     file_name = "QAP_" + punto[3] + ".png"
-    file_name = "QAP_general.png"
-    
+
     tax.show()
-    tax.savefig(file_name)
-    #tax.close()
+ 
 def streck76_plut_maf(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas plutónicas Máficas (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -188,7 +182,7 @@ def streck76_plut_maf(*puntos):
 
 def streck76_plut_maf_hbl(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas gabróideas con hornblenda (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -236,7 +230,7 @@ def streck76_plut_maf_hbl(*puntos):
 
 def streck76_pl_2px(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas gabróideas con Clino y Orto piroxeno (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -276,7 +270,7 @@ def streck76_pl_2px(*puntos):
 
 def streck76_ol_2px(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas plutónicas (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -325,7 +319,7 @@ def streck76_ol_2px(*puntos):
 
 def streck76_ol_hbl_px(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación de rocas ultramáficas (Streckeisen 1976)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -384,7 +378,7 @@ def streck76_ol_hbl_px(*puntos):
 
 def folk_grava(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación textural de rocas siliciclásticas (Folk 1954)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -440,7 +434,7 @@ def folk_grava(*puntos):
 
 def folk_arena_arcilla(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación textural de rocas siliciclásticas (Folk 1954)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -488,7 +482,7 @@ def folk_arena_arcilla(*puntos):
 
 def folk_comp(*puntos):
     fig, tax = tr.figure(scale=100)
-    fig.set_size_inches(10,10)
+    fig.set_size_inches(12,12)
     tax.set_title("Diagrama de clasificación composicional de rocas siliciclásticas (Folk 1974)", pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
@@ -533,7 +527,7 @@ def folk_litic(*puntos):
     fig, tax = tr.figure(scale=100)
     fig.set_size_inches(12,12)
     tax.set_title('''Diagrama de clasificación composicional 
-de rocas siliciclásticas (Folk 1974)''', pad = 50, Fontsize = 20)
+                    de rocas siliciclásticas (Folk 1974)''', pad = 50, Fontsize = 20)
     tax.gridlines(multiple=10, color = "k")
     tax.gridlines(5)
     tax.get_axes().axis('off')
@@ -554,9 +548,8 @@ de rocas siliciclásticas (Folk 1974)''', pad = 50, Fontsize = 20)
         tax.annotate(str(indice+1), (coordenada[0], coordenada[1]),fontsize = 9)
 
     indices = '''1- Sedarenita
-2- Arenita volcánica
-3- Filarenita'''
-
+                2- Arenita volcánica
+                3- Filarenita'''
 
     tax.annotate(indices, position=(40, 100,0),
                 size=10, ha='left', va='top',

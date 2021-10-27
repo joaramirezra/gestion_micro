@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
-# from funciones.fijar_datos import contar_puntos
-from ternarios import *
-# from funciones.ternarios import *
+from funciones.fijar_datos import contar_puntos
+#from ternarios import *
+from funciones.ternarios import *
 from numpy import NaN, nan
 
 def rounder (perc_list):
@@ -33,14 +33,11 @@ def calculo_escala():
     escala = mili / reticulas
     return escala
 
-
 def traduccion_grano(milimetros):
     limites_size = [4096,256,64,4,2,1,1/2,1/4,1/8, 1/16, 1/32, 1/64, 1/128, 1/256, 1/2**14,0]
-    print(len(limites_size))
     sizes = ["Bloque", "Guijo", "Guijarro", "Granulo", "Arena muy gruesa", "Arena gruesa",
             "Arena media", "Arena fina", "Arena muy fina", "Limo grueso", "Limo medio", 
             "Limo fino", "Limo muy fino", "Arcilla", "Coloide"]
-    print(len(sizes))
     for i in range(len(sizes)):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
@@ -71,7 +68,6 @@ def promedios_silic():
     redond = []
     esfer = []
     for i in sizes:
-        print(i)
         grava = conteo.loc[conteo["nombres_grano"].isin(i)]
         tam = grava.shape[0]
         if tam > 0:
@@ -88,9 +84,8 @@ def promedios_silic():
             promedios.append(av)
             redond.append(av)
             esfer.append(av)
-    print(promedios, redond, esfer)
     return promedios, redond, esfer
-promedios_silic()
+
 def contactos_sed():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     contactos = ["Flotante", "Tangencial", "Longitudinal", "Concavo-Convexo", "Suturado"]
@@ -136,7 +131,6 @@ def simplificacion_conteo():
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
     av_size = conteo["nombres_grano"].mode()[0]
     df = conteo[["Mineral","milimetros",'nombres_grano']]
-    print(df)
     df.dropna(inplace=True)
     tam = df.shape[0]
     df.groupby('nombres_grano')['milimetros'].count()/tam
@@ -178,7 +172,6 @@ def simplificacion_conteo():
             data[i] = str(round(data[i]))
         except:
             data[i] = str(0.00)
-    # print(data)
     return data, av_size
 
 def redondez_p():
@@ -310,8 +303,6 @@ def perc_comp ():
     titles =list (var.index)
     data = dict(zip(titles, percs))
     data['label']=nc
-    print (var)
-    print (data)
     return data
 
 def histogramas():
@@ -321,7 +312,3 @@ def histogramas():
   plt.show()
  
 
-#perc_comp ()
-# lista_aux=perc_comp()
-# lista_n= [lista_aux[1],lista_aux[0],lista_aux[2],lista_aux[3]]
-# streck76_QAP(lista_n)
