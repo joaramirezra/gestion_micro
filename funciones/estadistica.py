@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
-# from funciones.fijar_datos import contar_puntos
-from ternarios import *
-# from funciones.ternarios import *
+from pandas.core import groupby
+from funciones.fijar_datos import contar_puntos
+# from ternarios import *
+from funciones.ternarios import *
 from numpy import NaN, average, nan
 
 def rounder (perc_list):
@@ -102,7 +103,7 @@ def contactos_sed():
     contact = conteo.loc[conteo["tipo_contacto"] != "---------------" ]
     df_percs = contact.groupby("tipo_contacto")["Mineral"].count()/tam
     percs = df_percs.tolist()
-    names = df_percs.index
+    names = list(df_percs.index)
     data = dict(zip(names, percs))
     for i in contactos:
         try:
@@ -115,29 +116,42 @@ def soporte_g():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     escala = calculo_escala()
     conteo["milimetros"] = conteo["Size"] * escala
-    lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
+    tam = conteo.shape[0]
+    lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla", "Coloide", "nulo"]
     sp_arci = lambda x : 'arcilloso' if (x in lodo) else "grano"
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
     conteo["soporte"] = conteo["nombres_grano"].apply(sp_arci)
-    tam = conteo.shape[0]
+    conteo.loc[conteo.Subtipo == "Primaria", 'soporte'] = "Primaria"
+    conteo.loc[conteo.Subtipo == "Secundaria", 'soporte'] = "Secundaria"
     df_percs = conteo.groupby("soporte")["Mineral"].count()/tam
     percs = df_percs.tolist()
     percs = rounder(percs)
-    names = df_percs.index
+    names = list(df_percs.index)
     data = dict(zip(names, percs))
-    soportes = ["grano", "arcilloso"]
+    soportes = ["grano", "arcilloso", "Primaria", "Secundaria"]
+    poros = ["Primaria", "Secundaria"]
     for i in soportes:
         try:
-            data[i] = str(round(data[i],2))
+            data[i] = round(data[i],2)
         except:
             data[i] = str(0.00)
+    data["Porosidad"] = 0.00
+    for i in poros:
+        try:
+            data["Porosidad"] = round(data["Porosidad"] + data[i], 2)
+        except:
+            pass
+    for i in data:
+        data[i] = str((data[i]))
     return data
+
 
 def simplificacion_conteo():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     escala = calculo_escala()
     conteo["milimetros"] = conteo["Size"] * escala
     conteo['nombres_grano'] = conteo["milimetros"].apply(traduccion_grano)
+    conteo = conteo.loc[conteo["nombres_grano"] != "nulo"]
     av_size = conteo["nombres_grano"].mode()[0]
     df = conteo[["Mineral","milimetros",'nombres_grano']]
     df.dropna(inplace=True)
@@ -193,24 +207,31 @@ def redondez_p():
     names = list(redond.index)
     percs = redond.tolist()
     data = dict(zip(names,percs))
-    first = names[0]
-    for i in data:
-        if data[i] > data[first]:
-            redondez = i
-            first = i
-        else:
-            redondez = first
+    try:
+        first = names[0]
+        for i in data:
+            if data[i] > data[first]:
+                redondez = i
+                first = i
+            else:
+                redondez = first
+    except:
+        pass
     redond = conteo.groupby("esfericidad")["Mineral"].count()/size
     names = list(redond.index)
     percs = redond.tolist()
     data = dict(zip(names,percs))
-    first = names[0]
-    for i in data:
-        if data[i] > data[first]:
-            esfericidad = i
-            first = i
-        else:
-            esfericidad = first
+    try:
+
+        first = names[0]
+        for i in data:
+            if data[i] > data[first]:
+                esfericidad = i
+                first = i
+            else:
+                esfericidad = first
+    except:
+        pass
     return redondez, esfericidad
 
 
@@ -235,13 +256,14 @@ def datos_silic():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     del conteo["observaciones"]
     escala = calculo_escala()
-    tam = conteo.shape[0]
     reemplazo = ["Materia org.", "Cemento","Otros ortoq."]
     for i in reemplazo:
         conteo.loc[conteo["Tipo"] == i, "Subtipo"] = i
-    df_percs = conteo.groupby("Subtipo")["Ternarios"].count()/tam
-    conteo["milim"] = conteo["Size"] * escala
-    df2 = conteo.groupby("Subtipo")["milim"].mean()
+    no_p = conteo.loc[conteo["Tipo"] != "Porosidad"]
+    tam = no_p.shape[0]
+    df_percs = no_p.groupby("Subtipo")["Ternarios"].count()/tam
+    no_p["milim"] = no_p["Size"] * escala
+    df2 = no_p.groupby("Subtipo")["milim"].mean()
     avera_mm = df2.tolist()
     titles =list (df_percs.index)
     percs = df_percs.tolist()
@@ -252,15 +274,14 @@ def datos_silic():
     promedios_tam = dict(zip(titles, avera_mm))
     
 
-    campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
+    campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios",
                    "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
                    "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos", "Materia org.",
                    "Cemento", "Otros ortoq.", "Porosidad", "Cuarzo", "Liticos", "Feldespato","Terrigenos"]
-    porosidad = ["Primaria", "Secundaria"]
     feldes = ["Feldespato K", "Feldespato Na - Ca"]
     litic = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios"]
     quartz = ["Cuarzo mono", "Cuarzo poli"]
-    complete = ["Porosidad", "Cuarzo", "Liticos", "Feldespato", "Terrigenos"]
+    complete = ["Cuarzo", "Liticos", "Feldespato", "Terrigenos"]
     terrig = ["Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
               "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos"]
     esfer =[]
@@ -268,12 +289,7 @@ def datos_silic():
     for i in complete:
         data[i] = 0.00
         promedios_tam[i] = 0.00
-    for i in porosidad:
-        try:
-            data["Porosidad"] += data[i]
-            promedios_tam["Porosidad"] += promedios_tam[i]
-        except:
-            continue
+
     for i in feldes:
         try:
             data["Feldespato"] += data[i]
@@ -320,8 +336,7 @@ def datos_silic():
             esfer.append("N/A")
     redond_p = dict(zip(campos_form, redond))
     esfer_p = dict(zip(campos_form, esfer))
-    print(redond_p, esfer_p)
-    return data, promedios_tam
+    return data, promedios_tam, redond_p, esfer_p
 
 
 def conteo_normalizado(df):

@@ -76,8 +76,8 @@ archivos =  {'Conteo_siliciclasticas':['Mineral','Size','redondez','esfericidad'
                                   "cantidad_p", "Tipo_r", "Subt_r"],
               "calibracion_escala" : ["reticulas", "milimetros", "objetivo"],
               "current_macro_sed" : ["tipo_roca", "textura", "color", "laminación", "bioturbación",
-                        "meteorización", "partición", "prueba_fosfatos", "pureba_HCl", "observaciones", "url_foto", "url_escala"],
-              "current_macro": ["observaciones", "url_foto", "url_escala"],
+                        "meteorización", "partición", "prueba_fosfatos", "pureba_HCl", "observaciones", "url_foto"],
+              "current_macro": ["observaciones", "url_foto"],
               "current_micro": ["url_ppl", "url_xpl", "descrpcion_micro"],
               'auxiliar_micro': ["url_ppl", "url_xpl", "descrpcion_micro"]}
 
