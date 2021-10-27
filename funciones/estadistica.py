@@ -64,15 +64,15 @@ def promedios_silic():
     lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
     limo =["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino"]
     sizes = [gravas, arena, lodo, limo, ["Arcilla"]]
+    print(conteo)
     promedios = []
     redond = []
     esfer = []
+
     for i in sizes:
         grava = conteo.loc[conteo["nombres_grano"].isin(i)]
         tam = grava.shape[0]
         if tam > 0:
-            av= str(round(grava["milimetros"].sum()/tam,2))
-            promedios.append(av)
             if conteo["redondez"].mode()[0] != "---------------":
                 redond.append(conteo["redondez"].mode()[0])
             else:
@@ -158,6 +158,10 @@ def simplificacion_conteo():
     var = df.groupby('nombres_grano')['milimetros'].count()/tam
     names = list(var.index)
     percs = var.tolist()
+    try:
+        rounder(percs)
+    except:
+        pass
     data = dict(zip(names,percs))
     campos = ["ARENA", "GRAVA", "LODO", "LIMO" , "ARCILLA"]
     lodos = ["LIMO", "ARCILLA"]

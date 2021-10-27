@@ -72,7 +72,11 @@ def streck76_QAP_volc(*puntos):
         tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
     file_name = "QAP_" + punto[3] + ".png"
+<<<<<<< Updated upstream
         
+=======
+    
+>>>>>>> Stashed changes
     tax.show()
 
 def streck76_QAP_plut(*puntos):
@@ -139,7 +143,13 @@ def streck76_QAP_plut(*puntos):
     file_name = "QAP_" + punto[3] + ".png"
 
     tax.show()
+<<<<<<< Updated upstream
  
+=======
+    tax.savefig(file_name)
+    #tax.close()
+
+>>>>>>> Stashed changes
 def streck76_plut_maf(*puntos):
     fig, tax = tr.figure(scale=100)
     fig.set_size_inches(12,12)
