@@ -259,7 +259,7 @@ color: rgb(238, 238, 236);</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
+         <width>261</width>
          <height>41</height>
         </rect>
        </property>
@@ -288,7 +288,7 @@ lista de minerales</string>
          <x>3</x>
          <y>40</y>
          <width>251</width>
-         <height>178</height>
+         <height>181</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -8882,7 +8882,7 @@ color: rgb(238, 238, 236);</string>
      <widget class="QFrame" name="frame_descripcion_micro">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>20</x>
         <y>330</y>
         <width>911</width>
         <height>201</height>
@@ -8932,7 +8932,7 @@ color: rgb(238, 238, 236);</string>
          <x>560</x>
          <y>0</y>
          <width>344</width>
-         <height>201</height>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -8944,14 +8944,14 @@ color: rgb(238, 238, 236);</string>
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="label_elegir_triangulo">
+          <property name="text">
+           <string>Elija tipo triángulo:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_16">
-          <item>
-           <widget class="QLabel" name="label_elegir_triangulo">
-            <property name="text">
-             <string>Elija tipo triángulo:</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QComboBox" name="boton_elegir_triangulo">
             <item>
@@ -9021,16 +9021,27 @@ color: rgb(238, 238, 236);</string>
          </widget>
         </item>
         <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_46">
+          <item>
+           <widget class="QPushButton" name="boton_exp_histograma_min">
+            <property name="text">
+             <string>Histograma mineral</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="boton_exp_histograma_tam">
+            <property name="text">
+             <string>Histograma tamaño</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QPushButton" name="boton_exp_csv">
           <property name="text">
            <string>Archivo CSV</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="boton_exp_histograma">
-          <property name="text">
-           <string>Histograma</string>
           </property>
          </widget>
         </item>

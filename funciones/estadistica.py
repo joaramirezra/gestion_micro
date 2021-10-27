@@ -309,10 +309,18 @@ def perc_comp ():
     data['label']=nc
     return data
 
-def histogramas():
-  y=simplificacion_conteo()
-  plt.style.use('ggplot')
-  plt.hist(y)
-  plt.show()
- 
+def histograma_mineral():
+    data=seleccion_conteo()
+    data['Mineral'].value_counts().plot.bar()
+    plt.xticks(rotation=45)
+    plt.title('Histograma mineral')
+    plt.show()
+
+def histograma_size():
+    data=seleccion_conteo()
+    data['Size']=data['Size'].apply(traduccion_grano)
+    data['Size'].value_counts().plot.bar()
+    plt.xticks(rotation=45)
+    plt.title('Histograma tamaño')
+    plt.show()
 

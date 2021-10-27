@@ -567,8 +567,7 @@ def folk_litic(*puntos):
     for punto in puntos:
         tax.scatter([[float(punto[0]),float(punto[1]),float(punto[2])]], label = punto[3])
     fig.legend(fontsize = 10, bbox_to_anchor=(0.18,0.8 ) , bbox_transform=fig.transFigure).get_frame().set_edgecolor('k')
-    file_name = punto[2] + ".png"
-    fig.savefig(file_name)
+    tax.show()
 
 
 
