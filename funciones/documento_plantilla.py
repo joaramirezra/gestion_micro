@@ -135,7 +135,7 @@ def llenar_inter_plut(nombre_archivo):
     archivo.add_paragraph()
     rows = 12
     tabla_perc = archivo.add_table(rows,6)
-    tabla_perc.style = 'TableGrid'
+    tabla_perc.style = 'Table Grid'
     for i in range(rows):
         for j in range(6):
             if j % 2 != 0:
@@ -184,7 +184,7 @@ def llenar_inter_plut(nombre_archivo):
     archivo.add_heading("OBSERVACIONES")
     archivo.add_paragraph()
     archivo.save(nombre_archivo)
-
+llenar_inter_plut('patata.docx')
 def llenar_inter_volcanico(nombre_archivo):
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
     igm = str(general.iloc[0]["igm"])
@@ -686,7 +686,6 @@ def llenar_inter_silici(nombre_archivo):
     z2.bold= True
     archivo.save(nombre_archivo)    
 
-llenar_inter_silici("patata.docx")
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")

@@ -222,17 +222,15 @@ def grano_critalinas(milimetros):
             return sizes[i]
 
 def datos_plut():
-    conteo = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
-    tam = conteo.shape[0]
-    df_percs = conteo.groupby(["Tipo","Mineral"])["Ternarios"].count()/tam
-    print(df_percs)
-    # titles =list (df_percs.index)
-    # percs = df_percs.tolist()
-    # for i in range(len(percs)):
-    #     percs[i] = percs[i] * 100
-    # percs = rounder(percs)
-    # data = dict(zip(titles, percs))
-datos_plut()
+    df = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
+    tam = df.shape[0]
+    lista = ["---------------", "Principal", "Accesorio", "Alteracion", "Introduccion"]
+    for i in lista:
+        filtrado = df[df['Tipo']== i]
+        df_percs = filtrado.groupby(["Mineral"])["Ternarios"].count()/tam
+        print(df_percs)  
+   
+
 def datos_silic():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     del conteo["observaciones"]
