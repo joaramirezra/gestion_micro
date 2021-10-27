@@ -191,6 +191,7 @@ def guardar_csv():
     conteo.to_csv(nombre_archivo,encoding= "latin", sep=';',index=False)
     opciones = ["_macro", "_general","_micro"]
     for i in opciones:
+      
       lista = nombre_archivo.split("/")
       name = lista[-1]
       name_sp = name.split(".")
