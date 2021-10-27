@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-from funciones.fijar_datos import contar_puntos
-#from ternarios import *
-from funciones.ternarios import *
-from numpy import NaN, nan
+# from funciones.fijar_datos import contar_puntos
+from ternarios import *
+# from funciones.ternarios import *
+from numpy import NaN, average, nan
 
 def rounder (perc_list):
     total = 0
@@ -64,27 +64,36 @@ def promedios_silic():
     lodo = ["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino", "Arcilla"]
     limo =["Limo grueso", "Limo medio", "Limo fino", "Limo muy fino"]
     sizes = [gravas, arena, lodo, limo, ["Arcilla"]]
-    print(conteo)
-    promedios = []
     redond = []
     esfer = []
+    df_count = conteo.loc[conteo["nombres_grano"] != "nulo"]
+    tam_c = df_count.shape[0]
+    promedios = []
 
     for i in sizes:
         grava = conteo.loc[conteo["nombres_grano"].isin(i)]
         tam = grava.shape[0]
         if tam > 0:
-            if conteo["redondez"].mode()[0] != "---------------":
-                redond.append(conteo["redondez"].mode()[0])
+            if grava["redondez"].mode()[0] != "---------------":
+                redond.append(grava["redondez"].mode()[0])
             else:
                 redond.append("N/A")
-            if conteo["esfericidad"].mode()[0] != "---------------":
-                esfer.append(conteo["esfericidad"].mode()[0])
+            if grava["esfericidad"].mode()[0] != "---------------":
+                esfer.append(grava["esfericidad"].mode()[0])
+            else:
+                esfer.append("N/A")
+            avr = grava["milimetros"].mean()
+            if avr > 0:
+                promedios.append(str(round(avr, 2)))
+            else:
+                promedios.append("N/A")
         else:
             av = "N/A"
             promedios.append(av)
             redond.append(av)
             esfer.append(av)
     return promedios, redond, esfer
+
 
 def contactos_sed():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
@@ -148,17 +157,15 @@ def simplificacion_conteo():
 
     df['nombres_grano'] = df['nombres_grano'].apply(reducir_grava)
     df['nombres_grano'] = df['nombres_grano'].apply(reducir_arena)
-    if (df['nombres_grano'] == "GRAVA").sum() > 0:
-        df['nombres_grano'] = df['nombres_grano'].apply(reducir_lodo)
-        
-    else:
-        df['nombres_grano'] = df['nombres_grano'].apply(reducir_limo)
-        df['nombres_grano'] = df['nombres_grano'].apply(upcase)
+    df['nombres_grano'] = df['nombres_grano'].apply(reducir_limo)
+    df['nombres_grano'] = df['nombres_grano'].apply(upcase)
     tam = df.shape[0]
     var = df.groupby('nombres_grano')['milimetros'].count()/tam
     names = list(var.index)
     percs = var.tolist()
     try:
+        for i in range(len(percs)):
+            percs[i] = percs[i]*100
         rounder(percs)
     except:
         pass
@@ -177,6 +184,7 @@ def simplificacion_conteo():
         except:
             data[i] = str(0.00)
     return data, av_size
+
 
 def redondez_p():
     conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
@@ -203,9 +211,7 @@ def redondez_p():
             first = i
         else:
             esfericidad = first
-    
     return redondez, esfericidad
-
 
 
 def grano_critalinas(milimetros):
@@ -215,10 +221,20 @@ def grano_critalinas(milimetros):
         if limites_size[i] >= milimetros > limites_size[i+1]:
             return sizes[i]
 
-    
-
+def datos_plut():
+    conteo = pd.read_csv("./archivos/Conteo_plutonicas.csv", sep = ";", encoding= "latin")
+    tam = conteo.shape[0]
+    df_percs = conteo.groupby(["Tipo","Mineral"])["Ternarios"].count()/tam
+    print(df_percs)
+    # titles =list (df_percs.index)
+    # percs = df_percs.tolist()
+    # for i in range(len(percs)):
+    #     percs[i] = percs[i] * 100
+    # percs = rounder(percs)
+    # data = dict(zip(titles, percs))
+datos_plut()
 def datos_silic():
-    conteo = conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
+    conteo = pd.read_csv("./archivos/Conteo_siliciclasticas.csv", sep = ";", encoding= "latin")
     del conteo["observaciones"]
     escala = calculo_escala()
     tam = conteo.shape[0]
@@ -236,8 +252,77 @@ def datos_silic():
     percs = rounder(percs)
     data = dict(zip(titles, percs))
     promedios_tam = dict(zip(titles, avera_mm))
-    df3 = conteo.loc[conteo["Subtipo"] == "Hola"]
+    
 
+    campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
+                   "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
+                   "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos", "Materia org.",
+                   "Cemento", "Otros ortoq.", "Porosidad", "Cuarzo", "Liticos", "Feldespato","Terrigenos"]
+    porosidad = ["Primaria", "Secundaria"]
+    feldes = ["Feldespato K", "Feldespato Na - Ca"]
+    litic = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios"]
+    quartz = ["Cuarzo mono", "Cuarzo poli"]
+    complete = ["Porosidad", "Cuarzo", "Liticos", "Feldespato", "Terrigenos"]
+    terrig = ["Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
+              "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos"]
+    esfer =[]
+    redond = []
+    for i in complete:
+        data[i] = 0.00
+        promedios_tam[i] = 0.00
+    for i in porosidad:
+        try:
+            data["Porosidad"] += data[i]
+            promedios_tam["Porosidad"] += promedios_tam[i]
+        except:
+            continue
+    for i in feldes:
+        try:
+            data["Feldespato"] += data[i]
+            promedios_tam["Feldespato"] += promedios_tam[i]
+        except:
+            continue
+
+    for i in quartz:
+        try:
+            data["Cuarzo"] += data[i]
+            promedios_tam["Cuarzo"] += promedios_tam[i]
+        except:
+            continue
+    for i in litic:
+        try:
+            data["Liticos"] += data[i]
+            promedios_tam["Liticos"] += promedios_tam[i]
+        except:
+            continue
+    for i in terrig:
+        try:
+            data["Terrigenos"] += data[i]
+            promedios_tam["Terrigenos"] += promedios_tam[i]
+        except:
+            continue
+    for i in campos_form:
+        try:
+            data[i] = str(data[i])
+            if promedios_tam[i] == 0.00:
+                promedios_tam[i] = "N/A"
+            else:
+                promedios_tam[i] = str(round(promedios_tam[i], 2))
+        except:
+            data[i] = str(0.00)
+            promedios_tam[i] = "N/A"
+        try:
+            df3 = conteo.loc[conteo["Subtipo"] == i]
+            if df3["redondez"].mode()[0] != "---------------":
+                redond.append(df3["redondez"].mode()[0])
+            if df3["esfericidad"].mode()[0] != "---------------":
+                esfer.append(df3["esfericidad"].mode()[0])
+        except:
+            redond.append("N/A")
+            esfer.append("N/A")
+    redond_p = dict(zip(campos_form, redond))
+    esfer_p = dict(zip(campos_form, esfer))
+    print(redond_p, esfer_p)
     return data, promedios_tam
 
 

@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-from funciones.estadistica import *
-#from estadistica import *
+# from funciones.estadistica import *
+from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -532,66 +532,10 @@ def llenar_inter_silici(nombre_archivo):
     promedios_grano, redond_p, esfer_p = promedios_silic()
     soportes = soporte_g()
     t_contactos = contactos_sed()
-    campos_form = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios", "Primaria", "Secundaria",
-                   "Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
-                   "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos", "Materia org.",
-                   "Cemento", "Otros ortoq.", "Porosidad", "Cuarzo", "Liticos", "Feldespato","Terrigenos"]
-    porosidad = ["Primaria", "Secundaria"]
-    feldes = ["Feldespato K", "Feldespato Na - Ca"]
-    litic = ["Metamorficos", "Volcanicos", "Plutonicos", "Sedimentarios"]
-    quartz = ["Cuarzo mono", "Cuarzo poli"]
     datos_comp, prom_tam = datos_silic()
-    complete = ["Porosidad", "Cuarzo", "Liticos", "Feldespato", "Terrigenos"]
-    terrig = ["Cuarzo mono", "Cuarzo poli", "Chert", "Feldespato K", "Feldespato Na - Ca", "Micas",
-              "Min. arcillosos", "Granos aloq.", "Otros terrigenos", "Opacos"]
     porcent_tam, av_size = simplificacion_conteo()
-    for i in complete:
-        datos_comp[i] = 0.00
-        prom_tam[i] = 0.00
-    for i in porosidad:
-        try:
-            datos_comp["Porosidad"] += datos_comp[i]
-            prom_tam["Porosidad"] += prom_tam[i]
-        except:
-            continue
-    for i in feldes:
-        try:
-            datos_comp["Feldespato"] += datos_comp[i]
-            prom_tam["Feldespato"] += prom_tam[i]
-        except:
-            continue
-
-    for i in quartz:
-        try:
-            datos_comp["Cuarzo"] += datos_comp[i]
-            prom_tam["Cuarzo"] += prom_tam[i]
-        except:
-            continue
-    for i in litic:
-        try:
-            datos_comp["Liticos"] += datos_comp[i]
-            prom_tam["Liticos"] += prom_tam[i]
-        except:
-            continue
-    for i in terrig:
-        try:
-            datos_comp["Terrigenos"] += datos_comp[i]
-            prom_tam["Terrigenos"] += prom_tam[i]
-        except:
-            continue
-    for i in campos_form:
-        try:
-            datos_comp[i] = str(datos_comp[i])
-            if prom_tam[i] == 0.00:
-                prom_tam[i] = "N/A"
-            else:
-                prom_tam[i] = str(round(prom_tam[i], 2))
-        except:
-            datos_comp[i] = str(0.00)
-            prom_tam[i] = "N/A"
-
-
     archivo = Document(nombre_archivo)
+    
     archivo.add_page_break()
     archivo.add_paragraph()
     archivo.add_heading("DESCRIPCIÓN MICROSCÓPICA - "  + igm)
@@ -742,7 +686,7 @@ def llenar_inter_silici(nombre_archivo):
     z2.bold= True
     archivo.save(nombre_archivo)    
 
-
+llenar_inter_silici("patata.docx")
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
@@ -753,7 +697,7 @@ def llenar_inter_calc(nombre_archivo):
     archivo.add_paragraph()
     archivo.add_heading("TEXTURA - COMPOSICIÓN",2)
     archivo.add_paragraph()
-    lista= ['HOMOGENEIDAD DE LA ROCA:_____','ALOQUÍMICOS_____(%)']
+    lista= ['HOMOGENEIDAD DE LA ROCA: ','ALOQUÍMICOS_____(%)']
     for i in lista:
         p1= archivo.add_paragraph()
         r1= p1.add_run(i)
@@ -761,6 +705,7 @@ def llenar_inter_calc(nombre_archivo):
         r1.bold = True
         p1.add_run(" ")
     p1 = archivo.add_paragraph()
+
     lista2= ['Bioclastos_____(%)','Tipo(s), rango de tamaño, selección y redondez:','Peloides _____(%)',
              'Tamaño y origen:','Ooides_____(%)','Tamaño, forma, tipo y estructura interna:','Intraclastos _____(%)',
              'Tamaño, redondez y selección:','Oncoides _____(%)','Tamaño, forma y estructura interna:',
