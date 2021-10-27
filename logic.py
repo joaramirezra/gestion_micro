@@ -31,14 +31,14 @@ class interfaz(Ui_MainWindow):
         self.input_tipo_roca.currentTextChanged.connect(self.actualizar_despliegue)
         self.input_subtipo_roca.currentTextChanged.connect(self.actualizar_ternario)
         self.boton_agregar_mineral.clicked.connect(self.click_agregar)
-        # self.boton_ver_lista.clicked.connect(self.lista_nueva)
         self.boton_guardar_interprete.clicked.connect(self.interprete)
         self.boton_guardar_info_muestra.clicked.connect(self.info_muetra)
         self.input_subtipo_roca.currentTextChanged.connect(self.actualizar_tipo_calib)
         self.input_tipo_mineral.currentTextChanged.connect(self.actualualizar_subtipo_1)
+        self.boton_guardar_dict.clicked.connect(self.guardar_dict)
+        self.boton_cargar_dict.clicked.connect(self.cargar_dict)
         #tab macro
         self.boton_cargar_foto.clicked.connect(self.cargar_foto_macro)
-        self.boton_cargar_escala.clicked.connect(self.cargar_escala)
         self.boton_guardar_macro.clicked.connect(self.guardar_macro)
 
         # botones tab conteo
@@ -395,20 +395,6 @@ class interfaz(Ui_MainWindow):
 
 
 #-------------------------------------------------------------------------------
-    def cargar_escala(self):
-        '''
-        Colocar descripcion
-        '''
-        ruta, foto = agregar_imagen()
-        self.label_escala_macro.setPixmap(foto)
-        data = {"url_escala": [ruta]}
-        general = pd.read_csv("./archivos/current_general.csv", 
-                              sep = ";", encoding= "latin")
-        if general["Tipo_r"][0] != "Sedimentaria":
-            llenado_csv("current_macro", data)
-        else:
-            llenado_csv("current_macro_sed", data)
-        
 
     def guardar_macro(self):
         if self.frame_descripcion_macro_sed.isVisible() == True:
@@ -707,7 +693,15 @@ class interfaz(Ui_MainWindow):
 
     # exportaciones
     def export_csv(self):
-        guardar_csv()
+        try:
+            guardar_csv()
+        except:
+            pass
+    
+    def guardar_dict(self):
+        guardar_diccionario()
+    def cargar_dict(self):
+        cargar_diccionario()
     
     def export_triangulo(self):
         if  self.boton_elegir_triangulo.currentText ()== 'Streckeisen 76 QAP Plutonicas':
@@ -796,6 +790,18 @@ class interfaz(Ui_MainWindow):
             liticos=variable["Litico volcanico"]+variable["Litico plutonico"]+variable["Litico metamorfico"]+variable["Litico sedimentario"]
             datos=[feldespato,variable['Cuarzo'],liticos,variable['label']]
             folk_comp(datos)
+        # elif self.boton_elegir_triangulo.currentText()== 'Folk 74 Composicion liticos':
+        #     lista=["Cuarzo", "Litico volcanico", "Litico plutonico", "Litico metamorfico", 
+        #              "Litico sedimentario", "Plagioclasa","Feldespato k"]
+        #     variable= perc_comp()
+        #     for i in lista:
+        #         try:
+        #             variable [i]=float(variable[i])
+        #         except:
+        #             variable[i]=0.00
+        #     liticosig= variable["Litico volcanico"] + variable["Litico plutonico"]
+        #     datos=[variable["Litico metamorfico"],variable["Litico sedimentario"],liticosig,variable['label']]
+        #     folk_litic(datos)
         elif self.boton_elegir_triangulo.currentText() =='Folk 54 textural Arena-Arcilla-Limo':
             lista=['Arena','Olivino','Ortopiroxeno']
             variable, tamano_prom= simplificacion_conteo()
@@ -816,16 +822,16 @@ class interfaz(Ui_MainWindow):
             folk_grava(datos)
         else:
             print ('hay algo mal')
-            
-    
+                
     def export_histograma(self):
-        histogramas()
-
+        try:
+            histogramas()
+        except:
+            pass
     def export_formato(self):
         nombre_a = llenar_info_general()
         general = pd.read_csv("./archivos/current_general.csv", sep = ";", encoding= "latin")
         llenar_macro(nombre_a)
-
         if general["Subt_r"][0] == "Siliciclástica": llenar_inter_silici(nombre_a)
         elif general["Subt_r"][0] == "Calcárea": llenar_inter_silici(nombre_a)
         elif general["Subt_r"][0] == "Regional o de Contacto": llenar_inter_regional(nombre_a)
@@ -834,21 +840,7 @@ class interfaz(Ui_MainWindow):
         elif general["Subt_r"][0] == "Volcánica": llenar_inter_plut(nombre_a)
         elif general["Subt_r"][0] == "Volcanoclástica": llenar_inter_plut(nombre_a)
 
-        llenar_fotos_micro(nombre_a)
-        
-
-
-    # def read_parametros_conteo(self):
-    #     mineral = self.input_mineral.text()
-    #     redondez = self.input_redon.value()
-    #     esfericidad = self.input_esfer.value()
-    #     coor_x = self.input_coor_x.value()
-    #     coor_y = self.input_coor_y.value()
-    #     tamaño = self.input_size.value()
-    #     escribir_archivo("./archivos/muestra.csv", [mineral, tamaño, 
-    #                                     redondez, esfericidad, 
-    #                                     coor_x, coor_y])
-    #     self.actuarlizar_interfaz()
+        llenar_fotos_micro(nombre_a)        
 def main():
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
@@ -857,6 +849,3 @@ def main():
     MainWindow.show()
     # app.exec_()
     sys.exit(app.exec_())
-
-main()
-

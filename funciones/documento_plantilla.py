@@ -2,8 +2,8 @@ from typing import Text
 from docx.api import _default_docx_path
 from numpy import NaN, nan
 from docx import Document
-# from funciones.estadistica import *
-from estadistica import *
+from funciones.estadistica import *
+#from estadistica import *
 import docx
 import pandas as pd
 from docx.shared import Cm
@@ -742,7 +742,7 @@ def llenar_inter_silici(nombre_archivo):
     z2.bold= True
     archivo.save(nombre_archivo)    
 
-llenar_inter_silici("CMA-423.docx")
+
 def llenar_inter_calc(nombre_archivo):
     archivo = Document(nombre_archivo)
     general = pd.read_csv("./archivos/current_general.csv", sep= ";" , encoding= "latin")
@@ -827,18 +827,3 @@ def llenar_fotos_micro(nombre_archivo):
     archivo.save(nombre_archivo)
 
 
-# llenar_inter_calc("./test_tabla.docx")
-# archivo = Document()
-# tabla_macro = archivo.add_table(10,3)
-# imagen = tabla_macro.cell(0,2).merge(tabla_macro.cell(8,2))
-# parag = imagen.paragraphs[0]
-# run = parag.add_run()
-# run.add_picture('archivos\Snap-91_PPL.jpg',width = Inches(1),height =Inches(1))
-# archivo.add_paragraph("ñandú")
-# archivo.save("prueb.docx") 
-# nombre_a = "./archivos/perritos.docx"
-# llenar_info_general( nombre_a, "IGM:", "Número de campo", "Unidad litoestratigráfica", "Localidad",
-#               "Departamento", "Municipio", "Plancha", "Escala", "Coordenada X:", 
-#               "Origen de Coordenadas:", "Coordenada Y:" ,"", "Colector", "Fecha de recolección de la muestra",
-#               "Analizador", "Fecha de Análisis petrográfico", "Número de puntos de conteo")
- 
